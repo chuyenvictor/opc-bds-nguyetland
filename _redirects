@@ -1,0 +1,5 @@
+# Clean URLs & 301 Redirects for Cloudflare Pages
+/index.html / 301
+/studio.html /studio 301
+/news.html /news 301
+/bds / 301

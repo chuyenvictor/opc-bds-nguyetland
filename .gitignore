@@ -1,0 +1,41 @@
+# ══════════════════════════════════════════════════════════════════
+# OPC-BĐS NGUYỆT LAND — .gitignore
+# ══════════════════════════════════════════════════════════════════
+
+# Dependencies
+node_modules/
+
+# Local database & runtime data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/processed_rss_links.json
+
+# Environment secrets (TUYỆT ĐỐI KHÔNG PUSH LÊN GIT)
+.env
+.env.local
+.env.production
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# Build artifacts
+dist/
+.wrangler/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Obsidian vault (riêng tư)
+E:/OPC-BĐS/
+
+# Apps Script files (chỉ dùng local, deploy riêng)
+OPC_BDS_MASTER_APPSCRIPT.gs
+Sidebar.html
+google_apps_script_sync.gs

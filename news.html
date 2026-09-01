@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BẢN TIN BĐS ĐÀ NẴNG & VIỆT NAM — NGUYỆT LAND | RSS, Podcast & Video Shorts 2026</title>
+    <meta name="description" content="Trung tâm tin tức BĐS chính thống, tự động phân tích dòng tiền Đà Nẵng, kịch bản Podcast 5 phút & Video Shorts 60s cho Nguyệt Land.">
+    <meta name="keywords" content="tin tức bđs đà nẵng, tin nóng bđs việt nam, rss bat dong san, podcast bđs, video bđs 60s, nguyệt land">
+    <link rel="canonical" href="https://bds.breaths.live/news">
+    <link rel="icon" type="image/png" href="/img/nguyet-bds.png">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { gold: '#fbbf24', emerald: '#10b981', dark: '#090d16', card: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,600&display=swap" rel="stylesheet">
+    <script src="/js/auth-and-lead-engine.js"></script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #060911; color: #f1f5f9; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glass-gold { background: linear-gradient(135deg, rgba(251, 191, 36, 0.12), rgba(245, 158, 11, 0.04)); border: 1px solid rgba(251, 191, 36, 0.35); }
+        .glass-rose { background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(225, 29, 72, 0.04)); border: 1px solid rgba(244, 63, 94, 0.35); }
+        .glass-emerald { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.04)); border: 1px solid rgba(16, 185, 129, 0.35); }
+        @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 40s linear infinite; }
+        .animate-marquee:hover { animation-play-state: paused; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+
+    <!-- TOP BAR -->
+    <header class="sticky top-0 z-50 glass border-b border-slate-800/80 px-4 lg:px-8 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-6">
+                <a href="/" class="flex items-center gap-3 group">
+                    <img src="/img/nguyet-bds.png" alt="Nguyet Land Logo" class="w-9 h-9 rounded-full object-cover border border-amber-400 shadow-md">
+                    <div>
+                        <span class="font-serif font-black text-lg tracking-wider text-amber-400 group-hover:text-amber-300 transition">NGUYỆT LAND</span>
+                        <p class="text-[10px] text-slate-400 tracking-widest uppercase font-medium">BĐS Dòng Tiền & Bản Tin AI 2026</p>
+                    </div>
+                </a>
+                <nav class="hidden md:flex items-center gap-4 text-xs font-semibold text-slate-300">
+                    <a href="/" class="hover:text-amber-400 transition">Kho BĐS Thẩm Định</a>
+                    <a href="/news" class="text-amber-400 border-b-2 border-amber-400 pb-0.5">Bản Tin, Podcast & Video</a>
+                    <a href="/studio" class="hover:text-amber-400 transition flex items-center gap-1"><i class="fa-solid fa-wand-magic-sparkles text-amber-400"></i> AI Studio</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <div id="auth-nav-container">
+                    <button onclick="openAuthModal()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition shadow-sm">
+                        <i class="fa-solid fa-crown text-amber-400"></i> Đăng Nhập VIP
+                    </button>
+                </div>
+                <a href="https://zalo.me/0935509168" target="_blank" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-lg flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-phone"></i> <span class="hidden sm:inline">0935.509.168</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- LIVE REALTIME BREAKING NEWS TICKER -->
+    <div class="bg-gradient-to-r from-amber-600/25 via-slate-900 to-rose-600/25 border-b border-amber-500/20 px-4 py-2 flex items-center overflow-hidden z-40 text-xs">
+        <div class="flex items-center gap-2 bg-amber-500 text-slate-950 font-black px-2.5 py-0.5 rounded-md uppercase text-[10px] flex-shrink-0 tracking-wider shadow-sm animate-pulse">
+            <i class="fa-solid fa-bolt"></i> Tin Nóng RSS
+        </div>
+        <div class="overflow-hidden whitespace-nowrap ml-3 w-full text-slate-300">
+            <span id="ticker-content" class="inline-block animate-marquee font-medium">
+                Đang tải nguồn tin nóng BĐS thời gian thực từ VnExpress, CafeF, Báo Đầu Tư, VnEconomy, VietNamNet...
+            </span>
+        </div>
+    </div>
+
+    <!-- HERO ACTION BANNER (1-CLICK GENERATOR) -->
+    <section class="relative py-10 px-4 border-b border-slate-800 bg-gradient-to-b from-slate-900/80 via-slate-950 to-slate-950">
+        <div class="max-w-6xl mx-auto text-center relative z-10 space-y-4">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-gold text-amber-300 text-xs font-bold shadow-md">
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                AUTONOMOUS BĐS CONTENT PIPELINE — Q3/2026
+            </div>
+            
+            <h1 class="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-slate-100 tracking-tight leading-tight">
+                TIN TỨC BĐS, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500">PODCAST & SHORTS 60S</span>
+            </h1>
+            
+            <p class="text-xs sm:text-sm text-slate-400 max-w-2xl mx-auto leading-relaxed">
+                Tự động thu thập tin thời sự từ 7 tòa soạn lớn, phân tích Cap Rate & dòng tiền Đà Nẵng, tạo kịch bản Podcast 5 phút và Video Shorts 60s đăng mạng xã hội đa kênh.
+            </p>
+
+            <!-- 1-CLICK ACTION BUTTON -->
+            <div class="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <button onclick="triggerTop5Generation()" id="btn-top5-generate" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-sm shadow-xl shadow-amber-500/20 hover:scale-105 active:scale-95 transition flex items-center gap-2.5 border border-amber-300">
+                    <i class="fa-solid fa-bolt-lightning text-base"></i>
+                    <span>⚡ 1-Click: Tạo & Xuất Bản Top 5 Bản Tin Hôm Nay</span>
+                </button>
+                <button onclick="loadAllNews(true)" class="px-4 py-3.5 rounded-2xl glass hover:bg-slate-800 text-xs font-bold text-slate-300 flex items-center gap-2 transition">
+                    <i class="fa-solid fa-arrows-rotate text-amber-400" id="sync-icon"></i>
+                    <span>Làm Mới RSS</span>
+                </button>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="pt-4 flex items-center justify-center gap-6 text-xs text-slate-400">
+                <div><b class="text-amber-400 text-sm" id="stat-articles-cnt">8+</b> Bài Phân Tích</div>
+                <div class="w-1 h-1 rounded-full bg-slate-700"></div>
+                <div><b class="text-rose-400 text-sm" id="stat-podcast-cnt">5</b> Tập Podcast</div>
+                <div class="w-1 h-1 rounded-full bg-slate-700"></div>
+                <div><b class="text-emerald-400 text-sm" id="stat-shorts-cnt">5</b> Video Shorts</div>
+                <div class="w-1 h-1 rounded-full bg-slate-700"></div>
+                <div><b class="text-sky-400 text-sm">7</b> Nguồn Báo Chí</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENT TABS NAVIGATION -->
+    <div class="sticky top-[61px] z-40 glass border-b border-slate-800/90 px-4 py-2.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between gap-2 overflow-x-auto text-xs font-bold">
+            <div class="flex items-center gap-2 flex-shrink-0" id="content-nav-tabs">
+                <button onclick="switchMainTab('articles')" id="btn-tab-articles" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-newspaper"></i> 📰 Bài Viết Đã Đăng (<span id="tab-cnt-art">5</span>)
+                </button>
+                <button onclick="switchMainTab('podcasts')" id="btn-tab-podcasts" class="px-4 py-2 rounded-xl glass text-slate-300 hover:text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-microphone-lines text-amber-400"></i> 🎙️ Kịch Bản Podcast
+                </button>
+                <button onclick="switchMainTab('shorts')" id="btn-tab-shorts" class="px-4 py-2 rounded-xl glass text-slate-300 hover:text-white flex items-center gap-1.5">
+                    <i class="fa-brands fa-tiktok text-rose-400"></i> 🎬 Shorts 60s & MXH
+                </button>
+                <button onclick="switchMainTab('rss')" id="btn-tab-rss" class="px-4 py-2 rounded-xl glass text-slate-300 hover:text-white flex items-center gap-1.5">
+                    <i class="fa-solid fa-satellite-dish text-sky-400"></i> 📡 Tin Nóng RSS (7 Báo)
+                </button>
+                <button onclick="switchMainTab('videos')" id="btn-tab-videos" class="px-4 py-2 rounded-xl glass text-slate-300 hover:text-white flex items-center gap-1.5">
+                    <i class="fa-brands fa-youtube text-rose-500"></i> 🎥 Video Phân Tích
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINERS -->
+    <main class="max-w-7xl mx-auto px-4 lg:px-8 py-8 flex-1 w-full space-y-10">
+
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <!-- TAB 1: BÀI VIẾT PHÂN TÍCH ĐÃ XUẤT BẢN (CHIA 3 NHÓM GIÁ TRỊ) -->
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <section id="sec-articles" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-800">
+                <div>
+                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-layer-group text-amber-400"></i> Kho Nội Dung Thực Chiến (3 Nhóm Giá Trị)
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Pháp lý PCCC • Kho hàng dòng tiền • Xu hướng & Phân tích thị trường 2026</p>
+                </div>
+                <!-- 3 Category Filter Buttons -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-bold" id="article-cat-filters">
+                    <button onclick="filterArticleCategory('')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 art-cat-btn flex-shrink-0 shadow-md" data-cat="">🌟 Tất Cả (<span id="cat-cnt-all">6</span>)</button>
+                    <button onclick="filterArticleCategory('legal')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-emerald-300 art-cat-btn flex-shrink-0" data-cat="legal">⚖️ 1. Pháp Lý & PCCC</button>
+                    <button onclick="filterArticleCategory('inventory')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-amber-300 art-cat-btn flex-shrink-0" data-cat="inventory">🔥 2. Kho Hàng Dòng Tiền</button>
+                    <button onclick="filterArticleCategory('trends')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-sky-300 art-cat-btn flex-shrink-0" data-cat="trends">📈 3. Xu Hướng 2026</button>
+                </div>
+            </div>
+            <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <!-- TAB 2: KỊCH BẢN PODCAST CHUYÊN SÂU 3 - 5 PHÚT -->
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <section id="sec-podcasts" class="space-y-6 hidden">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-microphone-lines text-amber-400"></i> Kịch Bản Podcast Chuyên Sâu 3 - 5 Phút
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Đối thoại giữa Host Nguyệt Land & Chuyên Gia Tài Chính Victor — Sẵn sàng thu âm</p>
+                </div>
+            </div>
+            <div id="podcasts-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <!-- TAB 3: SHORTS 60S, PROMPT ẢNH AI & SOCIAL POSTS -->
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <section id="sec-shorts" class="space-y-6 hidden">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
+                        <i class="fa-brands fa-tiktok text-rose-400"></i> Video Shorts 60s & Bài Đăng Mạng Xã Hội
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Kịch bản 4 phân đoạn giữ chân người xem + Prompt sinh ảnh 8K + Caption Facebook/Zalo</p>
+                </div>
+            </div>
+            <div id="shorts-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <!-- TAB 4: TIN NÓNG RSS BÁO CHÍ 7 TÒA SOẠN -->
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <section id="sec-rss" class="space-y-6 hidden">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div>
+                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
+                        <i class="fa-solid fa-satellite-dish text-sky-400"></i> Nguồn Tin Nóng RSS Báo Chí
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1">Cập nhật thời gian thực từ VnExpress, CafeF, Báo Đầu Tư, VnEconomy, VietNamNet...</p>
+                </div>
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs" id="source-tabs">
+                    <button onclick="filterSource('')" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold tab-btn flex-shrink-0" data-src="">Tất Cả</button>
+                    <button onclick="filterSource('vnexpress')" class="px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0" data-src="vnexpress">VnExpress</button>
+                    <button onclick="filterSource('cafef')" class="px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0" data-src="cafef">CafeF</button>
+                    <button onclick="filterSource('baodautu')" class="px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0" data-src="baodautu">Báo Đầu Tư</button>
+                    <button onclick="filterSource('vneconomy')" class="px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0" data-src="vneconomy">VnEconomy</button>
+                    <button onclick="filterSource('vietnamnet')" class="px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0" data-src="vietnamnet">VietNamNet</button>
+                </div>
+            </div>
+            <div id="rss-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <!-- TAB 5: YOUTUBE BẢN TIN VIDEO -->
+        <!-- ══════════════════════════════════════════════════════════════════ -->
+        <section id="sec-videos" class="space-y-6 hidden">
+            <div>
+                <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
+                    <i class="fa-brands fa-youtube text-rose-500"></i> Video Phân Tích & Điểm Tin BĐS
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">Video phân tích thực địa và định giá tài sản Đà Nẵng</p>
+            </div>
+            <div id="youtube-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamic Content -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- POPUP MODAL: CHI TIẾT KỊCH BẢN PODCAST & SHORTS & SOCIAL -->
+    <div id="detail-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-gold max-w-3xl w-full rounded-3xl p-6 lg:p-8 max-h-[90vh] overflow-y-auto space-y-6 shadow-2xl relative">
+            <button onclick="closeDetailModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-lg font-black shadow-lg" id="modal-icon">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-bold text-lg text-amber-300" id="modal-title">Chi Tiết Kịch Bản</h3>
+                    <p class="text-xs text-slate-400" id="modal-subtitle">Nguyệt Land Content Hub</p>
+                </div>
+            </div>
+            
+            <div id="modal-content" class="text-xs text-slate-300 space-y-4"></div>
+
+            <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+                <button onclick="copyModalContent()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-copy"></i> Sao Chép Toàn Bộ
+                </button>
+                <button onclick="closeDetailModal()" class="px-4 py-2 rounded-xl glass hover:bg-slate-800 text-slate-300 text-xs font-bold">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+        <div class="glass-gold max-w-md w-full rounded-3xl p-6 lg:p-8 space-y-6 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="text-center space-y-2">
+                <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400 flex items-center justify-center mx-auto text-amber-400 text-xl font-bold">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <h3 class="font-serif font-bold text-xl text-amber-300">Đăng Ký Nhà Đầu Tư VIP</h3>
+                <p class="text-xs text-slate-400">Nhận Ebook BĐS Dòng Tiền & Chuỗi 30 Ngày Tư Vấn Chuyên Sâu</p>
+            </div>
+            <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-1">Họ và Tên</label>
+                    <input type="text" id="auth-name" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+                </div>
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-1">Số Điện Thoại / Zalo (Bắt buộc)</label>
+                    <input type="tel" id="auth-phone" required placeholder="Ví dụ: 0935509168" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+                </div>
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-1">Email Nhận Ebook</label>
+                    <input type="email" id="auth-email" required placeholder="investor@gmail.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+                </div>
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-1">Tầm Tài Chính Đầu Tư</label>
+                    <select id="auth-budget" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-amber-400">
+                        <option value="5 - 15 Tỷ">5 - 15 Tỷ (Căn hộ mini / Nhà phố)</option>
+                        <option value="15 - 30 Tỷ" selected>15 - 30 Tỷ (Tòa căn hộ dịch vụ 8-12 phòng)</option>
+                        <option value="30 - 60 Tỷ">30 - 60 Tỷ (Khách sạn biển / Tòa nhà dòng tiền lớn)</option>
+                        <option value="Trên 60 Tỷ">Trên 60 Tỷ (Quỹ đầu tư / Dự án lớn)</option>
+                    </select>
+                </div>
+                <button type="submit" id="btn-auth-submit" class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-slate-950 font-black text-xs shadow-lg hover:scale-[1.02] active:scale-95 transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="glass border-t border-slate-800/80 py-8 px-4 text-center text-xs text-slate-400 mt-12 space-y-3">
+        <div class="flex items-center justify-center gap-3">
+            <img src="/img/nguyet-bds.png" alt="Nguyet Land" class="w-8 h-8 rounded-full">
+            <span class="font-serif font-bold text-amber-400 text-sm">NGUYỆT LAND</span> — BĐS Dòng Tiền & Nhà Đẹp Đà Nẵng
+        </div>
+        <p>© 2026 Nguyệt Land. Hotline / Zalo: <a href="https://zalo.me/0935509168" class="text-emerald-400 font-bold">0935.509.168</a> | Website: <a href="https://bds.breaths.live" class="text-amber-300">bds.breaths.live</a></p>
+    </footer>
+
+    <!-- CLIENT SCRIPT -->
+    <script>
+        let currentRssItems = [];
+        let currentArticles = [];
+        let currentModalText = '';
+
+        // Switch main tab navigation
+        function switchMainTab(tabId) {
+            const sections = ['articles', 'podcasts', 'shorts', 'rss', 'videos'];
+            sections.forEach(s => {
+                const el = document.getElementById('sec-' + s);
+                const btn = document.getElementById('btn-tab-' + s);
+                if (s === tabId) {
+                    if (el) el.classList.remove('hidden');
+                    if (btn) btn.className = 'px-4 py-2 rounded-xl bg-amber-500 text-slate-950 flex items-center gap-1.5 shadow-md font-bold';
+                } else {
+                    if (el) el.classList.add('hidden');
+                    if (btn) btn.className = 'px-4 py-2 rounded-xl glass text-slate-300 hover:text-white flex items-center gap-1.5 font-bold';
+                }
+            });
+        }
+
+        // 1-Click Top 5 Generation Trigger
+        async function triggerTop5Generation() {
+            const btn = document.getElementById('btn-top5-generate');
+            const originalHtml = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Đang Quét RSS & AI Viết 5 Bài Viết...</span>';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/news/generate-top5-daily', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    alert(`🎉 ĐÃ XUẤT BẢN THÀNH CÔNG ${data.count} BÀI VIẾT + PODCAST + SHORTS MỚI!\n\nĐã đồng bộ lên Google Sheet & Telegram!`);
+                    await loadAllNews(true);
+                    switchMainTab('articles');
+                } else {
+                    alert('Lỗi: ' + (data.error || 'Không thể tạo bản tin'));
+                }
+            } catch (err) {
+                alert('Lỗi kết nối: ' + err.message);
+            } finally {
+                btn.innerHTML = originalHtml;
+                btn.disabled = false;
+            }
+        }
+
+        // Load all news, articles, podcasts, shorts, videos
+        async function loadAllNews(forceRefresh = false) {
+            const icon = document.getElementById('sync-icon');
+            if (icon) icon.classList.add('fa-spin');
+
+            try {
+                loadLiveTicker();
+
+                // 1. Load Published Articles from DB
+                const artRes = await fetch('/api/content/articles?limit=15');
+                const artData = await artRes.json();
+                currentArticles = artData.articles || [];
+                document.getElementById('stat-articles-cnt').innerText = currentArticles.length;
+                document.getElementById('tab-cnt-art').innerText = currentArticles.length;
+                renderArticles(currentArticles);
+                renderPodcasts(currentArticles);
+                renderShorts(currentArticles);
+
+                // 2. Load RSS Feed Items
+                const rssUrl = forceRefresh ? '/api/news/rss-feed?refresh=1&limit=30' : '/api/news/rss-feed?limit=30';
+                const rssRes = await fetch(rssUrl);
+                const rssData = await rssRes.json();
+                currentRssItems = rssData.items || [];
+                renderRssNews(currentRssItems);
+
+                // 3. Load YouTube Videos
+                const vidRes = await fetch('/api/content/videos?limit=6');
+                const videos = await vidRes.json();
+                renderVideos(videos);
+
+            } catch (err) {
+                console.error('Error loading content:', err);
+            } finally {
+                if (icon) icon.classList.remove('fa-spin');
+            }
+        }
+
+        // Load live ticker
+        async function loadLiveTicker() {
+            try {
+                const res = await fetch('/api/news/ticker');
+                const data = await res.json();
+                if (data.ticker && data.ticker.length > 0) {
+                    const html = data.ticker.map(t => 
+                        `<span class="mr-6">📰 <b class="${t.sourceColor || 'text-amber-400'}">[${t.source} - ${t.time}]:</b> <a href="${t.link}" target="_blank" class="hover:underline text-slate-200">${t.title}</a></span>`
+                    ).join(' &nbsp; | &nbsp; ');
+                    document.getElementById('ticker-content').innerHTML = html;
+                }
+            } catch (err) {
+                console.warn('[Ticker error]', err);
+            }
+        }
+
+        // Clean raw JSON or corrupted summary
+        function cleanSummaryText(raw) {
+            if (!raw) return 'Phân tích chi tiết dòng tiền, Cap Rate và pháp lý quy hoạch BĐS Đà Nẵng 2026.';
+            if (typeof raw === 'object') return raw.summary || JSON.stringify(raw);
+            let str = String(raw).trim();
+            if (str.startsWith('{') || str.includes('"article"')) {
+                try {
+                    const p = JSON.parse(str);
+                    if (p.article && p.article.summary) return p.article.summary;
+                    if (p.summary) return p.summary;
+                } catch (_) {
+                    const m = str.match(/"summary":\s*"([^"]+)"/);
+                    if (m) return m[1];
+                }
+            }
+            return str.replace(/\\n/g, ' ').replace(/^\{.*?:\s*"/, '').replace(/"\}$/, '').trim();
+        }
+
+        let selectedArticleCategory = '';
+
+        function filterArticleCategory(cat) {
+            selectedArticleCategory = cat;
+            document.querySelectorAll('.art-cat-btn').forEach(btn => {
+                if (btn.dataset.cat === cat) {
+                    btn.className = 'px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 font-bold art-cat-btn flex-shrink-0 shadow-md';
+                } else {
+                    btn.className = 'px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-white font-bold art-cat-btn flex-shrink-0';
+                }
+            });
+
+            if (!cat) {
+                renderArticles(currentArticles);
+            } else {
+                const filtered = currentArticles.filter(a => a.category === cat);
+                renderArticles(filtered);
+            }
+        }
+
+        // Render Articles Grid (Full 3-column Height-Balanced)
+        function renderArticles(articles) {
+            const container = document.getElementById('articles-grid');
+            if (!articles || !articles.length) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Không có bài viết trong nhóm này.</div>`;
+                return;
+            }
+            container.innerHTML = articles.map(a => {
+                const cleanSum = cleanSummaryText(a.summary);
+                const safeTitle = (a.title || '').replace(/'/g, "\\'");
+                const safeSum = cleanSum.replace(/'/g, "\\'");
+
+                let catBadge = '<span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-bold">📈 Xu Hướng 2026</span>';
+                if (a.category === 'legal') {
+                    catBadge = '<span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold">⚖️ Pháp Lý & PCCC</span>';
+                } else if (a.category === 'inventory') {
+                    catBadge = '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">🔥 Kho Hàng Dòng Tiền</span>';
+                }
+
+                return `
+                <div class="glass rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800/80 hover:border-amber-400/40 transition duration-300 group h-full shadow-lg">
+                    <div class="relative h-48 w-full overflow-hidden bg-slate-900 flex-shrink-0">
+                        <img src="${a.image_url || 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800'}" alt="${a.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800'">
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur text-amber-300 text-[10px] font-black uppercase shadow-md border border-amber-400/30">
+                            Cap Rate: ${a.cap_rate || '11.5%/năm'}
+                        </span>
+                        <span class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-slate-950/80 text-[10px] text-slate-300">
+                            📍 ${a.location || 'Đà Nẵng'}
+                        </span>
+                        <button onclick="playAiVoice('${safeTitle}', '${safeSum}')" class="absolute bottom-3 right-3 px-2.5 py-1 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 text-[10px] font-black shadow-lg flex items-center gap-1 transition transform active:scale-95" title="Nghe AI Đọc Bài Này">
+                            <i class="fa-solid fa-volume-high"></i> <span>Nghe AI</span>
+                        </button>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-[10px] text-slate-400 mb-1.5">
+                                ${catBadge}
+                                <span><i class="fa-regular fa-clock text-amber-400"></i> ${new Date(a.publish_at || a.created_at).toLocaleDateString('vi-VN')}</span>
+                            </div>
+                            <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug mb-2 transition">
+                                <a href="/p/${a.slug}.html">${a.title}</a>
+                            </h3>
+                            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${cleanSum}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                            <a href="/p/${a.slug}.html" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition flex items-center gap-1 shadow-sm">
+                                Đọc Bài Viết <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                            <a href="https://zalo.me/0935509168" target="_blank" class="text-emerald-400 font-bold hover:underline flex items-center gap-1">
+                                <i class="fa-solid fa-phone"></i> 0935.509.168
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Render Podcasts Grid (Brand Personas: Chị Hải Nguyệt + Victor + Luật Sư Minh)
+        function renderPodcasts(articles) {
+            const container = document.getElementById('podcasts-grid');
+            if (!articles || !articles.length) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Chưa có tập Podcast.</div>`;
+                return;
+            }
+
+            const guestPersonas = [
+                { name: 'Victor Chuyên', role: 'CFO Thẩm Định Định Lượng', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400', color: 'text-sky-400', badge: 'bg-sky-500/20 border-sky-500/30' },
+                { name: 'Luật Sư Minh', role: 'Trưởng Ban Pháp Lý & PCCC', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400', color: 'text-emerald-400', badge: 'bg-emerald-500/20 border-emerald-500/30' },
+                { name: 'Anh Tuấn', role: 'Nhà Đầu Tư VIP (Hà Nội)', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400', color: 'text-purple-400', badge: 'bg-purple-500/20 border-purple-500/30' }
+            ];
+
+            container.innerHTML = articles.slice(0, 6).map((a, idx) => {
+                const guest = guestPersonas[idx % guestPersonas.length];
+                const cleanSum = cleanSummaryText(a.summary);
+                const safeTitle = (a.title || '').replace(/'/g, "\\'");
+                const safeSum = cleanSum.replace(/'/g, "\\'");
+                return `
+                <div class="glass-gold rounded-2xl p-6 border border-amber-500/30 flex flex-col justify-between space-y-4 shadow-xl hover:border-amber-400/50 transition">
+                    <div>
+                        <!-- Header with Speaker Avatars -->
+                        <div class="flex items-center justify-between gap-3 text-xs mb-3 pb-3 border-b border-amber-500/20">
+                            <div class="flex items-center gap-2">
+                                <div class="flex -space-x-2 overflow-hidden">
+                                    <img src="/img/nguyet-bds.png" alt="Nguyệt Land" class="inline-block h-8 w-8 rounded-full ring-2 ring-amber-400 object-cover" title="Host: Chị Hải Nguyệt (Founder)">
+                                    <img src="${guest.avatar}" alt="${guest.name}" class="inline-block h-8 w-8 rounded-full ring-2 ring-sky-400 object-cover" title="Khách mời: ${guest.name}">
+                                </div>
+                                <div>
+                                    <span class="font-bold text-amber-300 block">Podcast Tập ${idx + 1}</span>
+                                    <span class="text-[10px] text-slate-400">Host: Chị Hải Nguyệt × ${guest.name}</span>
+                                </div>
+                            </div>
+                            <span class="px-2.5 py-1 rounded-full bg-slate-950/80 text-slate-300 font-semibold text-[10px] border border-slate-700">
+                                ⏱️ 04:30 phút
+                            </span>
+                        </div>
+
+                        <h3 class="font-serif font-bold text-base text-slate-100 mb-2 leading-snug">
+                            Điểm Tin BĐS Q3/2026: Giải Mã Dòng Tiền ${a.location || 'Đà Nẵng'}
+                        </h3>
+                        <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${cleanSum}</p>
+                        
+                        <!-- Dialogue Preview -->
+                        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800 text-xs space-y-2.5">
+                            <div class="flex items-start gap-2">
+                                <span class="font-bold text-amber-400 whitespace-nowrap">Chị Hải Nguyệt:</span>
+                                <p class="text-slate-300 italic">"Chào quý nhà đầu tư! Hôm nay Nguyệt cùng ${guest.name} bóc tách cơ hội dòng tiền Cap Rate ${a.cap_rate || '11.5%'} tại ${a.location}..."</p>
+                            </div>
+                            <div class="flex items-start gap-2 pt-1 border-t border-slate-800/60">
+                                <span class="font-bold ${guest.color} whitespace-nowrap">${guest.name}:</span>
+                                <p class="text-slate-300 italic">"Tại khu vực này, công suất phòng luôn đạt trên 90%, nhà đầu tư nên kiểm tra kỹ thẩm định 4 lớp PCCC..."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800/80 text-xs">
+                        <button onclick="openPodcastModal('${safeTitle}', '${a.location}', '${a.cap_rate}', '${guest.name}', '${guest.role}')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold flex items-center gap-1.5 transition shadow-md">
+                            <i class="fa-solid fa-scroll"></i> Xem Toàn Bộ Kịch Bản
+                        </button>
+                        <button onclick="playAiVoice('Podcast Tập ${idx + 1}: ${safeTitle}', '${safeSum}')" class="px-3 py-2 rounded-xl glass hover:bg-slate-800 text-amber-300 font-bold flex items-center gap-1.5 transition">
+                            <i class="fa-solid fa-volume-high"></i> Nghe Audio AI
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Render Shorts & Social Grid
+        function renderShorts(articles) {
+            const container = document.getElementById('shorts-grid');
+            if (!articles || !articles.length) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Chưa có kịch bản Shorts.</div>`;
+                return;
+            }
+            container.innerHTML = articles.slice(0, 6).map((a, idx) => `
+                <div class="glass-rose rounded-2xl p-5 border border-rose-500/30 flex flex-col justify-between space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between text-xs mb-2">
+                            <span class="px-2.5 py-1 rounded-full bg-rose-500/20 text-rose-300 font-bold border border-rose-500/30">
+                                🎬 Video 60s #${idx + 1}
+                            </span>
+                            <span class="text-amber-400 font-bold text-[11px]">Cap Rate ${a.cap_rate || '11.5%'}</span>
+                        </div>
+                        <h3 class="font-bold text-sm text-slate-100 mb-3 leading-snug line-clamp-2">
+                            ${a.title}
+                        </h3>
+                        
+                        <div class="space-y-2 text-[11.5px]">
+                            <div class="p-2.5 rounded-lg bg-slate-950/80 border border-rose-500/20">
+                                <b class="text-rose-400">🎯 [0 - 5s] Hook:</b>
+                                <p class="text-slate-300">"Đừng dại mua BĐS Đà Nẵng nếu chưa biết tin nóng này!"</p>
+                            </div>
+                            <div class="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800">
+                                <b class="text-emerald-400">💡 [20 - 45s] Dòng Tiền:</b>
+                                <p class="text-slate-300">"Tòa căn hộ tại ${a.location} tạo ra dòng tiền ròng 100 - 150tr/tháng..."</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2 border-t border-slate-800/80 text-xs">
+                        <button onclick="openShortsModal('${a.title}', '${a.location}', '${a.cap_rate}')" class="w-full py-2 rounded-xl bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white font-bold flex items-center justify-center gap-1.5 transition">
+                            <i class="fa-brands fa-tiktok"></i> Xem Kịch Bản & Prompt Ảnh AI
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render RSS News Grid
+        function renderRssNews(items) {
+            const container = document.getElementById('rss-grid');
+            if (!items || !items.length) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Chưa có tin tức RSS. Bấm 'Làm Mới RSS' để cập nhật.</div>`;
+                return;
+            }
+
+            container.innerHTML = items.map((item, idx) => `
+                <div class="glass rounded-2xl overflow-hidden flex flex-col border border-slate-800/80 hover:border-amber-400/40 transition group">
+                    <div class="relative h-44 w-full overflow-hidden bg-slate-900">
+                        <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800'">
+                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/85 backdrop-blur text-[11px] font-bold ${item.sourceColor || 'text-amber-300'} flex items-center gap-1.5 shadow-md">
+                            <i class="fa-solid ${item.sourceIcon || 'fa-newspaper'}"></i> ${item.sourceName}
+                        </span>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] text-slate-400 mb-2 block"><i class="fa-regular fa-clock"></i> ${new Date(item.pubDate).toLocaleString('vi-VN')}</span>
+                            <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug mb-2">
+                                <a href="${item.link}" target="_blank">${item.title}</a>
+                            </h3>
+                            <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${item.description}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                            <a href="${item.link}" target="_blank" class="text-slate-400 hover:text-slate-200">
+                                Bài gốc trên ${item.sourceName} <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render YouTube Videos Grid
+        function renderVideos(videos) {
+            const container = document.getElementById('youtube-grid');
+            if (!videos || !videos.length) {
+                container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Chưa có video.</div>`;
+                return;
+            }
+            container.innerHTML = videos.map(v => `
+                <div class="glass rounded-2xl overflow-hidden flex flex-col border border-slate-800/80 hover:border-amber-400/40 transition group">
+                    <div class="relative aspect-video w-full overflow-hidden bg-slate-900">
+                        <img src="${v.thumbnail_url}" alt="${v.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" class="absolute inset-0 bg-slate-950/40 hover:bg-slate-950/20 flex items-center justify-center transition">
+                            <div class="w-12 h-12 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                                <i class="fa-solid fa-play text-sm ml-0.5"></i>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between text-[11px] text-slate-400 mb-2">
+                                <span class="text-amber-400 font-semibold truncate max-w-[180px]">${v.channel_name || 'YouTube BĐS'}</span>
+                                <span>${new Date(v.published_at).toLocaleDateString('vi-VN')}</span>
+                            </div>
+                            <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug mb-2">
+                                <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank">${v.title}</a>
+                            </h3>
+                            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">${v.ai_summary || v.description}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs">
+                            <a href="https://www.youtube.com/watch?v=${v.youtube_id}" target="_blank" class="text-rose-400 font-bold hover:underline flex items-center gap-1">
+                                Xem video trên YouTube <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterSource(sourceId) {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                if (b.dataset.src === sourceId) {
+                    b.className = 'px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold tab-btn flex-shrink-0';
+                } else {
+                    b.className = 'px-3 py-1.5 rounded-lg glass text-slate-300 hover:text-white tab-btn flex-shrink-0';
+                }
+            });
+            if (!sourceId) {
+                renderRssNews(currentRssItems);
+            } else {
+                const filtered = currentRssItems.filter(i => i.sourceId === sourceId);
+                renderRssNews(filtered);
+            }
+        }
+
+        // Modal Podcast Details (Multi-Persona Interactive Visual)
+        function openPodcastModal(title, location, capRate, guestName = 'Victor Chuyên', guestRole = 'CFO Thẩm Định Định Lượng') {
+            document.getElementById('modal-icon').innerHTML = '<i class="fa-solid fa-microphone-lines"></i>';
+            document.getElementById('modal-title').innerText = `🎙️ Podcast: Giải Mã Dòng Tiền ${location}`;
+            document.getElementById('modal-subtitle').innerText = `Host: Chị Hải Nguyệt (Founder) × ${guestName} (${guestRole}) | Cap Rate: ${capRate}`;
+
+            const fullText = `
+🎙️ KỊCH BẢN PODCAST ĐỐI THOẠI NGUYỆT LAND SHOW (04:30 PHÚT)
+Chủ đề: Điểm Tin BĐS Q3/2026 — Cơ Hội Dòng Tiền Tại ${location}
+Người tham gia: 
+• Host: Chị Hải Nguyệt (Founder Nguyệt Land — Người Bản Địa Đà Nẵng)
+• Khách mời: ${guestName} (${guestRole})
+
+[00:00 - 00:45] Chị Hải Nguyệt (Founder):
+Xin chào quý anh chị nhà đầu tư! Hôm nay Hải Nguyệt cùng anh ${guestName} sẽ cùng bóc tách cơ hội đầu tư BĐS dòng tiền tại khu vực ${location}. Đây là điểm nóng thu hút lượng khách thuê dài hạn lớn nhất Đà Nẵng trong quý này.
+
+[00:45 - 01:50] ${guestName} (${guestRole}):
+Chào chị Nguyệt và quý vị! Đối với khu vực ${location}, số liệu tài chính thực tế cho thấy tỷ suất Cap Rate đang duy trì rất tốt ở mức ${capRate}. Dòng tiền thông minh không tìm kiếm đất nền vùng ven tăng giá ảo nữa, mà chuyển hẳn sang các tòa nhà có thể khai thác cho thuê ngay lập tức.
+
+[01:50 - 03:15] Chị Hải Nguyệt (Founder):
+Chính xác! Cụ thể tại ${location}, các căn hộ dịch vụ full nội thất hiện nay đạt công suất thuê lên tới trên 90%. Giá thuê trung bình mỗi phòng từ 8 - 14 triệu/tháng. Như vậy một tòa 10 phòng có thể mang về doanh thu từ 80 đến 150 triệu mỗi tháng.
+
+[03:15 - 04:15] ${guestName} (${guestRole}):
+Nhà đầu tư lưu ý: Hãy tuân thủ '4 Lớp Thẩm Định' của Nguyệt Land — Sổ đỏ hoàn công, PCCC nghiệm thu, sao kê doanh thu thực tế 6 tháng và tỷ lệ vay ngân hàng không vượt quá 50%.
+
+[04:15 - 04:45] Chị Hải Nguyệt (Founder):
+Quý vị muốn nhận danh mục 5 tòa căn hộ đạt chuẩn PCCC tại ${location}, hãy truy cập bds.breaths.live hoặc nhắn tin trực tiếp qua Zalo 0935.509.168.
+            `.trim();
+
+            currentModalText = fullText;
+
+            const visualDialogue = `
+                <div class="space-y-4">
+                    <!-- Host Bubble -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 to-slate-900 border border-amber-500/30 flex items-start gap-3">
+                        <img src="/img/nguyet-bds.png" alt="Chị Hải Nguyệt" class="w-10 h-10 rounded-full border-2 border-amber-400 object-cover flex-shrink-0">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <b class="text-amber-400 text-xs">Chị Hải Nguyệt</b>
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">Founder Nguyệt Land</span>
+                                <span class="text-[10px] text-slate-400 ml-auto">[00:00 - 00:45]</span>
+                            </div>
+                            <p class="text-slate-200 text-xs leading-relaxed">
+                                "Xin chào quý anh chị nhà đầu tư! Hôm nay Hải Nguyệt cùng anh ${guestName} sẽ cùng bóc tách cơ hội đầu tư BĐS dòng tiền tại khu vực <b>${location}</b>. Đây là điểm nóng thu hút lượng khách thuê dài hạn lớn nhất Đà Nẵng trong quý này."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Guest Bubble -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-500/15 to-slate-900 border border-sky-500/30 flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sky-500 text-slate-950 flex items-center justify-center font-black text-sm flex-shrink-0 border-2 border-sky-400">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <b class="text-sky-400 text-xs">${guestName}</b>
+                                <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-bold">${guestRole}</span>
+                                <span class="text-[10px] text-slate-400 ml-auto">[00:45 - 01:50]</span>
+                            </div>
+                            <p class="text-slate-200 text-xs leading-relaxed">
+                                "Chào chị Nguyệt và quý vị! Đối với khu vực <b>${location}</b>, số liệu tài chính thực tế cho thấy tỷ suất Cap Rate đang duy trì rất tốt ở mức <code>${capRate}</code>. Dòng tiền thông minh không tìm kiếm đất nền vùng ven tăng giá ảo nữa, mà chuyển hẳn sang các tòa nhà có thể khai thác cho thuê ngay lập tức."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Host Bubble 2 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-500/15 to-slate-900 border border-amber-500/30 flex items-start gap-3">
+                        <img src="/img/nguyet-bds.png" alt="Chị Hải Nguyệt" class="w-10 h-10 rounded-full border-2 border-amber-400 object-cover flex-shrink-0">
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <b class="text-amber-400 text-xs">Chị Hải Nguyệt</b>
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">Founder Nguyệt Land</span>
+                                <span class="text-[10px] text-slate-400 ml-auto">[01:50 - 03:15]</span>
+                            </div>
+                            <p class="text-slate-200 text-xs leading-relaxed">
+                                "Chính xác! Cụ thể tại ${location}, các căn hộ dịch vụ full nội thất hiện nay đạt công suất thuê lên tới trên 90%. Giá thuê trung bình mỗi phòng từ 8 - 14 triệu/tháng. Như vậy một tòa 10 phòng có thể mang về doanh thu từ 80 đến 150 triệu mỗi tháng."
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Guest Bubble 2 -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-500/15 to-slate-900 border border-sky-500/30 flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-full bg-sky-500 text-slate-950 flex items-center justify-center font-black text-sm flex-shrink-0 border-2 border-sky-400">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <b class="text-sky-400 text-xs">${guestName}</b>
+                                <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px] font-bold">${guestRole}</span>
+                                <span class="text-[10px] text-slate-400 ml-auto">[03:15 - 04:15]</span>
+                            </div>
+                            <p class="text-slate-200 text-xs leading-relaxed">
+                                "Nhà đầu tư lưu ý: Hãy tuân thủ <b>'4 Lớp Thẩm Định'</b> của Nguyệt Land — Sổ đỏ hoàn công, PCCC nghiệm thu, sao kê doanh thu thực tế 6 tháng và tỷ lệ vay ngân hàng không vượt quá 50%."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('modal-content').innerHTML = visualDialogue;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        // Modal Shorts & Social Details
+        function openShortsModal(title, location, capRate) {
+            document.getElementById('modal-icon').innerHTML = '<i class="fa-brands fa-tiktok"></i>';
+            document.getElementById('modal-title').innerText = `🎬 Kịch Bản Video 60s & Bài Đăng Mạng Xã Hội`;
+            document.getElementById('modal-subtitle').innerText = `Khu vực: ${location} | Cap Rate: ${capRate}`;
+
+            const fullText = `
+🎬 KỊCH BẢN VIDEO SHORTS / TIKTOK / REELS 60S
+Tiêu đề: ${title}
+
+🎯 [0 - 5s] Hook:
+"Đừng dại mua BĐS Đà Nẵng nếu chưa biết tin nóng này!"
+
+⚠️ [5 - 20s] Vấn đề:
+"Báo chí vừa đưa tin về biến động thị trường. Nhưng nhà đầu tư sành sỏi không mua đất bỏ hoang, mà săn đón các tòa căn hộ dòng tiền tại ${location}!"
+
+💡 [20 - 45s] Giải pháp dòng tiền:
+"Một tòa căn hộ tại đây tạo ra dòng tiền ròng từ 100 - 150 triệu mỗi tháng, tỷ suất Cap Rate đạt ${capRate}, cao gấp 2.5 lần lãi suất ngân hàng!"
+
+📞 [45 - 60s] Call To Action:
+"Muốn xem bảng thẩm định 4 lớp và sổ đỏ gốc? Bấm link bio hoặc gọi ngay Nguyệt Land: 0935.509.168!"
+
+---
+
+🎨 PROMPT AI TẠO ẢNH / VIDEO MINH HỌA (MIDJOURNEY / IMAGEN 3):
+Photorealistic 8k architectural shot of a modern luxury serviced apartment building in ${location}, Da Nang beachfront, Vietnam. Golden hour sunset lighting, lush tropical balcony plants, sleek glass facade, clean street with international tourists and palm trees, cinematic depth of field, high-end real estate commercial style --ar 16:9 --v 6.0
+
+---
+
+📱 BÀI ĐĂNG FACEBOOK / ZALO / LINKEDIN:
+🔥 [GÓC NHÌN ĐẦU TƯ BĐS DÒNG TIỀN ĐÀ NẴNG Q3/2026]
+Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN THẬT mới là kênh trú ẩn an toàn và sinh lời bền vững!
+🌟 Điểm nóng tại ${location}:
+✅ Tỷ suất Cap Rate: ${capRate}
+✅ Doanh thu khai thác ròng: 100 - 180 Triệu/Tháng
+✅ Khách lưu trú dài hạn kín phòng quanh năm
+✅ Sổ đỏ hoàn công + PCCC nghiệm thu chuẩn
+
+👉 Xem chi tiết tại: https://bds.breaths.live/news
+📞 Hotline/Zalo: 0935.509.168 (Nguyệt Land)
+#BatDongSanDaNang #NguyetLand #BdsDongTien #CapRate
+            `.trim();
+
+            currentModalText = fullText;
+            document.getElementById('modal-content').innerHTML = `<pre class="p-4 bg-slate-950 rounded-2xl border border-slate-800 whitespace-pre-wrap font-sans text-xs leading-relaxed text-slate-300">${fullText}</pre>`;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        function copyModalContent() {
+            if (!currentModalText) return;
+            navigator.clipboard.writeText(currentModalText).then(() => {
+                alert('✅ Đã sao chép toàn bộ kịch bản vào bộ nhớ tạm!');
+            });
+        }
+
+        // Auth Modal Handlers
+        function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-auth-submit');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang kích hoạt...';
+            btn.disabled = true;
+
+            const authData = {
+                name: document.getElementById('auth-name').value.trim(),
+                phone: document.getElementById('auth-phone').value.trim(),
+                email: document.getElementById('auth-email').value.trim(),
+                budget: document.getElementById('auth-budget').value,
+                role: 'VIP_INVESTOR'
+            };
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(authData)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('nguyet_vip_user', JSON.stringify(data.user || authData));
+                    checkVipSession();
+                    closeAuthModal();
+                    alert(`🎉 Chúc mừng ${authData.name} đã trở thành Hội Viên VIP của Nguyệt Land!`);
+                } else {
+                    alert('Lỗi: ' + (data.message || 'Không thể đăng ký'));
+                }
+            } catch (err) {
+                alert('Lỗi: ' + err.message);
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP';
+                btn.disabled = false;
+            }
+        }
+
+        function checkVipSession() {
+            const saved = localStorage.getItem('nguyet_vip_user');
+            const container = document.getElementById('auth-nav-container');
+            if (saved && container) {
+                try {
+                    const u = JSON.parse(saved);
+                    container.innerHTML = `
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-xs">
+                            <span class="font-bold text-amber-300">⭐ ${u.name} (VIP)</span>
+                            <button onclick="logoutVip()" class="text-slate-400 hover:text-rose-400 text-[10px] ml-1" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        </div>
+                    `;
+                } catch (_) {}
+            }
+        }
+
+        // ── AI VOICE READER (SPEECH SYNTHESIS ENGINE) ────────────────
+        let currentUtterance = null;
+        let isSpeaking = false;
+        let currentAudioSpeed = 1.0;
+        let currentSpeechText = '';
+
+        function playAiVoice(title, summary) {
+            if (!('speechSynthesis' in window)) {
+                alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản Web Speech.');
+                return;
+            }
+            window.speechSynthesis.cancel();
+
+            const cleanT = (title || '').replace(/[^\p{L}\p{N}\s,.-]/gu, '');
+            const cleanS = cleanSummaryText(summary).replace(/[^\p{L}\p{N}\s,.-]/gu, '');
+            const fullTextToRead = `Bản tin bất động sản Nguyệt Land. ${cleanT}. Tóm tắt phân tích: ${cleanS}. Quý nhà đầu tư cần thẩm định dòng tiền thực tế, vui lòng liên hệ hotline: 0935.509.168.`;
+            currentSpeechText = fullTextToRead;
+
+            const utterance = new SpeechSynthesisUtterance(fullTextToRead);
+            utterance.lang = 'vi-VN';
+            utterance.rate = currentAudioSpeed;
+            utterance.pitch = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const viVoice = voices.find(v => v.lang.includes('vi') || v.lang.includes('VI'));
+            if (viVoice) utterance.voice = viVoice;
+
+            utterance.onstart = () => {
+                isSpeaking = true;
+                document.getElementById('ai-audio-bar').classList.remove('hidden');
+                document.getElementById('audio-title').innerText = title;
+                document.getElementById('audio-play-icon').className = 'fa-solid fa-pause';
+            };
+
+            utterance.onend = () => {
+                isSpeaking = false;
+                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
+            };
+
+            utterance.onerror = () => {
+                isSpeaking = false;
+                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
+            };
+
+            currentUtterance = utterance;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function toggleAudioPlay() {
+            if (!window.speechSynthesis) return;
+            if (window.speechSynthesis.paused) {
+                window.speechSynthesis.resume();
+                document.getElementById('audio-play-icon').className = 'fa-solid fa-pause';
+            } else if (window.speechSynthesis.speaking) {
+                window.speechSynthesis.pause();
+                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
+            } else if (currentSpeechText) {
+                playAiVoice(document.getElementById('audio-title').innerText, currentSpeechText);
+            }
+        }
+
+        function stopAudio() {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
+            document.getElementById('ai-audio-bar').classList.add('hidden');
+            isSpeaking = false;
+        }
+
+        function toggleAudioSpeed() {
+            const speeds = [1.0, 1.25, 1.5];
+            let nextIdx = (speeds.indexOf(currentAudioSpeed) + 1) % speeds.length;
+            currentAudioSpeed = speeds[nextIdx];
+            document.getElementById('btn-audio-speed').innerText = currentAudioSpeed.toFixed(2).replace('.00', '.0') + 'x';
+            if (isSpeaking && currentSpeechText) {
+                const title = document.getElementById('audio-title').innerText;
+                playAiVoice(title, currentSpeechText);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            loadAllNews();
+            checkVipSession();
+            setInterval(loadLiveTicker, 180000);
+        });
+    </script>
+
+    <!-- BOTTOM FLOATING AI AUDIO PLAYER (Trình Nghe Bản Tin AI) -->
+    <div id="ai-audio-bar" class="fixed bottom-0 inset-x-0 z-50 glass border-t border-amber-500/40 p-3 lg:px-8 flex items-center justify-between shadow-2xl backdrop-blur-xl hidden">
+        <div class="flex items-center gap-3 max-w-lg truncate">
+            <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-bold text-base flex-shrink-0 animate-pulse shadow-lg">
+                <i class="fa-solid fa-headphones"></i>
+            </div>
+            <div class="truncate">
+                <p class="text-[10px] text-amber-400 uppercase font-black tracking-wider flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> AI Voice Nguyệt Land (Giọng Đọc Tiếng Việt)
+                </p>
+                <h4 id="audio-title" class="text-xs font-bold text-slate-100 truncate mt-0.5">Đang đọc bài viết...</h4>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 sm:gap-3">
+            <button onclick="toggleAudioSpeed()" id="btn-audio-speed" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 text-xs font-bold border border-slate-700 transition" title="Tốc độ đọc">
+                1.0x
+            </button>
+            <button onclick="toggleAudioPlay()" id="btn-audio-play" class="w-9 h-9 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center font-bold shadow-lg transition active:scale-95">
+                <i class="fa-solid fa-pause" id="audio-play-icon"></i>
+            </button>
+            <button onclick="stopAudio()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-rose-500/30 text-rose-400 flex items-center justify-center text-xs transition" title="Dừng đọc">
+                <i class="fa-solid fa-stop"></i>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
+

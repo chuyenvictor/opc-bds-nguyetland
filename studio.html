@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGUYỆT LAND — AI Cashflow Studio (BĐS Dòng Tiền Đà Nẵng)</title>
+    <meta name="description" content="AI Cashflow Studio — Nguyệt Land BĐS Dòng Tiền Đà Nẵng. Soạn bài viết SEO, kịch bản video ngắn và thẩm định tỷ suất Cap Rate.">
+    <link rel="icon" type="image/png" href="/img/nguyet-bds.png">
+    <link rel="shortcut icon" href="/img/nguyet-bds.png">
+    <link rel="apple-touch-icon" href="/img/nguyet-bds.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="/js/auth-and-lead-engine.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { 400: '#fbbf24', 500: '#f59e0b', 600: '#d97706' },
+                        emerald: { 400: '#34d399', 500: '#10b981', 600: '#059669' },
+                        slate: { 850: '#151f32', 900: '#0f172a', 950: '#090d16' }
+                    },
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-gold {
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-slate-950">
+
+    <!-- Top Navbar -->
+    <header class="glass-panel sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between border-b border-gold-500/20">
+        <div class="flex items-center gap-3.5">
+            <div class="relative w-11 h-11 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-xl glow-gold flex-shrink-0">
+                <img src="/img/nguyet-bds.png" alt="Nguyệt Land" class="w-full h-full object-cover object-top" />
+            </div>
+            <div>
+                <h1 class="font-serif font-black text-lg text-amber-300 tracking-wide flex items-center gap-2">
+                    NGUYỆT LAND <span class="text-xs font-sans px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">AI Cashflow Studio</span>
+                </h1>
+                <p class="text-xs text-slate-400">Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+            <div id="auth-nav-container">
+                <button onclick="openAuthModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition shadow-sm">
+                    <i class="fa-solid fa-crown text-amber-400"></i> Đăng Nhập VIP
+                </button>
+            </div>
+            <button onclick="openRssModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-2 transition shadow-sm">
+                <i class="fa-solid fa-satellite-dish text-amber-400"></i> Nguồn Tin Nóng RSS
+            </button>
+            <a href="/news" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 flex items-center gap-2 transition shadow-sm">
+                <i class="fa-solid fa-newspaper text-amber-400"></i> Bản Tin & Video
+            </a>
+            <a href="/" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200 border border-slate-700 flex items-center gap-2 transition shadow-sm">
+                <i class="fa-solid fa-globe text-amber-400"></i> Xem Portal BĐS
+            </a>
+            <a href="https://zalo.me/0935509168" target="_blank" class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-xs font-bold text-emerald-300 border border-emerald-500/40 flex items-center gap-2 transition">
+                <i class="fa-solid fa-phone"></i> 0935.509.168
+            </a>
+            <button onclick="publishArticle()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg glow-gold flex items-center gap-2 transition transform active:scale-95">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Xuất Bản Online
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 max-w-[1700px] w-full mx-auto">
+        
+        <!-- Left Column: Property Config & AI Tools (5 Cols) -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+            
+            <!-- Property Spec Card -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-building-circle-check"></i> THÔNG SỐ TÀI SẢN DÒNG TIỀN
+                </h2>
+
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="col-span-2">
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Tên Căn Hộ / Tòa Nhà</label>
+                        <input id="prop-title" type="text" value="Tòa Căn Hộ Dịch Vụ 7 Tầng Mỹ Khê" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                    <div class="col-span-2">
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Vị Trí & Hạ Tầng</label>
+                        <input id="prop-location" type="text" value="Đường An Thượng, Phường Mỹ An, Ngũ Hành Sơn, Đà Nẵng" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Tổng Vốn Đầu Tư (VNĐ)</label>
+                        <input id="prop-price" type="text" value="8.5 Tỷ" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-amber-300 font-bold focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Doanh Thu / Tháng (VNĐ)</label>
+                        <input id="prop-revenue" type="text" value="65 Triệu" oninput="calculateROI()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-emerald-400 font-bold focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Số Phòng Khai Thác</label>
+                        <input id="prop-rooms" type="text" value="7 Phòng Studio Full Nội Thất" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Tỷ Lệ Lấp Đầy Kỳ Vọng</label>
+                        <input id="prop-occupancy" type="text" value="88%" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                    </div>
+                </div>
+
+                <!-- Media URLs -->
+                <div class="grid grid-cols-2 gap-3 pt-3 border-t border-slate-800">
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Video Tour URL (YouTube/Reels)</label>
+                        <input id="prop-video" type="text" value="https://www.youtube.com/watch?v=dQw4w9WgXcQ" oninput="updatePreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-amber-400" />
+                    </div>
+                    <div>
+                        <label class="text-[11px] font-semibold text-slate-400 uppercase">Ảnh Bìa / 3D URL</label>
+                        <input id="prop-image" type="text" value="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200" oninput="updatePreview()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-amber-400" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Matrix Quick Badges -->
+            <div class="grid grid-cols-3 gap-3">
+                <div class="glass-card rounded-xl p-3 text-center border-l-4 border-emerald-500">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase">Net Cap Rate</span>
+                    <p id="badge-caprate" class="text-lg font-black text-emerald-400">9.17%</p>
+                </div>
+                <div class="glass-card rounded-xl p-3 text-center border-l-4 border-amber-500">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase">Thu Nhập Thuần (NOI)</span>
+                    <p id="badge-noi" class="text-lg font-black text-amber-400">624 Tr/năm</p>
+                </div>
+                <div class="glass-card rounded-xl p-3 text-center border-l-4 border-cyan-500">
+                    <span class="text-[10px] text-slate-400 font-bold uppercase">Hoàn Vốn Dự Kiến</span>
+                    <p id="badge-payback" class="text-lg font-black text-cyan-400">10.8 Năm</p>
+                </div>
+            </div>
+
+            <!-- AI Generative Assistants (Gemini 2.0) -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl">
+                <h2 class="text-sm font-bold text-amber-400 flex items-center gap-2 mb-3">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> GOOGLE AI STUDIO (GEMINI 2.0 GENERATOR)
+                </h2>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="triggerAiGenerate('article')" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-amber-500/20 hover:border-amber-400/50 border border-slate-700 text-xs font-bold text-amber-300 flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-newspaper text-base text-amber-400"></i>
+                        <span>Viết Bài SEO</span>
+                    </button>
+                    <button onclick="triggerAiGenerate('video')" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-emerald-500/20 hover:border-emerald-400/50 border border-slate-700 text-xs font-bold text-emerald-300 flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-clapperboard text-base text-emerald-400"></i>
+                        <span>Kịch Bản Video 60s</span>
+                    </button>
+                    <button onclick="triggerAiGenerate('prompt3d')" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-purple-500/20 hover:border-purple-400/50 border border-slate-700 text-xs font-bold text-purple-300 flex flex-col items-center gap-1 transition">
+                        <i class="fa-solid fa-palette text-base text-purple-400"></i>
+                        <span>Prompt Ảnh 3D</span>
+                    </button>
+                </div>
+                <div id="ai-loading" class="hidden mt-3 text-center text-xs text-amber-400 py-2">
+                    <i class="fa-solid fa-circle-notch fa-spin mr-2"></i> Đang phân tích dữ liệu và sinh nội dung với Gemini 2.0...
+                </div>
+            </div>
+
+            <!-- Content Markdown Editor -->
+            <div class="glass-card rounded-2xl p-5 shadow-xl flex-1 flex flex-col">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-xs font-bold text-slate-300 uppercase flex items-center gap-2">
+                        <i class="fa-solid fa-pen-nib text-amber-400"></i> Trình Soạn Thảo Bài Viết & Phân Tích
+                    </label>
+                    <span class="text-[10px] text-slate-400">Hỗ trợ Markdown</span>
+                </div>
+                <textarea id="editor-content" oninput="updatePreview()" class="w-full flex-1 min-h-[220px] bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 font-mono focus:outline-none focus:border-amber-400 transition" placeholder="Nội dung bài viết sẽ được AI sinh ra hoặc bạn có thể tự soạn tại đây..."></textarea>
+            </div>
+        </div>
+
+        <!-- Right Column: Live Visual Preview of Landing Page (7 Cols) -->
+        <div class="lg:col-span-7 flex flex-col gap-4">
+            
+            <div class="flex items-center justify-between bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
+                <span class="text-xs font-bold text-slate-400 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> LIVE VISUAL PREVIEW
+                </span>
+                <span class="text-xs text-slate-400 font-serif">Nguyệt Land — Bản Tin BĐS Dòng Tiền #2026</span>
+            </div>
+
+            <!-- Preview Frame -->
+            <div class="glass-card rounded-2xl overflow-hidden shadow-2xl border border-amber-500/20 flex-1 flex flex-col bg-slate-900">
+                
+                <!-- Hero Image & Title Banner -->
+                <div class="relative h-64 w-full overflow-hidden">
+                    <img id="preview-img" src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200" alt="BĐS Dòng Tiền" class="w-full h-full object-cover" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
+                    <div class="absolute top-4 left-4">
+                        <span class="px-3 py-1 bg-amber-500 text-slate-950 font-black text-[11px] rounded-full uppercase shadow-md">
+                            ⭐ Tài Sản Dòng Tiền Đã Thẩm Định
+                        </span>
+                    </div>
+                    <div class="absolute bottom-4 left-4 right-4">
+                        <h2 id="preview-title" class="font-serif font-black text-2xl text-slate-50 drop-shadow-md">
+                            Tòa Căn Hộ Dịch Vụ 7 Tầng Mỹ Khê
+                        </h2>
+                        <p id="preview-loc" class="text-xs text-slate-300 flex items-center gap-1.5 mt-1">
+                            <i class="fa-solid fa-location-dot text-amber-400"></i> Đường An Thượng, Phường Mỹ An, Ngũ Hành Sơn, Đà Nẵng
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Financial Highlights Ribbon -->
+                <div class="grid grid-cols-4 bg-slate-950/80 p-3 border-y border-slate-800 text-center">
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase">Giá Bán</span>
+                        <p id="preview-price" class="text-sm font-bold text-amber-400">8.5 Tỷ</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase">Dòng Tiền / Tháng</span>
+                        <p id="preview-rev" class="text-sm font-bold text-emerald-400">65 Tr/tháng</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase">Net Cap Rate</span>
+                        <p id="preview-cap" class="text-sm font-bold text-emerald-300">9.17%</p>
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-slate-400 uppercase">Quy Mô</span>
+                        <p id="preview-rooms" class="text-sm font-bold text-slate-200">7 Phòng</p>
+                    </div>
+                </div>
+
+                <!-- Main Content Render -->
+                <div class="p-6 overflow-y-auto flex-1 text-slate-300 space-y-4 text-sm leading-relaxed" id="preview-body">
+                    <p class="italic text-slate-400 border-l-2 border-amber-400 pl-3">
+                        "Người bản địa – Chuyên tư vấn BĐS thật – Giá trị thật – Dòng tiền thật. Số liệu được thẩm định trực tiếp bởi Nguyệt Land."
+                    </p>
+                    <div id="preview-article-text" class="whitespace-pre-line">
+                        Đang nạp bài phân tích chi tiết... Hãy bấm <b>"Viết Bài SEO"</b> hoặc <b>"Kịch Bản Video"</b> ở cột bên trái để Gemini 2.0 sinh nội dung!
+                    </div>
+                </div>
+
+                <!-- CTA Footer -->
+                <div class="bg-slate-950 p-4 border-t border-slate-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="relative w-11 h-11 rounded-full overflow-hidden border border-amber-400 flex-shrink-0">
+                            <img src="/img/nguyet-bds.png" alt="Nguyệt Land" class="w-full h-full object-cover object-top" />
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-slate-200">Nguyệt Land — Chuyên Gia BĐS Dòng Tiền</p>
+                            <p class="text-[10px] text-slate-400">Hotline: 0935.509.168 (Zalo 24/7)</p>
+                        </div>
+                    </div>
+                    <a href="https://zalo.me/0935509168" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-50 text-xs font-bold flex items-center gap-2 shadow-lg transition">
+                        <i class="fa-solid fa-phone"></i> Khảo Sát Sổ Đỏ & Dòng Tiền
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        function renderMarkdownToHtml(md) {
+            if (!md) return '';
+            let html = md.trim();
+            
+            // Remove code fences
+            html = html.replace(/```json[\s\S]*?```/gi, '');
+            html = html.replace(/```markdown/gi, '').replace(/```/g, '');
+            
+            // Headers
+            html = html.replace(/^### (.*$)/gim, '<h3 class="font-bold text-amber-300 text-sm mt-4 mb-2">$1</h3>');
+            html = html.replace(/^## (.*$)/gim, '<h2 class="font-serif font-bold text-amber-400 text-base mt-5 mb-2 border-b border-slate-800 pb-1">$1</h2>');
+            html = html.replace(/^# (.*$)/gim, '<h1 class="font-serif font-black text-slate-100 text-lg mt-5 mb-2">$1</h1>');
+            
+            // Bold & Italics
+            html = html.replace(/\*\*\*(.*?)\*\*\*/gim, '<b class="text-amber-300 italic">$1</b>');
+            html = html.replace(/\*\*(.*?)\*\*/gim, '<strong class="text-amber-200 font-bold">$1</strong>');
+            html = html.replace(/\*(.*?)\*/gim, '<em class="text-slate-300 italic">$1</em>');
+            
+            // Bullet Points & Numbered Lists
+            html = html.replace(/^\s*-\s+(.*$)/gim, '<li class="ml-4 list-disc text-slate-300 mb-1">$1</li>');
+            html = html.replace(/^\s*\*\s+(.*$)/gim, '<li class="ml-4 list-disc text-slate-300 mb-1">$1</li>');
+            html = html.replace(/^\s*(\d+)\.\s+(.*$)/gim, '<li class="ml-4 list-decimal text-slate-300 mb-1">$2</li>');
+            
+            // Paragraph breaks
+            html = html.split('\n\n').map(p => {
+                if (p.startsWith('<h') || p.startsWith('<li')) return p;
+                return `<p class="mb-3 text-slate-300 leading-relaxed">${p}</p>`;
+            }).join('');
+            
+            return html;
+        }
+
+        function updatePreview() {
+            document.getElementById('preview-title').innerText = document.getElementById('prop-title').value;
+            document.getElementById('preview-loc').innerHTML = `<i class="fa-solid fa-location-dot text-amber-400"></i> ` + document.getElementById('prop-location').value;
+            document.getElementById('preview-price').innerText = document.getElementById('prop-price').value;
+            document.getElementById('preview-rev').innerText = document.getElementById('prop-revenue').value;
+            document.getElementById('preview-rooms').innerText = document.getElementById('prop-rooms').value;
+            document.getElementById('preview-img').src = document.getElementById('prop-image').value;
+            
+            const content = document.getElementById('editor-content').value;
+            if (content.trim()) {
+                document.getElementById('preview-article-text').innerHTML = renderMarkdownToHtml(content);
+            }
+        }
+
+        function calculateROI() {
+            const priceStr = document.getElementById('prop-price').value.replace(/[^0-9.]/g, '');
+            const revStr = document.getElementById('prop-revenue').value.replace(/[^0-9.]/g, '');
+            
+            const price = parseFloat(priceStr) * 1000000000 || 8500000000;
+            const monthlyRev = parseFloat(revStr) * 1000000 || 65000000;
+            
+            const annualGross = monthlyRev * 12;
+            const opex = annualGross * 0.20; // 20% OPEX
+            const noi = annualGross - opex;
+            const capRate = (noi / price) * 100;
+            const payback = price / noi;
+
+            document.getElementById('badge-caprate').innerText = capRate.toFixed(2) + '%';
+            document.getElementById('preview-cap').innerText = capRate.toFixed(2) + '%';
+            document.getElementById('badge-noi').innerText = Math.round(noi / 1000000) + ' Tr/năm';
+            document.getElementById('badge-payback').innerText = payback.toFixed(1) + ' Năm';
+        }
+
+        async function triggerAiGenerate(type) {
+            const loading = document.getElementById('ai-loading');
+            loading.classList.remove('hidden');
+
+            const propertyData = {
+                title: document.getElementById('prop-title').value,
+                location: document.getElementById('prop-location').value,
+                price: document.getElementById('prop-price').value,
+                monthlyRevenue: document.getElementById('prop-revenue').value,
+                rooms: document.getElementById('prop-rooms').value
+            };
+
+            try {
+                const res = await fetch('/api/ai/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ type, property: propertyData })
+                });
+
+                const data = await res.json();
+                if (data.success && data.generatedContent) {
+                    document.getElementById('editor-content').value = data.generatedContent;
+                    updatePreview();
+                } else {
+                    alert('Không thể kết nối AI: ' + (data.message || 'Lỗi'));
+                }
+            } catch (err) {
+                alert('Lỗi gọi API: ' + err.message);
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+
+        async function loadLatestTrends() {
+            try {
+                const res = await fetch('/api/trends/latest');
+                const data = await res.json();
+                if (data.success && data.trends && data.trends.length > 0) {
+                    const topTrend = data.trends[0];
+                    alert(`🔥 Đã lấy tin nóng BĐS mới nhất:\n"${topTrend.title}"\nNguồn: ${topTrend.source}`);
+                    document.getElementById('prop-title').value = topTrend.title;
+                    updatePreview();
+                } else {
+                    alert('Chưa có dữ liệu tin tức. Vui lòng chạy lệnh: npm run scan:bds');
+                }
+            } catch (e) {
+                alert('Lỗi kết nối trends: ' + e.message);
+            }
+        }
+
+        async function publishArticle() {
+            const articlePayload = {
+                title: document.getElementById('prop-title').value,
+                location: document.getElementById('prop-location').value,
+                price: document.getElementById('prop-price').value,
+                monthlyRevenue: document.getElementById('prop-revenue').value,
+                capRate: document.getElementById('badge-caprate').innerText,
+                image: document.getElementById('prop-image').value,
+                content: document.getElementById('editor-content').value || document.getElementById('preview-article-text').innerText
+            };
+
+            try {
+                const res = await fetch('/api/articles/publish', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(articlePayload)
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    const fullLink = window.location.origin + data.url;
+                    const promptText = `🎉 [XUẤT BẢN THÀNH CÔNG!]\n\nBài viết "${articlePayload.title}" đã online tại:\n👉 ${fullLink}\n\nBạn có muốn mở ngay bài viết này trong tab mới không?`;
+                    if (confirm(promptText)) {
+                        window.open(data.url, '_blank');
+                    }
+                } else {
+                    alert('Lỗi xuất bản: ' + data.message);
+                }
+            } catch (err) {
+                alert('Lỗi kết nối máy chủ: ' + err.message);
+            }
+        }
+
+        // ── RSS News Integration in Studio ──────────────────────────
+        let studioRssItems = [];
+
+        async function openRssModal() {
+            document.getElementById('rss-modal').classList.remove('hidden');
+            if (!studioRssItems.length) {
+                await loadStudioRss();
+            }
+        }
+
+        function closeRssModal() {
+            document.getElementById('rss-modal').classList.add('hidden');
+        }
+
+        async function loadStudioRss(forceRefresh = false) {
+            const container = document.getElementById('studio-rss-list');
+            container.innerHTML = '<div class="text-center py-8 text-amber-400"><i class="fa-solid fa-circle-notch fa-spin text-2xl mb-2"></i><p class="text-xs">Đang tải tin nóng RSS chính thống...</p></div>';
+            try {
+                const url = forceRefresh ? '/api/news/rss-feed?refresh=1&limit=25' : '/api/news/rss-feed?limit=25';
+                const res = await fetch(url);
+                const data = await res.json();
+                studioRssItems = data.items || [];
+                renderStudioRss(studioRssItems);
+            } catch (err) {
+                container.innerHTML = `<p class="text-rose-400 text-xs text-center py-4">Lỗi: ${err.message}</p>`;
+            }
+        }
+
+        function renderStudioRss(items) {
+            const container = document.getElementById('studio-rss-list');
+            if (!items.length) {
+                container.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Không có tin tức nào.</p>';
+                return;
+            }
+            container.innerHTML = items.map((item, idx) => `
+                <div class="glass-card p-4 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hover:border-amber-400/50 transition">
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 text-[10px] text-slate-400 mb-1">
+                            <span class="font-bold ${item.sourceColor || 'text-amber-400'}">[${item.sourceName}]</span>
+                            <span>• ${new Date(item.pubDate).toLocaleString('vi-VN')}</span>
+                        </div>
+                        <h4 class="font-bold text-xs text-slate-100 line-clamp-2">${item.title}</h4>
+                        <p class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">${item.description}</p>
+                    </div>
+                    <button onclick="useRssTopic(${idx})" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow flex-shrink-0 flex items-center gap-1.5 transition">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> Dùng Tin Này
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        async function useRssTopic(index) {
+            const item = studioRssItems[index];
+            if (!item) return;
+
+            closeRssModal();
+            document.getElementById('prop-title').value = item.title;
+            const loading = document.getElementById('ai-loading');
+            loading.classList.remove('hidden');
+
+            try {
+                const res = await fetch('/api/news/ai-transform', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        title: item.title,
+                        description: item.description,
+                        sourceName: item.sourceName,
+                        link: item.link,
+                        autoPublish: false
+                    })
+                });
+
+                const data = await res.json();
+                if (data.success && data.transformed) {
+                    const art = data.transformed.article;
+                    const vid = data.transformed.video_script_60s;
+
+                    // Set Title & content
+                    document.getElementById('prop-title').value = art.title || item.title;
+                    document.getElementById('editor-content').value = art.content || art.summary;
+                    
+                    // Set video script
+                    if (typeof vid === 'object' && vid.hook_0_5s) {
+                        document.getElementById('video-script-text').innerText = 
+                            `🎯 [0-5s Hook]: ${vid.hook_0_5s}\n\n` +
+                            `⚠️ [5-20s Vấn Đề]: ${vid.problem_5_20s}\n\n` +
+                            `💡 [20-45s Giải Pháp]: ${vid.solution_20_45s}\n\n` +
+                            `📞 [45-60s Call To Action]: ${vid.cta_45_60s}\n\n` +
+                            `🎬 Visual: ${vid.visual_cues || 'Góc quay flycam Đà Nẵng'}`;
+                    } else if (typeof vid === 'string') {
+                        document.getElementById('video-script-text').innerText = vid;
+                    }
+
+                    updatePreview();
+                    alert(`✅ Đã nạp thành công bài viết & kịch bản video 60s cho chủ đề:\n"${art.title || item.title}"`);
+                } else {
+                    alert('Lỗi: ' + (data.error || 'Không thể tạo nội dung'));
+                }
+            } catch (err) {
+                alert('Lỗi: ' + err.message);
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+
+        // ── VIP AUTH MANAGEMENT ───────────────────────────
+        function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+        function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+        async function submitVipAuth(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-auth-submit');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang kích hoạt...';
+            btn.disabled = true;
+
+            const authData = {
+                name: document.getElementById('auth-name').value.trim(),
+                phone: document.getElementById('auth-phone').value.trim(),
+                email: document.getElementById('auth-email').value.trim(),
+                budget: document.getElementById('auth-budget').value,
+                role: 'VIP_INVESTOR'
+            };
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(authData)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    localStorage.setItem('nguyet_vip_user', JSON.stringify(data.user || authData));
+                    checkVipSession();
+                    closeAuthModal();
+                    alert(`🎉 Chúc mừng ${authData.name} đã trở thành Hội Viên VIP của Nguyệt Land!`);
+                } else {
+                    alert('Lỗi: ' + (data.message || 'Không thể đăng ký'));
+                }
+            } catch (err) {
+                alert('Lỗi: ' + err.message);
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP';
+                btn.disabled = false;
+            }
+        }
+
+        function checkVipSession() {
+            const saved = localStorage.getItem('nguyet_vip_user');
+            const container = document.getElementById('auth-nav-container');
+            if (saved && container) {
+                try {
+                    const u = JSON.parse(saved);
+                    container.innerHTML = `
+                        <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-400/40 text-xs">
+                            <span class="font-bold text-amber-300">⭐ ${u.name} (VIP)</span>
+                            <button onclick="logoutVip()" class="text-slate-400 hover:text-rose-400 text-[10px] ml-1" title="Đăng xuất"><i class="fa-solid fa-right-from-bracket"></i></button>
+                        </div>
+                    `;
+                } catch (_) {}
+            }
+        }
+
+        function logoutVip() {
+            if (confirm('Bạn có muốn đăng xuất tài khoản VIP không?')) {
+                localStorage.removeItem('nguyet_vip_user');
+                location.reload();
+            }
+        }
+
+        // Initialize calculations & check VIP session
+        calculateROI();
+        checkVipSession();
+    </script>
+
+    <!-- VIP INVESTOR AUTH MODAL -->
+    <div id="auth-modal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-card max-w-lg w-full rounded-3xl p-6 lg:p-8 space-y-6 border border-amber-500/40 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-yellow-600 text-slate-950 flex items-center justify-center text-xl font-black shadow-lg">
+                    <i class="fa-solid fa-crown"></i>
+                </div>
+                <div>
+                    <h3 class="font-serif font-black text-xl text-amber-300">CỔNG HỘI VIÊN NHÀ ĐẦU TƯ VIP</h3>
+                    <p class="text-xs text-slate-400">Nguyệt Land — BĐS Dòng Tiền & Pháp Lý Thật</p>
+                </div>
+            </div>
+
+            <form onsubmit="submitVipAuth(event)" class="space-y-4">
+                <div>
+                    <label class="text-[11px] font-bold text-slate-300 uppercase block mb-1">Họ Và Tên *</label>
+                    <input type="text" id="auth-name" required placeholder="Ví dụ: Nguyễn Văn A" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                </div>
+                <div>
+                    <label class="text-[11px] font-bold text-slate-300 uppercase block mb-1">Số Điện Thoại Zalo *</label>
+                    <input type="tel" id="auth-phone" required placeholder="09xx.xxx.xxx" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-amber-300 font-bold focus:outline-none focus:border-amber-400 transition" />
+                </div>
+                <div>
+                    <label class="text-[11px] font-bold text-slate-300 uppercase block mb-1">Email Nhận Báo Cáo & Chuỗi 30 Ngày</label>
+                    <input type="email" id="auth-email" placeholder="email@domain.com" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-amber-400 transition" />
+                </div>
+                <div>
+                    <label class="text-[11px] font-bold text-slate-300 uppercase block mb-1">Tầm Ngân Sách Đầu Tư</label>
+                    <select id="auth-budget" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-amber-400">
+                        <option value="Dưới 5 Tỷ">Dưới 5 Tỷ VNĐ</option>
+                        <option value="5 - 15 Tỷ" selected>5 - 15 Tỷ VNĐ</option>
+                        <option value="15 - 30 Tỷ">15 - 30 Tỷ VNĐ</option>
+                        <option value="Trên 30 Tỷ">Trên 30 Tỷ VNĐ</option>
+                    </select>
+                </div>
+                <button type="submit" id="btn-auth-submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-black text-sm shadow-xl flex items-center justify-center gap-2 transition transform active:scale-95">
+                    <i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- RSS News Drawer Modal -->
+    <div id="rss-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
+        <div class="glass-card max-w-4xl w-full rounded-3xl p-6 max-h-[85vh] flex flex-col space-y-4 border border-amber-500/30 shadow-2xl relative">
+            <button onclick="closeRssModal()" class="absolute top-5 right-5 text-slate-400 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center text-lg font-black shadow-lg">
+                        <i class="fa-solid fa-satellite-dish"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-bold text-lg text-amber-300">Nguồn Tin Nóng RSS Báo Chí Chính Thống</h3>
+                        <p class="text-xs text-slate-400">VnExpress, CafeF, Báo Đầu Tư, VnEconomy, VietNamNet, Tuổi Trẻ</p>
+                    </div>
+                </div>
+                <button onclick="loadStudioRss(true)" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-amber-300 border border-slate-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-arrows-rotate"></i> Làm Mới
+                </button>
+            </div>
+            <div id="studio-rss-list" class="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[60vh]"></div>
+        </div>
+    </div>
+
+    <!-- Unified Nguyet Land Footer -->
+    <footer class="mt-auto py-6 border-t border-slate-800 text-center text-xs text-slate-400 bg-slate-950">
+        <p>© 2026 NGUYỆT LAND — BĐS DÒNG TIỀN ĐÀ NẴNG (OPC-BĐS). Tư vấn thật – Dữ liệu thật – Nhà thật.</p>
+        <p class="mt-1">Hotline / Zalo: 0935.509.168 | Văn phòng: Ngũ Hành Sơn, TP. Đà Nẵng</p>
+    </footer>
+</body>
+</html>

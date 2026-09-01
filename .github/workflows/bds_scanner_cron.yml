@@ -1,0 +1,54 @@
+name: "🏡 OPC-BĐS — Quét Tin Bất Động Sản & Đồng Bộ Google Sheet (10-Min Cron)"
+
+on:
+  schedule:
+    # Chạy tự động mỗi 10 phút, 24/7 không cần máy chủ riêng
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+    inputs:
+      debug_mode:
+        description: 'Chạy debug chi tiết'
+        required: false
+        default: 'false'
+
+jobs:
+  scan-bds-sync-sheet-telegram:
+    name: "Quét RSS → AI Gemini → Sheet → Telegram"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: "📥 Checkout mã nguồn"
+        uses: actions/checkout@v4
+
+      - name: "🟢 Cài đặt Node.js 20 LTS"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: "📦 Cài thư viện (production only)"
+        run: npm ci --omit=dev 2>/dev/null || npm install --omit=dev
+
+      - name: "🚀 Chạy Cloud Scanner: RSS + Gemini AI + Sheet Sync + Telegram"
+        env:
+          # AI & Analysis
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          # Google Sheet (Apps Script Webhook)
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+          GOOGLE_SHEET_WEBHOOK_URL: ${{ secrets.GOOGLE_SHEET_WEBHOOK_URL }}
+          # Telegram Bot
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # App Info
+          PUBLIC_DOMAIN: "https://bds.breaths.live"
+          APP_NAME: "NGUYỆT LAND — BĐS Dòng Tiền Đà Nẵng"
+          NODE_ENV: production
+        run: node scripts/cloud_scanner_cron.mjs
+
+      - name: "✅ Báo cáo kết quả"
+        if: always()
+        run: |
+          echo "Thời gian hoàn thành: $(date '+%Y-%m-%d %H:%M:%S %Z')"
+          echo "Status: ${{ job.status }}"

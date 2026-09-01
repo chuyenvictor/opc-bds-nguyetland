@@ -1,0 +1,51 @@
+# ╔══════════════════════════════════════════════════════════════════╗
+# ║  CLOUDFLARE PAGES DEPLOYMENT — OPC-BĐS NGUYỆT LAND             ║
+# ║  Webapp: bds.breaths.live | Node.js 20 | Static Pages           ║
+# ╚══════════════════════════════════════════════════════════════════╝
+name = "opc-bds-nguyetland"
+compatibility_date = "2026-08-30"
+
+# Cloudflare Pages: build từ thư mục hiện tại (static assets)
+pages_build_output_dir = "."
+
+# ── Environment Variables cho Cloudflare Pages ─────────────────────
+[vars]
+# App Identity
+ENVIRONMENT           = "production"
+APP_NAME              = "NGUYỆT LAND — BĐS Dòng Tiền & Nhà Đẹp Đà Nẵng"
+BRAND_SLOGAN          = "Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật"
+PUBLIC_DOMAIN         = "https://bds.breaths.live"
+TARGET_CITY           = "Đà Nẵng"
+PORT                  = "8088"
+
+# Google Cloud & Sheet (opc-bds project)
+GCP_PROJECT_ID        = "opc-bds"
+GCP_PROJECT_NUMBER    = "842161533385"
+GOOGLE_SHEET_ID       = "1E8sUXO4g4E6Gxi0hYlP0W3X8KYmgroJiUIERaiXGV3g"
+GOOGLE_SHEET_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyxNv81Vz3zB98QqlIyQmYdIKiKsJKGXM962TnsrPfNQXK4HVThMHzHJFnhV3O7FIaK/exec"
+
+# Firebase Auth (opc-nguyet-land project)
+FIREBASE_AUTH_DOMAIN  = "opc-nguyet-land.firebaseapp.com"
+FIREBASE_PROJECT_ID   = "opc-nguyet-land"
+FIREBASE_STORAGE_BUCKET = "opc-nguyet-land.firebasestorage.app"
+FIREBASE_MESSAGING_SENDER_ID = "953055559376"
+FIREBASE_APP_ID       = "1:953055559376:web:49adc419d0c06f41e428d5"
+FIREBASE_MEASUREMENT_ID = "G-72ES1R5ZMF"
+
+# Hotline & Contact
+HOTLINE_NGUYET_LAND   = "0935509168"
+ZALO_NGUYET_LAND      = "https://zalo.me/0935509168"
+TELEGRAM_CHAT_ID      = "-1003891453026"
+
+# ──────────────────────────────────────────────────────────────────
+# SECRETS (Khai báo tại đây nhưng giá trị phải nhập qua Dashboard)
+# Dashboard: Cloudflare → Pages → opc-bds-nguyetland → Settings
+#            → Environment Variables → Add variable (Encrypt ✓)
+# ──────────────────────────────────────────────────────────────────
+# GEMINI_API_KEY          → [Nhập tại Dashboard - Encrypted]
+# GOOGLE_API_KEY          → [Nhập tại Dashboard - Encrypted]
+# YOUTUBE_API_KEY         → [Nhập tại Dashboard - Encrypted]
+# FIREBASE_API_KEY        → [Nhập tại Dashboard - Encrypted]
+# TELEGRAM_BOT_TOKEN      → [Nhập tại Dashboard - Encrypted]
+# FIRECRAWL_KEY_1         → [Nhập tại Dashboard - Encrypted]
+# WEBHOOK_SECRET          → [Tự đặt chuỗi bí mật để bảo vệ webhook]

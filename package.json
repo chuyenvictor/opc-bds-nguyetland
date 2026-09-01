@@ -1,0 +1,34 @@
+{
+  "name": "opc-bds-nguyetland",
+  "version": "2.0.0",
+  "description": "OPC-BĐS — AI Agentic Real Estate Cashflow Platform & Virtual Office for Nguyệt Land (Đà Nẵng)",
+  "type": "module",
+  "main": "serve_local.mjs",
+  "scripts": {
+    "start": "node serve_local.mjs",
+    "dev": "node serve_local.mjs",
+    "studio": "start http://localhost:8088/studio",
+    "scan:trends": "node ../../0_NEWS_TREND/scripts/scan_daily_trends.mjs --category=bds",
+    "deploy:pages": "npx wrangler pages deploy . --project-name=opc-bds-nguyetland",
+    "test:e2e": "node scripts/run_full_az_test_and_deploy.mjs",
+    "drip:scan": "node -e \"import('./lib/email-drip-engine.mjs').then(m => m.scanAndExecuteDripCampaign())\""
+  },
+  "keywords": [
+    "opc-bds",
+    "nguyet-land",
+    "real-estate",
+    "cashflow",
+    "da-nang",
+    "homestay",
+    "gemini-ai",
+    "firecrawl"
+  ],
+  "author": "Victor Chuyen & Nguyet Land",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3"
+  }
+}

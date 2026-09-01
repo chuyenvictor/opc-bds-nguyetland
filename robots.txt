@@ -1,0 +1,39 @@
+# ==============================================================================
+# ROBOTS.TXT — NGUYỆT LAND BĐS DÒNG TIỀN ĐÀ NẴNG (OPC-BĐS)
+# Optimized for Google Search, Bing, and Generative AI Search Engines (GEO)
+# ==============================================================================
+
+User-agent: *
+Allow: /
+Allow: /p/
+Allow: /img/
+Allow: /studio
+Disallow: /api/leads/
+Disallow: /api/trends/
+
+# AI Search Engines (Generative Engine Optimization - GEO)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Sitemaps & Knowledge Feeds
+Sitemap: https://bds.breaths.live/sitemap.xml
+Sitemap: https://nguyetland.breaths.live/sitemap.xml
+
+# LLM Knowledge Feed for AI Agents
+# https://llmstxt.org/
+# Knowledge File: https://bds.breaths.live/llms.txt
