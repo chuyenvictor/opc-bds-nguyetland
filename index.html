@@ -1243,23 +1243,54 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
         async function submitReportDownload(e) {
             e.preventDefault();
             const leadData = {
-                name: document.getElementById('rep-name').value,
-                phone: document.getElementById('rep-phone').value,
+                name: document.getElementById('rep-name').value.trim() || 'Nhà Đầu Tư VIP',
+                phone: document.getElementById('rep-phone').value.trim(),
                 budget: 'Tải Báo Cáo Thị Trường Q3/2026',
                 propertyTitle: 'TẢI BÁO CÁO THỊ TRƯỜNG ĐÀ NẴNG (FREE PDF)'
             };
+
+            if (typeof window.syncLeadToGoogleAndTelegram === 'function') {
+                window.syncLeadToGoogleAndTelegram(leadData);
+            }
+
             try {
-                const res = await fetch('/api/leads/submit', {
+                fetch('/api/leads/submit', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(leadData)
-                });
-                const data = await res.json();
-                alert('🎉 Cảm ơn quý khách! Báo cáo 45 trang BĐS Dòng Tiền Đà Nẵng Q3/2026 đã được gửi trực tiếp qua Zalo số ' + leadData.phone);
-                closeReportModal();
-            } catch (err) {
-                alert('Lỗi: ' + err.message);
+                }).catch(() => {});
+            } catch (_) {}
+
+            alert('🎉 Cảm ơn quý khách! Báo cáo 45 trang BĐS Dòng Tiền Đà Nẵng Q3/2026 đã được ghi nhận và gửi trực tiếp qua Zalo số: ' + leadData.phone);
+            closeReportModal();
+        }
+
+        async function submitVipAuth(e) {
+            e.preventDefault();
+            const authData = {
+                name: document.getElementById('auth-name').value.trim() || 'Nhà Đầu Tư VIP',
+                phone: document.getElementById('auth-phone').value.trim(),
+                email: document.getElementById('auth-email').value.trim(),
+                budget: document.getElementById('auth-budget').value,
+                role: 'VIP_INVESTOR'
+            };
+
+            if (typeof window.syncLeadToGoogleAndTelegram === 'function') {
+                window.syncLeadToGoogleAndTelegram(authData);
             }
+
+            try {
+                fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(authData)
+                }).catch(() => {});
+            } catch (_) {}
+
+            localStorage.setItem('nguyet_vip_user', JSON.stringify(authData));
+            if (typeof updateHeaderAuthStatus === 'function') updateHeaderAuthStatus();
+            closeAuthModal();
+            alert(`🎉 Chúc mừng Quý Nhà Đầu Tư ${authData.name} đã kích hoạt thành công Hội Viên VIP Nguyệt Land!\nToàn bộ Báo Cáo Thẩm Định và Chuỗi Ebook 30 Ngày sẽ được gửi tới Email: ${authData.email || authData.phone}.`);
         }
     </script>
 

@@ -328,57 +328,129 @@
         }
     };
 
+    const OPC_CONFIG = {
+        GOOGLE_SHEET_WEBHOOK: 'https://script.google.com/macros/s/AKfycbyxNv81Vz3zB98QqlIyQmYdIKiKsJKGXM962TnsrPfNQXK4HVThMHzHJFnhV3O7FIaK/exec',
+        TELEGRAM_BOT_TOKEN: '8832028862:AAFCmbp9QEY3eEdh-NYoOHHjXmUkUyti1Do',
+        TELEGRAM_CHAT_ID: '-1003891453026'
+    };
+
+    window.syncLeadToGoogleAndTelegram = function (leadData) {
+        // 1. Send Telegram Alert Realtime
+        if (OPC_CONFIG.TELEGRAM_BOT_TOKEN) {
+            try {
+                const roleBadge = leadData.role === 'ADMIN' ? '👑 [ADMIN QUẢN TRỊ]' : '⭐ [HỘI VIÊN VIP MỚI / LEAD]';
+                const msg = `${roleBadge} <b>ĐĂNG KÝ THÀNH CÔNG</b>\n\n` +
+                    `👤 <b>Họ tên:</b> ${leadData.name || 'Quý Nhà Đầu Tư'}\n` +
+                    `📞 <b>SĐT / Zalo:</b> <code>${leadData.phone}</code>\n` +
+                    `📧 <b>Email:</b> ${leadData.email || 'Chưa cung cấp'}\n` +
+                    `💰 <b>Tầm tài chính:</b> ${leadData.budget || '15 - 30 Tỷ'}\n` +
+                    `🏢 <b>Tài sản quan tâm:</b> ${leadData.property || leadData.propertyTitle || 'Cổng VIP Nguyệt Land'}\n` +
+                    `⏰ <b>Thời gian:</b> ${new Date().toLocaleString('vi-VN')}\n\n` +
+                    `👉 <a href="https://docs.google.com/spreadsheets/d/1E8sUXO4g4E6Gxi0hYlP0W3X8KYmgroJiUIERaiXGV3g/edit">Mở Google Sheet CRM</a>`;
+
+                fetch(`https://api.telegram.org/bot${OPC_CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: OPC_CONFIG.TELEGRAM_CHAT_ID,
+                        text: msg,
+                        parse_mode: 'HTML'
+                    })
+                }).catch(e => console.warn('[Telegram sync warning]', e));
+            } catch (_) {}
+        }
+
+        // 2. Send Google Apps Script Webhook (no-cors mode ensures browser never blocks)
+        if (OPC_CONFIG.GOOGLE_SHEET_WEBHOOK) {
+            try {
+                fetch(OPC_CONFIG.GOOGLE_SHEET_WEBHOOK, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        action: 'register_user',
+                        leadId: 'LEAD_' + Date.now().toString(36).toUpperCase(),
+                        ...leadData
+                    })
+                }).catch(e => console.warn('[Apps Script sync warning]', e));
+            } catch (_) {}
+        }
+    };
+
     window.handleOpcRegisterSubmit = async function (e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const btn = document.getElementById('btn-opc-reg-submit');
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang kích hoạt...';
-        btn.disabled = true;
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang kích hoạt...';
+            btn.disabled = true;
+        }
+
+        const nameEl = document.getElementById('opc-reg-name');
+        const phoneEl = document.getElementById('opc-reg-phone');
+        const emailEl = document.getElementById('opc-reg-email');
+        const budgetEl = document.getElementById('opc-reg-budget');
 
         const payload = {
-            name: document.getElementById('opc-reg-name').value.trim(),
-            phone: document.getElementById('opc-reg-phone').value.trim(),
-            email: document.getElementById('opc-reg-email').value.trim(),
-            budget: document.getElementById('opc-reg-budget').value
+            name: (nameEl ? nameEl.value : '').trim() || 'Nhà Đầu Tư VIP',
+            phone: (phoneEl ? phoneEl.value : '').trim(),
+            email: (emailEl ? emailEl.value : '').trim(),
+            budget: budgetEl ? budgetEl.value : '5 - 15 Tỷ',
+            role: 'VIP_INVESTOR'
+        };
+
+        const cleanPhone = payload.phone.replace(/[^0-9]/g, '');
+        if (!payload.name || cleanPhone.length < 9) {
+            alert('Vui lòng nhập đầy đủ Họ tên và Số điện thoại Zalo hợp lệ (tối thiểu 10 số)');
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP NGAY';
+                btn.disabled = false;
+            }
+            return;
+        }
+
+        const userData = {
+            id: 'USR_' + Date.now().toString(36).toUpperCase(),
+            name: payload.name,
+            phone: payload.phone,
+            email: payload.email,
+            role: 'VIP_INVESTOR',
+            budget: payload.budget
         };
 
         try {
-            let userData = {
-                id: 'USR_' + Date.now().toString(36).toUpperCase(),
-                name: payload.name,
-                phone: payload.phone,
-                email: payload.email,
-                role: 'VIP_INVESTOR',
-                budget: payload.budget
-            };
+            // 1. Đồng bộ Realtime sang Google Sheet Webhook & Telegram Bot
+            window.syncLeadToGoogleAndTelegram(userData);
 
+            // 2. Thử gọi Node.js backend nếu có
             try {
-                const res = await fetch('/api/auth/register', {
+                fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && data.user) {
-                        userData = data.user;
-                        if (data.token) localStorage.setItem('opc_auth_token', data.token);
-                    }
-                }
-            } catch (apiErr) {
-                console.log('[Auth API Offline, saving VIP user session locally]');
-            }
+                }).catch(() => {});
+            } catch (_) {}
 
+            // 3. Lưu phiên VIP vào máy
             localStorage.setItem('nguyet_vip_user', JSON.stringify(userData));
+            localStorage.setItem('opc_auth_token', 'JWT_VIP_' + userData.id);
+
+            // 4. Cập nhật giao diện
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             openOpcWelcomeModal(userData.name);
+
+            alert(`🎉 Chúc mừng Quý Nhà Đầu Tư ${userData.name} đã đăng ký thành công Hội Viên VIP của Nguyệt Land!\nToàn bộ Báo Cáo Thẩm Định và Chuỗi Ebook 30 Ngày sẽ được gửi tới Email/Zalo: ${userData.email || userData.phone}.`);
         } catch (err) {
+            localStorage.setItem('nguyet_vip_user', JSON.stringify(userData));
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             openOpcWelcomeModal(payload.name);
+            alert(`🎉 Chúc mừng ${payload.name} đã kích hoạt thành công Hội Viên VIP Nguyệt Land!`);
         } finally {
-            btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP NGAY';
-            btn.disabled = false;
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP NGAY';
+                btn.disabled = false;
+            }
         }
     };
 
@@ -484,42 +556,44 @@
     };
 
     window.handleOpcBookingSubmit = async function (e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const btn = document.getElementById('btn-opc-book-submit');
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gửi lịch hẹn...';
-        btn.disabled = true;
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang gửi lịch hẹn...';
+            btn.disabled = true;
+        }
 
         const payload = {
-            property: document.getElementById('opc-book-property').value.trim(),
-            name: document.getElementById('opc-book-name').value.trim(),
-            phone: document.getElementById('opc-book-phone').value.trim(),
-            preferredTime: document.getElementById('opc-book-time').value,
-            budget: document.getElementById('opc-book-budget').value
+            property: (document.getElementById('opc-book-property') || {}).value || 'BĐS Dòng Tiền Đà Nẵng',
+            name: (document.getElementById('opc-book-name') || {}).value || 'Nhà Đầu Tư VIP',
+            phone: (document.getElementById('opc-book-phone') || {}).value || '',
+            preferredTime: (document.getElementById('opc-book-time') || {}).value || 'Sáng (08:30 - 11:30)',
+            budget: (document.getElementById('opc-book-budget') || {}).value || '15 - 30 Tỷ'
         };
 
         const bookingCode = 'OPC-BK-' + Date.now().toString(36).toUpperCase();
 
-        try {
-            try {
-                const res = await fetch('/api/leads/consultation', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.bookingCode) bookingCode = data.bookingCode;
-                }
-            } catch (apiErr) {
-                console.log('[Consultation API Offline, fallback to direct code]');
-            }
+        // Sync lead to Google Sheet & Telegram
+        if (typeof window.syncLeadToGoogleAndTelegram === 'function') {
+            window.syncLeadToGoogleAndTelegram({
+                ...payload,
+                propertyTitle: payload.property,
+                note: `Đặt lịch khảo sát thực địa [${bookingCode}] lúc ${payload.preferredTime}`
+            });
+        }
 
-            closeOpcBookingModal();
-            alert(`✅ ĐẶT LỊCH THÀNH CÔNG!\n\nMã Đặt Chỗ: ${bookingCode}\nChuyên viên Nguyệt Land sẽ gọi điện xác nhận trong 5 phút!`);
-        } catch (err) {
-            closeOpcBookingModal();
-            alert(`✅ ĐẶT LỊCH THÀNH CÔNG!\n\nMã Đặt Chỗ: ${bookingCode}\nChuyên viên Nguyệt Land sẽ gọi điện xác nhận trong 5 phút!`);
-        } finally {
+        try {
+            fetch('/api/leads/consultation', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(() => {});
+        } catch (_) {}
+
+        closeOpcBookingModal();
+        alert(`✅ ĐẶT LỊCH THÀNH CÔNG!\n\nMã Đặt Chỗ: ${bookingCode}\nChuyên viên Nguyệt Land sẽ gọi điện xác nhận trong 5 phút!`);
+
+        if (btn) {
             btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> XÁC NHẬN ĐẶT LỊCH REALTIME';
             btn.disabled = false;
         }
