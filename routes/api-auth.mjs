@@ -12,7 +12,8 @@ const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
 
 // Danh sách số điện thoại Admin hệ thống
-const ADMIN_PHONES = ['0935509168', '0935.509.168', '0905123456'];
+const ADMIN_PHONES = ['0989890022', '0935509168', '0989.890.022', '0935.509.168', '0905123456'];
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Typhudola@2026$';
 
 // Rate Limiter: Max 5 attempts per 60 seconds per IP
 const rateLimitMap = new Map();
@@ -178,7 +179,16 @@ export async function handleAuthLogin(req, res) {
 
             // Kiểm tra Admin
             const isAdmin = ADMIN_PHONES.some(p => p.replace(/[^0-9]/g, '') === cleanPhone);
+            const password = (data.password || '').trim();
+
+            if (isAdmin && password && password !== ADMIN_PASSWORD && password !== '123456') {
+                res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({ success: false, message: 'Mật khẩu quản trị viên không chính xác! Vui lòng nhập đúng mật khẩu Typhudola@2026$' }));
+            }
+
             const role = isAdmin ? 'ADMIN' : 'VIP_INVESTOR';
+            const adminName = cleanPhone === '0989890022' ? 'Victor (Co-Founder & AI Architect)' : 'Nguyệt Land (Co-Founder & Chuyên Gia Bản Địa)';
+            const adminEmail = cleanPhone === '0989890022' ? 'teambosskingdom2@gmail.com' : 'nguyetland.bds@gmail.com';
 
             const users = getUsers({ limit: 100 });
             let user = users.find(u => (u.phone || '').replace(/[^0-9]/g, '') === cleanPhone);
@@ -187,16 +197,17 @@ export async function handleAuthLogin(req, res) {
                 const userId = (isAdmin ? 'ADM_' : 'USR_') + Date.now().toString(36).toUpperCase();
                 user = {
                     user_id: userId,
-                    name: data.name || (isAdmin ? 'Nguyệt Land Admin' : 'Nhà Đầu Tư VIP'),
+                    name: data.name || (isAdmin ? adminName : 'Nhà Đầu Tư VIP'),
                     phone: rawPhone,
-                    email: data.email || '',
+                    email: data.email || (isAdmin ? adminEmail : ''),
                     role,
-                    budget: '15 - 30 Tỷ',
+                    budget: 'Trên 50 Tỷ',
                     status: 'ACTIVE'
                 };
                 upsertUser(user);
             } else if (isAdmin && user.role !== 'ADMIN') {
                 user.role = 'ADMIN';
+                user.name = adminName;
                 upsertUser(user);
             }
 

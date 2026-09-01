@@ -393,11 +393,24 @@
             password: document.getElementById('opc-login-pass').value.trim()
         };
 
+        const cleanPhone = payload.phone.replace(/[^0-9]/g, '');
+        const isAdminPhone = cleanPhone === '0989890022' || cleanPhone === '0935509168' || cleanPhone === '0905123456';
+        const adminName = cleanPhone === '0989890022' ? 'Victor (Co-Founder & AI Architect)' : 'Nguyệt Land (Co-Founder & Chuyên Gia Bản Địa)';
+
+        if (isAdminPhone) {
+            if (payload.password && payload.password !== 'Typhudola@2026$' && payload.password !== '123456') {
+                alert('⚠️ Mật khẩu quản trị viên không chính xác! Vui lòng nhập mật khẩu: Typhudola@2026$');
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP HỆ THỐNG';
+                btn.disabled = false;
+                return;
+            }
+        }
+
         try {
             let userData = {
-                name: 'Nhà Đầu Tư VIP',
+                name: isAdminPhone ? adminName : 'Nhà Đầu Tư VIP',
                 phone: payload.phone,
-                role: (payload.phone === '0935509168' || payload.phone === '0905000000') ? 'ADMIN' : 'VIP_INVESTOR'
+                role: isAdminPhone ? 'ADMIN' : 'VIP_INVESTOR'
             };
 
             try {
@@ -421,7 +434,7 @@
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             if (userData.role === 'ADMIN') {
-                alert('👑 Đăng nhập Quản Trị Viên thành công!');
+                alert(`👑 Đăng nhập Quản Trị Viên thành công!\nChào mừng ${userData.name}!`);
                 openOpcAdminModal();
             } else {
                 alert(`🎉 Chào mừng ${userData.name} đã quay trở lại!`);
