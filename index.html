@@ -14,13 +14,12 @@
     <link rel="apple-touch-icon" href="/img/nguyet-bds.png">
     
     <!-- Google Analytics 4 — Conversion Funnel Tracking -->
-    <!-- ⚠️ Thay G-XXXXXXXXXX bằng GA4 Measurement ID thực tế của Nguyệt Land -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NGUYETLAND01"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-72ES1R5ZMF"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){ dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', 'G-NGUYETLAND01', {
+        gtag('config', 'G-72ES1R5ZMF', {
             page_title: document.title,
             page_location: window.location.href,
             custom_map: { dimension1: 'user_type', dimension2: 'property_interest' }
@@ -181,23 +180,24 @@
         }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-slate-950">
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-slate-950 pb-24 md:pb-0">
 
-    <!-- Top Navigation -->
-    <header class="glass-panel sticky top-0 z-50 px-6 py-4 flex items-center justify-between border-b border-gold-500/20">
-        <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-gold-600 via-amber-400 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-2xl shadow-xl glow-gold">
+    <!-- Top Navigation (Optimized Responsive Header) -->
+    <header class="glass-panel sticky top-0 z-50 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between border-b border-gold-500/20">
+        <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-gold-600 via-amber-400 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-xl sm:text-2xl shadow-xl glow-gold flex-shrink-0">
                 👑
             </div>
             <div>
-                <h1 class="font-serif font-black text-xl text-amber-300 tracking-wide">
-                    NGUYỆT LAND <span class="text-xs font-sans px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30">BĐS Dòng Tiền Đà Nẵng</span>
+                <h1 class="font-serif font-black text-base sm:text-xl text-amber-300 tracking-wide flex items-center gap-1.5 flex-wrap">
+                    NGUYỆT LAND <span class="text-[10px] sm:text-xs font-sans px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30 whitespace-nowrap">BĐS Dòng Tiền Đà Nẵng</span>
                 </h1>
-                <p class="text-xs text-slate-400">Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật</p>
+                <p class="text-[10px] sm:text-xs text-slate-400 hidden xs:block truncate max-w-[220px] sm:max-w-none">Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật</p>
             </div>
         </div>
 
-        <div class="flex items-center gap-3">
+        <!-- Desktop Navigation Items -->
+        <div class="hidden md:flex items-center gap-3">
             <div id="auth-nav-container">
                 <button onclick="openAuthModal()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition shadow-sm">
                     <i class="fa-solid fa-crown text-amber-400"></i> Đăng Nhập VIP
@@ -213,14 +213,26 @@
                 <i class="fa-solid fa-phone"></i> Hotline: 0935.509.168
             </a>
         </div>
+
+        <!-- Mobile Header Actions (VIP Quick Button + Hamburger Menu) -->
+        <div class="flex md:hidden items-center gap-2">
+            <div id="auth-nav-container-mobile">
+                <button onclick="openAuthModal()" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-xs font-bold flex items-center gap-1 shadow-md">
+                    <i class="fa-solid fa-crown text-[10px]"></i> VIP
+                </button>
+            </div>
+            <button onclick="toggleMobileDrawer()" aria-label="Mở Menu" class="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center hover:text-amber-400 hover:border-amber-400/40 transition">
+                <i class="fa-solid fa-bars text-base"></i>
+            </button>
+        </div>
     </header>
 
     <!-- Breaking News Ticker (Live Realtime RSS from Top VN Publishers) -->
-    <div class="bg-gradient-to-r from-amber-600/20 via-slate-900 to-rose-600/20 border-b border-amber-500/20 px-4 py-2 flex items-center overflow-hidden z-40 text-xs">
-        <div class="flex items-center gap-2 bg-amber-500 text-slate-950 font-black px-2.5 py-0.5 rounded-md uppercase text-[10px] flex-shrink-0 tracking-wider shadow-sm animate-pulse">
-            <i class="fa-solid fa-bolt"></i> Tin Nóng BĐS
+    <div class="bg-gradient-to-r from-amber-600/20 via-slate-900 to-rose-600/20 border-b border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 flex items-center overflow-hidden z-40 text-xs">
+        <div class="flex items-center gap-1.5 bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded uppercase text-[9px] sm:text-[10px] flex-shrink-0 tracking-wider shadow-sm animate-pulse">
+            <i class="fa-solid fa-bolt"></i> Tin Nóng
         </div>
-        <div class="overflow-hidden whitespace-nowrap ml-3 w-full text-slate-300">
+        <div class="overflow-hidden whitespace-nowrap ml-2.5 w-full text-slate-300">
             <span id="ticker-content" class="inline-block animate-marquee font-medium">
                 🔥 <b>ĐÀ NẴNG 2026:</b> Công suất lấp phòng tại Phố Tây An Thượng & Biển Mỹ Khê đạt đỉnh 92.8% &nbsp; | &nbsp;
                 📈 <b>BẢNG GIÁ ĐẤT MỚI:</b> Tỷ suất dòng tiền căn hộ dịch vụ ven biển vượt mốc 10.5%/năm &nbsp; | &nbsp;
@@ -230,33 +242,40 @@
         </div>
     </div>
 
-    <section class="relative py-16 px-6 max-w-7xl mx-auto w-full text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase mb-6 shadow-sm">
+    <section class="relative py-10 sm:py-16 px-4 sm:px-6 max-w-7xl mx-auto w-full text-center">
+        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-[11px] sm:text-xs font-bold uppercase mb-4 sm:mb-6 shadow-sm">
             ✨ HỆ THỐNG BẤT ĐỘNG SẢN DÒNG TIỀN THỰC CHIẾN ĐÀ NẴNG
         </div>
         
-        <h2 class="font-serif font-black text-4xl lg:text-6xl text-slate-50 tracking-tight leading-tight max-w-4xl mx-auto">
-            Đầu Tư An Toàn, Nhận Dòng Tiền Thật <span class="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent">8.5% – 14%/Năm</span> Ngay Tại Đà Nẵng
+        <h2 class="font-serif font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-50 tracking-tight leading-tight max-w-4xl mx-auto flex flex-col items-center gap-1 sm:gap-2">
+            <span class="text-slate-100">Đầu Tư An Toàn</span>
+            <span class="text-amber-300">Nhận Dòng Tiền Thật</span>
+            <span class="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl lg:text-6xl my-1">
+                8.5% – 14%/Năm
+            </span>
+            <span class="text-xs sm:text-sm font-sans font-medium text-emerald-400 tracking-wider uppercase bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30 mt-1">
+                📍 Ngay Tại Đà Nẵng
+            </span>
         </h2>
         
-        <p class="text-base text-slate-300 max-w-2xl mx-auto mt-6 leading-relaxed">
+        <p class="text-xs sm:text-base text-slate-300 max-w-2xl mx-auto mt-4 sm:mt-6 leading-relaxed">
             "Không vẽ phối cảnh ảo — Không thổi giá đất — Chỉ tư vấn căn hộ dịch vụ, homestay, khách sạn có số liệu sao kê dòng tiền thật và pháp lý minh bạch."
         </p>
 
         <!-- Founder Profile Card & Authentic Character Showcase -->
-        <div class="glass-card rounded-3xl p-8 max-w-4xl mx-auto mt-12 border border-amber-500/30 flex flex-col md:flex-row items-center gap-8 shadow-2xl">
-            <div class="relative w-44 h-44 md:w-52 md:h-52 flex-shrink-0">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 max-w-4xl mx-auto mt-8 sm:mt-12 border border-amber-500/30 flex flex-col md:flex-row items-center gap-6 sm:gap-8 shadow-2xl">
+            <div class="relative w-36 h-36 sm:w-44 sm:h-44 md:w-52 md:h-52 flex-shrink-0">
                 <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-amber-500 via-rose-500 to-amber-300 animate-pulse blur-md opacity-40"></div>
                 <img src="/img/nguyet-bds.png" alt="Nguyệt Land" class="relative w-full h-full object-cover object-top rounded-3xl border-2 border-amber-400 shadow-2xl" />
                 <div class="absolute -bottom-2 -right-2 bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 text-[10px] font-black uppercase px-3 py-1 rounded-full shadow-lg">
                     ✓ Verified
                 </div>
             </div>
-            <div class="text-left flex-1">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-bold mb-2 border border-rose-500/30">
+            <div class="text-left flex-1 w-full">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-[11px] sm:text-xs font-bold mb-2 border border-rose-500/30">
                     👑 Chuyên Gia Bản Địa Đà Nẵng
                 </div>
-                <h3 class="font-serif font-black text-2xl lg:text-3xl text-slate-50">
+                <h3 class="font-serif font-black text-xl sm:text-2xl lg:text-3xl text-slate-50">
                     Nguyệt Land <span class="text-xs font-sans font-normal text-slate-400">(Nữ Co-Founder OPC-BĐS)</span>
                 </h3>
                 <p class="text-xs text-amber-400 font-semibold mt-1">
@@ -265,11 +284,11 @@
                 <p class="text-xs text-slate-300 mt-3 leading-relaxed">
                     Với hơn 20 năm sinh sống và kinh nghiệm thực chiến tại Đà Nẵng, Nguyệt không nói chung chung 'đầu tư sinh lời' mà luôn cung cấp số liệu thật: giá thuê, tỷ suất Cap Rate, công suất lấp phòng và sổ đỏ gốc đã hoàn công. Dám nói thẳng rủi ro để bảo vệ vốn an toàn cho nhà đầu tư.
                 </p>
-                <div class="flex items-center gap-3 mt-5">
-                    <a href="https://zalo.me/0935509168" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-slate-50 font-bold text-xs shadow-lg flex items-center gap-2 hover:brightness-110 transition">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-5 w-full">
+                    <a href="https://zalo.me/0935509168" target="_blank" class="w-full sm:w-auto px-4 py-3 sm:py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-slate-50 font-bold text-xs shadow-lg flex items-center justify-center gap-2 hover:brightness-110 transition">
                         <i class="fa-solid fa-phone"></i> Zalo / Hotline: 0935.509.168
                     </a>
-                    <a href="/studio" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs border border-slate-700 flex items-center gap-2 transition">
+                    <a href="/studio" class="w-full sm:w-auto px-4 py-3 sm:py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-xs border border-slate-700 flex items-center justify-center gap-2 transition">
                         <i class="fa-solid fa-wand-magic-sparkles"></i> Mở AI Cashflow Studio
                     </a>
                 </div>
@@ -1408,6 +1427,102 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
             loadLiveTicker();
             setInterval(loadLiveTicker, 180000);
         });
+
+        // ── MOBILE DRAWER CONTROLLER ──────────────────────
+        function toggleMobileDrawer() {
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+            const drawer = document.getElementById('mobile-drawer');
+            if (!drawer) return;
+            const isClosed = drawer.classList.contains('translate-x-full');
+            if (isClosed) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+                drawer.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+                document.body.style.overflow = '';
+            }
+        }
     </script>
+
+    <!-- Mobile Drawer Overlay & Slide-out Menu -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden transition-opacity duration-300 opacity-0" onclick="toggleMobileDrawer()"></div>
+    <div id="mobile-drawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-slate-950/98 border-l border-amber-500/30 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-gold-600 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-sm">
+                    👑
+                </div>
+                <div>
+                    <span class="font-serif font-black text-amber-300 text-sm block">NGUYỆT LAND</span>
+                    <span class="text-[9px] text-emerald-400 block font-medium">BĐS Dòng Tiền Đà Nẵng</span>
+                </div>
+            </div>
+            <button onclick="toggleMobileDrawer()" aria-label="Đóng Menu" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-2 mt-5 flex-1 overflow-y-auto pr-1">
+            <a href="/" onclick="toggleMobileDrawer()" class="px-4 py-3 rounded-xl bg-amber-500/10 text-amber-300 font-bold text-xs flex items-center gap-3 border border-amber-500/30 shadow-sm">
+                <i class="fa-solid fa-house text-amber-400 text-sm"></i> Trang Chủ Portal
+            </a>
+            <a href="/news" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-newspaper text-amber-400 text-sm"></i> Bản Tin & Video Q3/2026
+            </a>
+            <a href="/studio" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-sm"></i> AI Cashflow Studio
+            </a>
+            <button onclick="toggleMobileDrawer(); document.getElementById('financial-calculator').scrollIntoView({behavior:'smooth'})" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 text-left transition">
+                <i class="fa-solid fa-calculator text-emerald-400 text-sm"></i> Bộ Tính Đòn Bẩy 15 Năm
+            </button>
+            <button onclick="toggleMobileDrawer(); openReportModal()" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 text-left transition">
+                <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i> Tải Ebook Thẩm Định 4 Lớp
+            </button>
+            <a href="https://zalo.me/0935509168" target="_blank" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-emerald-400 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-comment-dots text-emerald-400 text-sm"></i> Chat Zalo Cùng Chị Nguyệt
+            </a>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex flex-col gap-2.5">
+            <button onclick="toggleMobileDrawer(); openAuthModal()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition">
+                <i class="fa-solid fa-crown"></i> Đăng Nhập / Đăng Ký VIP
+            </button>
+            <a href="tel:0935509168" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-110 transition">
+                <i class="fa-solid fa-phone"></i> Hotline: 0935.509.168
+            </a>
+        </div>
+    </div>
+
+    <!-- Floating Mobile Bottom Action Bar (Cố Định Đáy Màn Hình Cho Mobile) -->
+    <nav aria-label="Thanh điều hướng nhanh di động" class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-slate-950/95 border-t border-amber-500/30 backdrop-blur-xl px-2 py-1.5 flex items-center justify-around shadow-2xl">
+        <a href="tel:0935509168" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-emerald-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-xs shadow-md animate-pulse">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <span>Gọi Hotline</span>
+        </a>
+        <a href="https://zalo.me/0935509168" target="_blank" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-sky-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <span>Chat Zalo</span>
+        </a>
+        <button onclick="document.getElementById('financial-calculator').scrollIntoView({behavior:'smooth'})" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-amber-300 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+            <span>Tính Đòn Bẩy</span>
+        </button>
+        <button onclick="openAuthModal()" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-yellow-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <span>Hội Viên VIP</span>
+        </button>
+    </nav>
 </body>
 </html>

@@ -19,7 +19,7 @@
     function initSocialProof() {
         const toast = document.createElement('div');
         toast.id = 'live-social-proof-toast';
-        toast.className = 'fixed bottom-20 left-4 z-40 max-w-sm p-3.5 rounded-2xl bg-slate-950/95 border border-amber-500/40 text-slate-100 shadow-2xl backdrop-blur-xl transition-all duration-500 transform translate-y-32 opacity-0 pointer-events-auto flex items-start gap-3';
+        toast.className = 'fixed bottom-20 md:bottom-6 left-3 right-3 md:left-6 md:right-auto md:max-w-sm z-40 p-3 rounded-2xl bg-slate-950/95 border border-amber-500/40 text-slate-100 shadow-2xl backdrop-blur-xl transition-all duration-500 transform translate-y-32 opacity-0 pointer-events-auto flex items-start gap-3';
         document.body.appendChild(toast);
 
         function showNextToast() {

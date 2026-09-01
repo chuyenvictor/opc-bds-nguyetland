@@ -40,17 +40,17 @@
         .animate-marquee:hover { animation-play-state: paused; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950">
+<body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 pb-20 md:pb-0">
 
-    <!-- TOP BAR -->
-    <header class="sticky top-0 z-50 glass border-b border-slate-800/80 px-4 lg:px-8 py-3">
+    <!-- TOP BAR (Optimized Responsive Header) -->
+    <header class="sticky top-0 z-50 glass border-b border-slate-800/80 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-6">
-                <a href="/" class="flex items-center gap-3 group">
-                    <img src="/img/nguyet-bds.png" alt="Nguyet Land Logo" class="w-9 h-9 rounded-full object-cover border border-amber-400 shadow-md">
+            <div class="flex items-center gap-3 sm:gap-6">
+                <a href="/" class="flex items-center gap-2 sm:gap-3 group">
+                    <img src="/img/nguyet-bds.png" alt="Nguyet Land Logo" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full object-cover border border-amber-400 shadow-md">
                     <div>
-                        <span class="font-serif font-black text-lg tracking-wider text-amber-400 group-hover:text-amber-300 transition">NGUYỆT LAND</span>
-                        <p class="text-[10px] text-slate-400 tracking-widest uppercase font-medium">BĐS Dòng Tiền & Bản Tin AI 2026</p>
+                        <span class="font-serif font-black text-base sm:text-lg tracking-wider text-amber-400 group-hover:text-amber-300 transition">NGUYỆT LAND</span>
+                        <p class="text-[9px] sm:text-[10px] text-slate-400 tracking-widest uppercase font-medium">BĐS Dòng Tiền & Bản Tin AI 2026</p>
                     </div>
                 </a>
                 <nav class="hidden md:flex items-center gap-4 text-xs font-semibold text-slate-300">
@@ -61,13 +61,16 @@
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
                 <div id="auth-nav-container">
-                    <button onclick="openAuthModal()" class="px-3 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition shadow-sm">
-                        <i class="fa-solid fa-crown text-amber-400"></i> Đăng Nhập VIP
+                    <button onclick="openAuthModal()" class="px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-xs font-bold text-amber-300 border border-amber-500/40 flex items-center gap-1.5 transition shadow-sm">
+                        <i class="fa-solid fa-crown text-amber-400 text-xs"></i> <span class="hidden xs:inline">Đăng Nhập</span> VIP
                     </button>
                 </div>
-                <a href="https://zalo.me/0935509168" target="_blank" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-lg flex items-center gap-1.5 transition">
-                    <i class="fa-solid fa-phone"></i> <span class="hidden sm:inline">0935.509.168</span>
+                <a href="https://zalo.me/0935509168" target="_blank" class="hidden sm:flex px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-lg items-center gap-1.5 transition">
+                    <i class="fa-solid fa-phone"></i> <span>0935.509.168</span>
                 </a>
+                <button onclick="toggleMobileDrawer()" aria-label="Menu" class="md:hidden w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center hover:text-amber-400">
+                    <i class="fa-solid fa-bars text-sm"></i>
+                </button>
             </div>
         </div>
     </header>
@@ -1054,7 +1057,96 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
                 <i class="fa-solid fa-stop"></i>
             </button>
         </div>
+    <!-- Mobile Drawer Overlay & Slide-out Menu -->
+    <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden transition-opacity duration-300 opacity-0" onclick="toggleMobileDrawer()"></div>
+    <div id="mobile-drawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-slate-950/98 border-l border-amber-500/30 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-gold-600 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-sm">
+                    👑
+                </div>
+                <div>
+                    <span class="font-serif font-black text-amber-300 text-sm block">NGUYỆT LAND</span>
+                    <span class="text-[9px] text-emerald-400 block font-medium">Bản Tin & Video Q3/2026</span>
+                </div>
+            </div>
+            <button onclick="toggleMobileDrawer()" aria-label="Đóng Menu" class="w-8 h-8 rounded-lg bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+        </div>
+
+        <div class="flex flex-col gap-2 mt-5 flex-1 overflow-y-auto pr-1">
+            <a href="/" onclick="toggleMobileDrawer()" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-house text-amber-400 text-sm"></i> Kho BĐS Thẩm Định (Portal)
+            </a>
+            <a href="/news" onclick="toggleMobileDrawer()" class="px-4 py-3 rounded-xl bg-amber-500/10 text-amber-300 font-bold text-xs flex items-center gap-3 border border-amber-500/30 shadow-sm">
+                <i class="fa-solid fa-newspaper text-amber-400 text-sm"></i> Bản Tin & Video Q3/2026
+            </a>
+            <a href="/studio" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-slate-200 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-wand-magic-sparkles text-amber-400 text-sm"></i> AI Cashflow Studio
+            </a>
+            <a href="https://zalo.me/0935509168" target="_blank" class="px-4 py-3 rounded-xl bg-slate-900/70 hover:bg-slate-800 text-emerald-400 font-medium text-xs flex items-center gap-3 border border-slate-800 transition">
+                <i class="fa-solid fa-comment-dots text-emerald-400 text-sm"></i> Chat Zalo Cùng Chị Nguyệt
+            </a>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex flex-col gap-2.5">
+            <button onclick="toggleMobileDrawer(); openAuthModal()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 shadow-lg hover:brightness-110 transition">
+                <i class="fa-solid fa-crown"></i> Đăng Nhập / Đăng Ký VIP
+            </button>
+            <a href="tel:0935509168" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md hover:brightness-110 transition">
+                <i class="fa-solid fa-phone"></i> Hotline: 0935.509.168
+            </a>
+        </div>
     </div>
+
+    <!-- Floating Mobile Bottom Action Bar (Cố Định Đáy Màn Hình Cho Mobile) -->
+    <nav aria-label="Thanh điều hướng nhanh di động" class="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-slate-950/95 border-t border-amber-500/30 backdrop-blur-xl px-2 py-1.5 flex items-center justify-around shadow-2xl">
+        <a href="tel:0935509168" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-emerald-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-xs shadow-md animate-pulse">
+                <i class="fa-solid fa-phone"></i>
+            </div>
+            <span>Hotline</span>
+        </a>
+        <a href="https://zalo.me/0935509168" target="_blank" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-sky-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400/40 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-comment-dots"></i>
+            </div>
+            <span>Zalo Nguyệt</span>
+        </a>
+        <a href="/" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-amber-300 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-house"></i>
+            </div>
+            <span>Kho BĐS</span>
+        </a>
+        <button onclick="openAuthModal()" class="flex flex-col items-center justify-center gap-0.5 text-[10px] font-bold text-yellow-400 active:scale-95 transition py-1 px-2">
+            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center text-xs shadow-md">
+                <i class="fa-solid fa-crown"></i>
+            </div>
+            <span>Hội Viên VIP</span>
+        </button>
+    </nav>
+
+    <script>
+        function toggleMobileDrawer() {
+            const backdrop = document.getElementById('mobile-drawer-backdrop');
+            const drawer = document.getElementById('mobile-drawer');
+            if (!drawer) return;
+            const isClosed = drawer.classList.contains('translate-x-full');
+            if (isClosed) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
+                drawer.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full');
+                backdrop.classList.add('opacity-0');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+                document.body.style.overflow = '';
+            }
+        }
+    </script>
 </body>
 </html>
 
