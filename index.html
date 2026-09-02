@@ -1439,10 +1439,16 @@
                             <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Cash-on-Cash ROI:</span>
                             <p id="res-coc" class="text-lg sm:text-xl font-black text-amber-300 font-mono sm:mt-0.5">9.5% / Năm</p>
                         </div>
-                        <button onclick="openLeadModal('Tư Vấn Bài Toán Đòn Bẩy Ngân Hàng')" class="w-full sm:w-auto px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-xl transition flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-file-invoice-dollar text-sm"></i>
-                            <span>Nhận Bảng Tính Chi Tiết</span>
-                        </button>
+                        <div class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                            <button type="button" onclick="openInvestmentDossier()" class="w-full sm:w-auto px-3.5 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/40 font-bold text-xs shadow-lg transition flex items-center justify-center gap-1.5 hover:border-amber-400">
+                                <i class="fa-solid fa-file-pdf text-amber-400"></i>
+                                <span>Xuất Dossier PDF 4 Lớp</span>
+                            </button>
+                            <button onclick="openLeadModal('Tư Vấn Bài Toán Đòn Bẩy Ngân Hàng')" class="w-full sm:w-auto px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-xl transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-file-invoice-dollar text-sm"></i>
+                                <span>Nhận Bảng Tính Chi Tiết</span>
+                            </button>
+                        </div>
                     </div>
 
                 </div>
@@ -2558,8 +2564,12 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
         }
 
         function downloadAppraisalPdf() {
-            alert(`🎉 Hồ sơ thẩm định 4 lớp đầy đủ của "${currentAppraisalTitle}" đang được tạo bản PDF chuẩn in. Quý khách cũng có thể liên hệ Zalo 0935.509.168 để nhận file gốc có đóng dấu.`);
-            window.print();
+            closeAppraisalModal();
+            if (typeof window.openInvestmentDossier === 'function') {
+                window.openInvestmentDossier();
+            } else {
+                window.print();
+            }
         }
 
         // ── 🧮 1-CLICK LOAD PROPERTY INTO CALCULATOR ──
@@ -3006,5 +3016,8 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
             <span>Hội Viên VIP</span>
         </button>
     </nav>
+
+    <!-- 👑 Nguyệt Land 2026 AI Concierge & 1-Click PDF Dossier Engine -->
+    <script src="/js/ai-concierge-dossier-engine.js"></script>
 </body>
 </html>
