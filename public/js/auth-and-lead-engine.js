@@ -629,7 +629,8 @@
             if (token) headers['Authorization'] = 'Bearer ' + token;
 
             const res = await fetch('/api/admin/dashboard', { headers });
-            const data = await res.json();
+            const text = await res.text().catch(() => '');
+            const data = text ? (JSON.parse(text) || {}) : {};
             if (data.success) {
                 document.getElementById('adm-leads-cnt').innerText = data.totalLeads || 0;
                 document.getElementById('adm-users-cnt').innerText = data.totalUsers || 0;
