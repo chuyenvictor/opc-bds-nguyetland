@@ -174,7 +174,7 @@
             display: inline-flex;
             align-items: center;
             white-space: nowrap;
-            animation: marquee 95s linear infinite;
+            animation: marquee 40s linear infinite;
             will-change: transform;
         }
         .animate-marquee:hover,
@@ -2536,12 +2536,12 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
             const totalWidth = tickerEl.scrollWidth;
             const halfWidth = totalWidth / 2;
             
-            // TV Broadcast Standard Crawl Rate: 46 px/s (Mobile) and 52 px/s (Desktop)
-            const speedPxPerSec = window.innerWidth < 640 ? 46 : 52;
-            const calculatedDuration = Math.max(25, halfWidth / speedPxPerSec);
+            // TV Broadcast Dynamic Crawl Rate: 76 px/s (Mobile) and 88 px/s (Desktop)
+            const speedPxPerSec = window.innerWidth < 640 ? 76 : 88;
+            const calculatedDuration = Math.max(12, halfWidth / speedPxPerSec);
             
             tickerEl.style.animationDuration = `${calculatedDuration.toFixed(1)}s`;
-            console.log(`[TV News Ticker Engine] 📺 Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
+            console.log(`[TV News Ticker Engine] 📺 Faster Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
         }
 
         async function loadLiveTicker(showSpin = false) {
