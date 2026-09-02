@@ -1,0 +1,49 @@
+{
+  "name": "Nguyệt Land — BĐS Dòng Tiền Đà Nẵng",
+  "short_name": "Nguyệt Land",
+  "description": "Trung tâm BĐS dòng tiền, thẩm định 4 lớp pháp lý & bản tin thời sự BĐS Đà Nẵng 2026",
+  "start_url": "/",
+  "id": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#060911",
+  "theme_color": "#090d16",
+  "categories": ["business", "finance", "real_estate", "news"],
+  "icons": [
+    {
+      "src": "/img/nguyet-bds.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/nguyet-bds.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Kho BĐS Thẩm Định",
+      "short_name": "Kho BĐS",
+      "description": "Xem danh mục căn hộ dòng tiền & khách sạn Đà Nẵng",
+      "url": "/#properties-section",
+      "icons": [{ "src": "/img/nguyet-bds.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Bản Tin & Podcast",
+      "short_name": "Bản Tin",
+      "description": "Bản tin thời sự BĐS & Podcast phân tích dòng tiền",
+      "url": "/news",
+      "icons": [{ "src": "/img/nguyet-bds.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Tính Đòn Bẩy Dòng Tiền",
+      "short_name": "Đòn Bẩy",
+      "description": "Bảng tính đòn bẩy tài chính & Stress Test",
+      "url": "/#financial-calculator",
+      "icons": [{ "src": "/img/nguyet-bds.png", "sizes": "192x192" }]
+    }
+  ]
+}

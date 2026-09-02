@@ -12,6 +12,12 @@
     <link rel="icon" type="image/png" href="/img/nguyet-bds.png">
     <link rel="shortcut icon" href="/img/nguyet-bds.png">
     <link rel="apple-touch-icon" href="/img/nguyet-bds.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#090d16">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nguyệt Land">
+    <script src="/js/pwa-install-engine.js"></script>
     
     <!-- Google Analytics 4 — Conversion Funnel Tracking -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-72ES1R5ZMF"></script>
@@ -427,6 +433,180 @@
                 </div>
             </div>
 
+    <!-- ══════════════════════════════════════════════════════════════════ -->
+    <!-- BẢN ĐỒ NHIỆT DÒNG TIỀN & CÔNG SUẤT PHÒNG ĐÀ NẴNG 2026 (HEATMAP VIP) -->
+    <!-- ══════════════════════════════════════════════════════════════════ -->
+    <section class="py-12 px-4 sm:px-6 max-w-7xl mx-auto w-full" id="cashflow-heatmap-section">
+        <div class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 border border-amber-500/30 relative overflow-hidden shadow-2xl bg-gradient-to-b from-slate-900/90 via-slate-950 to-slate-950">
+            <!-- Background Ambient Glow -->
+            <div class="absolute -top-32 -right-32 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Header -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 pb-6 border-b border-slate-800 relative z-10">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 text-amber-300 text-xs font-bold uppercase mb-2 border border-amber-500/30 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping inline-block"></span>
+                        <i class="fa-solid fa-fire-flame-curved text-amber-400"></i> LIVE CASHFLOW HEATMAP 2026
+                    </div>
+                    <h2 class="font-sans font-black text-2xl sm:text-3xl lg:text-4xl text-slate-100 tracking-tight flex items-center gap-3">
+                        Bản Đồ Nhiệt Dòng Tiền <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500">& Công Suất Phòng Đà Nẵng</span>
+                    </h2>
+                    <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
+                        Dữ liệu đo lường thực tế từ 150+ tòa căn hộ dịch vụ và khách sạn biển tại các phân khu trọng điểm Đà Nẵng Q3/2026.
+                    </p>
+                </div>
+
+                <!-- Zone Quick Selector Pills -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-bold flex-shrink-0" id="heatmap-zone-selector">
+                    <button type="button" onclick="switchHeatmapZone('anthuong')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 heatmap-zone-btn shadow-md flex-shrink-0 transition" data-zone="anthuong">
+                        🏖️ Phố Tây An Thượng
+                    </button>
+                    <button type="button" onclick="switchHeatmapZone('mykhe')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-amber-300 heatmap-zone-btn flex-shrink-0 transition" data-zone="mykhe">
+                        🌊 Biển Mỹ Khê
+                    </button>
+                    <button type="button" onclick="switchHeatmapZone('bacmyan')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-emerald-300 heatmap-zone-btn flex-shrink-0 transition" data-zone="bacmyan">
+                        🌴 Bắc Mỹ An
+                    </button>
+                    <button type="button" onclick="switchHeatmapZone('sontra')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-sky-300 heatmap-zone-btn flex-shrink-0 transition" data-zone="sontra">
+                        🏙️ Bán Đảo Sơn Trà
+                    </button>
+                    <button type="button" onclick="switchHeatmapZone('haichau')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-purple-300 heatmap-zone-btn flex-shrink-0 transition" data-zone="haichau">
+                        🌉 Sông Hàn / Hải Châu
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Content: Map Visual (Left) + Intelligence Dossier (Right) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mt-6 items-center relative z-10">
+                
+                <!-- Left: Hologram Interactive Map Visual (7 cols) -->
+                <div class="lg:col-span-7 bg-slate-950/80 rounded-2xl p-5 border border-slate-800 relative min-h-[340px] flex flex-col justify-between overflow-hidden shadow-inner">
+                    <!-- Map Grid Lines Background -->
+                    <div class="absolute inset-0 opacity-15 bg-[radial-gradient(#fbbf24_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                    
+                    <!-- Coastline Graphic Curve (SVG) -->
+                    <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 40,30 Q 120,60 160,140 T 220,240 T 260,320" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="4 4" />
+                        <path d="M 220,20 Q 280,100 320,180 T 360,280 T 420,340" fill="none" stroke="#fbbf24" stroke-width="2" />
+                        <text x="35%" y="15%" fill="#38bdf8" font-size="10" font-weight="bold" opacity="0.6">🌊 VỊNH ĐÀ NẴNG</text>
+                        <text x="70%" y="45%" fill="#fbbf24" font-size="10" font-weight="bold" opacity="0.6">🏖️ BIỂN MỸ KHÊ</text>
+                        <text x="15%" y="70%" fill="#94a3b8" font-size="10" font-weight="bold" opacity="0.6">🌉 SÔNG HÀN</text>
+                    </svg>
+
+                    <!-- Interactive Heatmap Radar Beacons (Clickable) -->
+                    <div class="relative w-full h-64 sm:h-72 my-auto">
+                        <!-- Beacon 1: Phố Tây An Thượng (Đỏ / Vàng cực nóng) -->
+                        <div onclick="switchHeatmapZone('anthuong')" class="absolute top-[52%] left-[68%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group/b1 transition-all duration-300 z-20">
+                            <span class="absolute -inset-3 rounded-full bg-red-500/30 animate-ping"></span>
+                            <span class="absolute -inset-1.5 rounded-full bg-amber-500/50 animate-pulse"></span>
+                            <div class="relative px-3 py-1 rounded-xl bg-gradient-to-r from-red-600 to-amber-500 text-slate-950 font-black text-[11px] shadow-xl border border-amber-300 flex items-center gap-1.5 group-hover/b1:scale-110 transition whitespace-nowrap">
+                                <i class="fa-solid fa-fire"></i>
+                                <span>An Thượng: <b>12.8%</b></span>
+                            </div>
+                        </div>
+
+                        <!-- Beacon 2: Biển Mỹ Khê (Cam rực rỡ) -->
+                        <div onclick="switchHeatmapZone('mykhe')" class="absolute top-[35%] left-[62%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group/b2 transition-all duration-300 z-20">
+                            <span class="absolute -inset-2.5 rounded-full bg-amber-500/25 animate-ping"></span>
+                            <div class="relative px-2.5 py-1 rounded-xl bg-slate-900/90 text-amber-300 font-bold text-[10px] shadow-lg border border-amber-500/40 flex items-center gap-1.5 group-hover/b2:scale-110 transition whitespace-nowrap backdrop-blur">
+                                <i class="fa-solid fa-umbrella-beach text-amber-400"></i>
+                                <span>Mỹ Khê: <b>11.2%</b></span>
+                            </div>
+                        </div>
+
+                        <!-- Beacon 3: Bán Đảo Sơn Trà (Xanh ngọc / View biển) -->
+                        <div onclick="switchHeatmapZone('sontra')" class="absolute top-[18%] left-[72%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group/b3 transition-all duration-300 z-20">
+                            <div class="relative px-2.5 py-1 rounded-xl bg-slate-900/90 text-sky-300 font-bold text-[10px] shadow-lg border border-sky-500/40 flex items-center gap-1.5 group-hover/b3:scale-110 transition whitespace-nowrap backdrop-blur">
+                                <i class="fa-solid fa-mountain-sun text-sky-400"></i>
+                                <span>Sơn Trà: <b>10.5%</b></span>
+                            </div>
+                        </div>
+
+                        <!-- Beacon 4: Sông Hàn / Hải Châu (Tím / Trung tâm tài chính) -->
+                        <div onclick="switchHeatmapZone('haichau')" class="absolute top-[42%] left-[30%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group/b4 transition-all duration-300 z-20">
+                            <div class="relative px-2.5 py-1 rounded-xl bg-slate-900/90 text-purple-300 font-bold text-[10px] shadow-lg border border-purple-500/40 flex items-center gap-1.5 group-hover/b4:scale-110 transition whitespace-nowrap backdrop-blur">
+                                <i class="fa-solid fa-bridge-water text-purple-400"></i>
+                                <span>Sông Hàn: <b>9.2%</b></span>
+                            </div>
+                        </div>
+
+                        <!-- Beacon 5: Bắc Mỹ An (Xanh lá sinh thái) -->
+                        <div onclick="switchHeatmapZone('bacmyan')" class="absolute top-[72%] left-[55%] -translate-x-1/2 -translate-y-1/2 cursor-pointer group/b5 transition-all duration-300 z-20">
+                            <div class="relative px-2.5 py-1 rounded-xl bg-slate-900/90 text-emerald-300 font-bold text-[10px] shadow-lg border border-emerald-500/40 flex items-center gap-1.5 group-hover/b5:scale-110 transition whitespace-nowrap backdrop-blur">
+                                <i class="fa-solid fa-tree-city text-emerald-400"></i>
+                                <span>Bắc Mỹ An: <b>10.8%</b></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Map Legend Footer -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-slate-800/80 text-[10px] text-slate-400 relative z-10">
+                        <div class="flex items-center gap-3">
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Cap Rate >12% (Siêu Dòng Tiền)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> 10% - 12% (Cao Điểm)</span>
+                            <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> 8.5% - 10% (Lãi Vốn Kép)</span>
+                        </div>
+                        <span class="italic text-slate-500">✦ Nhấp vào điểm phát sáng để xem phân tích chi tiết</span>
+                    </div>
+                </div>
+
+                <!-- Right: Micro-Market Live Intelligence Dossier Card (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col justify-between space-y-4" id="heatmap-dossier-card">
+                    <!-- Dynamic Zone Header -->
+                    <div class="p-5 rounded-2xl glass-gold border border-amber-500/40 space-y-3 shadow-xl">
+                        <div class="flex items-center justify-between">
+                            <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-black uppercase tracking-wider border border-amber-500/30" id="hm-zone-badge">
+                                🔥 PHÂN KHU SÔI ĐỘNG NHẤT
+                            </span>
+                            <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
+                                <i class="fa-solid fa-circle-check"></i> Đạt chuẩn PCCC 100%
+                            </span>
+                        </div>
+
+                        <h3 class="font-sans font-black text-xl text-slate-100 flex items-center gap-2" id="hm-zone-title">
+                            🏖️ Phố Tây An Thượng (Ngũ Hành Sơn)
+                        </h3>
+                        <p class="text-xs text-slate-300 leading-relaxed" id="hm-zone-desc">
+                            Thủ phủ Digital Nomad & du khách quốc tế lưu trú dài hạn. Nhu cầu thuê phòng quanh năm duy trì mức cực đại, dòng tiền thu về ổn định vượt trội.
+                        </p>
+
+                        <!-- 4 KPI Tiles Grid -->
+                        <div class="grid grid-cols-2 gap-2.5 pt-2">
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+                                <span class="text-[10px] text-slate-400 block font-semibold">Tỷ Suất Cap Rate:</span>
+                                <b class="text-amber-400 text-base sm:text-lg font-mono font-black" id="hm-kpi-caprate">11.5% - 13.8%</b>
+                                <span class="text-[9px] text-emerald-400 block font-medium">Gấp 2.3x Lãi Tiết Kiệm</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+                                <span class="text-[10px] text-slate-400 block font-semibold">Công Suất Lấp Đầy:</span>
+                                <b class="text-emerald-400 text-base sm:text-lg font-mono font-black" id="hm-kpi-occupancy">92.8%</b>
+                                <span class="text-[9px] text-slate-400 block">Kín phòng mùa cao điểm</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+                                <span class="text-[10px] text-slate-400 block font-semibold">Giá Thuê TB / Studio:</span>
+                                <b class="text-sky-400 text-base sm:text-lg font-mono font-black" id="hm-kpi-rent">10 - 15 Tr/Th</b>
+                                <span class="text-[9px] text-slate-400 block">Khách thuê dài hạn</span>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
+                                <span class="text-[10px] text-slate-400 block font-semibold">Đối Tượng Thuê:</span>
+                                <b class="text-purple-300 text-sm font-bold block truncate" id="hm-kpi-tenant">78% Digital Nomad</b>
+                                <span class="text-[9px] text-slate-400 block">Châu Âu, Mỹ, Hàn Quốc</span>
+                            </div>
+                        </div>
+
+                        <!-- Action CTA -->
+                        <div class="pt-3 border-t border-amber-500/20 flex flex-col sm:flex-row items-center gap-2">
+                            <button type="button" onclick="filterPropertiesFromHeatmap('anthuong')" id="hm-btn-filter-action" class="w-full sm:flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:from-amber-400 hover:to-yellow-300 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition active:scale-95">
+                                <i class="fa-solid fa-filter"></i> <span>Xem 4 Tòa Đang Bán Tại Đây</span>
+                            </button>
+                            <button type="button" onclick="openReportModal()" class="w-full sm:w-auto px-3.5 py-2.5 rounded-xl glass hover:bg-slate-800 text-slate-300 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition">
+                                <i class="fa-solid fa-file-pdf text-amber-400"></i> Dossier PDF
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -2638,6 +2818,107 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 backdrop.classList.add('opacity-0');
                 setTimeout(() => backdrop.classList.add('hidden'), 300);
                 document.body.style.overflow = '';
+            }
+        }
+
+        // ── 🗺️ INTERACTIVE CASHFLOW HEATMAP CONTROLLER ─────────────
+        const HEATMAP_ZONE_DATA = {
+            anthuong: {
+                title: '🏖️ Phố Tây An Thượng (Ngũ Hành Sơn)',
+                badge: '🔥 PHÂN KHU SÔI ĐỘNG NHẤT',
+                desc: 'Thủ phủ Digital Nomad & du khách quốc tế lưu trú dài hạn. Nhu cầu thuê phòng quanh năm duy trì mức cực đại, dòng tiền thu về ổn định vượt trội.',
+                capRate: '11.5% - 13.8%',
+                occupancy: '92.8%',
+                rent: '10 - 15 Tr/Th',
+                tenant: '78% Digital Nomad',
+                propertyCount: 4,
+                filterKey: 'anthuong'
+            },
+            mykhe: {
+                title: '🌊 Biển Mỹ Khê & Tuyến Đường Võ Nguyên Giáp',
+                badge: '💎 VIEW BIỂN TOP ĐẦU VIỆT NAM',
+                desc: 'Vị trí đắt giá cách biển 100-300m, tập trung các tòa khách sạn mini và căn hộ cao cấp phục vụ du khách gia đình và khách đoàn quốc tế.',
+                capRate: '10.2% - 12.5%',
+                occupancy: '89.5%',
+                rent: '12 - 18 Tr/Th',
+                tenant: '85% Du Khách & Gia Đình',
+                propertyCount: 3,
+                filterKey: 'mykhe'
+            },
+            bacmyan: {
+                title: '🌴 Khu Dân Cư Bắc Mỹ An & Ven Sông Hàn',
+                badge: '🟢 SINH THÁI & ỔN ĐỊNH BỀN VỮNG',
+                desc: 'Khu vực yên tĩnh, liền kề các trường đại học và khu nghỉ dưỡng 5 sao. Tỷ lệ khách thuê là chuyên gia trong nước và kỹ sư công nghệ ký hợp đồng 1-3 năm.',
+                capRate: '9.8% - 11.2%',
+                occupancy: '88.0%',
+                rent: '7 - 10 Tr/Th',
+                tenant: '65% Chuyên Gia & Kỹ Sư',
+                propertyCount: 2,
+                filterKey: 'all'
+            },
+            sontra: {
+                title: '🏙️ Bán Đảo Sơn Trà & Trục Phạm Văn Đồng',
+                badge: '📈 DƯ ĐỊA TĂNG LÃI VỐN CAO',
+                desc: 'Cửa ngõ du lịch đón trọn luồng khách quốc tế từ cầu Thuận Phước và bãi biển Mân Thái. Tỷ suất khai thác song hành cùng tiềm năng tăng giá đất ven bán đảo.',
+                capRate: '10.0% - 11.8%',
+                occupancy: '87.5%',
+                rent: '8 - 12 Tr/Th',
+                tenant: '70% Khách Châu Á & Hàn Quốc',
+                propertyCount: 3,
+                filterKey: 'sontra'
+            },
+            haichau: {
+                title: '🌉 Trung Tâm Hải Châu — Sông Hàn & Cầu Rồng',
+                badge: '👑 LÕI TRUNG TÂM TÀI CHÍNH',
+                desc: 'Trái tim kinh tế của Đà Nẵng, thanh khoản cực cao, vừa khai thác văn phòng/căn hộ dịch vụ vừa là tài sản tích sản gia tăng giá trị theo thời gian.',
+                capRate: '8.5% - 10.0%',
+                occupancy: '85.0%',
+                rent: '9 - 14 Tr/Th',
+                tenant: '80% Doanh Nhân & Chuyên Gia',
+                propertyCount: 2,
+                filterKey: 'haichau'
+            }
+        };
+
+        function switchHeatmapZone(zoneKey) {
+            const data = HEATMAP_ZONE_DATA[zoneKey];
+            if (!data) return;
+
+            // Update Buttons State
+            document.querySelectorAll('.heatmap-zone-btn').forEach(btn => {
+                if (btn.dataset.zone === zoneKey) {
+                    btn.className = 'px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 heatmap-zone-btn shadow-md flex-shrink-0 font-bold transition';
+                } else {
+                    btn.className = 'px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-amber-300 heatmap-zone-btn flex-shrink-0 font-bold transition';
+                }
+            });
+
+            // Update Card Content
+            const card = document.getElementById('heatmap-dossier-card');
+            if (card) {
+                document.getElementById('hm-zone-badge').innerText = data.badge;
+                document.getElementById('hm-zone-title').innerText = data.title;
+                document.getElementById('hm-zone-desc').innerText = data.desc;
+                document.getElementById('hm-kpi-caprate').innerText = data.capRate;
+                document.getElementById('hm-kpi-occupancy').innerText = data.occupancy;
+                document.getElementById('hm-kpi-rent').innerText = data.rent;
+                document.getElementById('hm-kpi-tenant').innerText = data.tenant;
+                
+                const btnAction = document.getElementById('hm-btn-filter-action');
+                if (btnAction) {
+                    btnAction.innerHTML = `<i class="fa-solid fa-filter"></i> <span>Xem ${data.propertyCount} Tòa Đang Bán Tại Đây</span>`;
+                    btnAction.setAttribute('onclick', `filterPropertiesFromHeatmap('${data.filterKey}')`);
+                }
+            }
+        }
+
+        function filterPropertiesFromHeatmap(zoneKey) {
+            const propSec = document.getElementById('properties-section');
+            if (propSec) {
+                propSec.scrollIntoView({ behavior: 'smooth' });
+            }
+            if (typeof filterZone === 'function') {
+                filterZone(zoneKey);
             }
         }
 
