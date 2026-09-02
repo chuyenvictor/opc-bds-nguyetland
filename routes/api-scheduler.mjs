@@ -4,11 +4,13 @@
  */
 import { runNewsPipeline } from './api-news-pipeline.mjs';
 import { fetchYoutubeVideos } from './api-youtube-feed.mjs';
+import { fetchAllRssFeeds } from './api-rss-crawler.mjs';
 import { getDb, checkpointDb, logPipelineRun } from './api-content-db.mjs';
 import { executeTrendResearchAndQueue } from './api-trends-research.mjs';
 import { scanAndExecuteDripCampaign } from '../lib/email-drip-engine.mjs';
 
 let schedulerInterval = null;
+let lastHourlyRunKey = '';
 
 function hasRunToday(runType, todayStr) {
     try {
@@ -21,26 +23,55 @@ function hasRunToday(runType, todayStr) {
 }
 
 export function startScheduler() {
-    console.log('[Scheduler] ⏰ Starting OPC-BĐS Built-in Scheduler (Daily 07:00 Pipeline & 19:00 Trend Feed)');
+    console.log('[Scheduler] ⏰ Starting OPC-BĐS Built-in Scheduler (Hourly RSS Ingestion, Daily 07:00 Pipeline & 19:00 Trend Feed)');
 
-    // Run once on initial startup after 15 seconds
+    // Run once on initial startup after 10 seconds
     setTimeout(async () => {
-        console.log('[Scheduler] 🔄 Initializing feed scan & WAL checkpoint on startup...');
+        console.log('[Scheduler] 🔄 Initializing feed scan, fresh RSS crawler & WAL checkpoint on startup...');
         try {
+            await fetchAllRssFeeds(true);
             await fetchYoutubeVideos('bất động sản dòng tiền đà nẵng 2026', 4);
             checkpointDb();
+            console.log('[Scheduler] ✅ Startup crawl & cache initialization completed!');
         } catch (e) {
             console.warn('[Scheduler Startup Fetch]', e.message);
         }
-    }, 15000);
+    }, 10000);
 
     // Check every minute
     schedulerInterval = setInterval(async () => {
         const now = new Date();
         const hour = now.getHours();
+        const minute = now.getMinutes();
         const todayStr = now.toISOString().split('T')[0];
+        const currentHourKey = `${todayStr}_H${hour}`;
 
-        // 1. Morning Pipeline (Anytime from 07:00 AM onwards, once per day)
+        // ── 1. HOURLY AUTONOMOUS RSS CRAWLING & TICKER REFRESH (Runs every hour) ──
+        if (lastHourlyRunKey !== currentHourKey) {
+            lastHourlyRunKey = currentHourKey;
+            console.log(`[Scheduler] 🕒 [Hourly Run: ${currentHourKey}] Crawling fresh RSS from 9 official publishers...`);
+            try {
+                const freshFeed = await fetchAllRssFeeds(true);
+                logPipelineRun({
+                    run_type: 'hourly_rss_sync',
+                    status: 'success',
+                    articles_created: 0,
+                    videos_fetched: 0,
+                    details: {
+                        hour: currentHourKey,
+                        totalItems: freshFeed.items.length,
+                        tickerItems: freshFeed.ticker.length,
+                        topHeadline: freshFeed.ticker[0]?.title || 'N/A'
+                    }
+                });
+                checkpointDb();
+                console.log(`[Scheduler] 📡 Hourly Sync Complete: ${freshFeed.items.length} items crawled, ticker refreshed.`);
+            } catch (err) {
+                console.warn('[Scheduler Hourly Error]', err.message);
+            }
+        }
+
+        // ── 2. MORNING PIPELINE (07:00 AM — Once per day) ──
         if (hour >= 7 && !hasRunToday('daily_news', todayStr)) {
             console.log(`[Scheduler] 🌅 07:00+ AM window! Executing daily BĐS News & YouTube pipeline for ${todayStr}...`);
 
@@ -59,7 +90,7 @@ export function startScheduler() {
             }
         }
 
-        // 2. Email Drip Campaign (Anytime from 08:00 AM onwards, once per day)
+        // ── 3. EMAIL DRIP CAMPAIGN (08:00 AM — Once per day) ──
         if (hour >= 8 && !hasRunToday('email_drip_scan', todayStr)) {
             console.log(`[Scheduler] 📧 08:00+ AM window! Executing 30-Day Email Nurturing Drip Scan for ${todayStr}...`);
             try {
@@ -78,7 +109,7 @@ export function startScheduler() {
             }
         }
 
-        // 2. Evening Feed & Video Sync (Anytime from 19:00 PM onwards, once per day)
+        // ── 4. EVENING FEED & VIDEO SYNC (19:00 PM — Once per day) ──
         if (hour >= 19 && !hasRunToday('evening_sync', todayStr)) {
             console.log(`[Scheduler] 🌆 19:00+ PM window! Refreshing evening YouTube feeds & market trends...`);
             try {

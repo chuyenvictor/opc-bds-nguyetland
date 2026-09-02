@@ -28,7 +28,7 @@ if (fs.existsSync(envPath)) {
 }
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8088';
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '8832028862:AAFCmbp9QEY3eEdh-NYoOHHjXmUkUyti1Do';
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
 const GOOGLE_SHEET_WEBHOOK_URL = process.env.GOOGLE_SHEET_WEBHOOK_URL;
 

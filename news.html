@@ -36,8 +36,12 @@
         .glass-rose { background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(225, 29, 72, 0.04)); border: 1px solid rgba(244, 63, 94, 0.35); }
         .glass-emerald { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.04)); border: 1px solid rgba(16, 185, 129, 0.35); }
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { display: inline-block; white-space: nowrap; animation: marquee 40s linear infinite; }
-        .animate-marquee:hover { animation-play-state: paused; }
+        .animate-marquee { display: inline-flex; align-items: center; white-space: nowrap; animation: marquee 95s linear infinite; will-change: transform; }
+        .animate-marquee:hover, .animate-marquee:active { animation-play-state: paused; }
+        .mask-fade-edges {
+            mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 pb-20 md:pb-0">
@@ -75,15 +79,31 @@
         </div>
     </header>
 
-    <!-- LIVE REALTIME BREAKING NEWS TICKER -->
-    <div class="bg-gradient-to-r from-amber-600/25 via-slate-900 to-rose-600/25 border-b border-amber-500/20 px-4 py-2 flex items-center overflow-hidden z-40 text-xs">
-        <div class="flex items-center gap-2 bg-amber-500 text-slate-950 font-black px-2.5 py-0.5 rounded-md uppercase text-[10px] flex-shrink-0 tracking-wider shadow-sm animate-pulse">
-            <i class="fa-solid fa-bolt"></i> Tin Nóng RSS
+    <!-- TV BROADCAST LIVE TICKER (CHUẨN ĐÀI TRUYỀN HÌNH VTV1 / BLOOMBERG BĐS 24/7) -->
+    <div class="bg-gradient-to-r from-red-950/40 via-slate-950 to-amber-950/40 border-b border-amber-500/30 px-2 sm:px-4 py-1.5 flex items-center overflow-hidden z-40 text-xs backdrop-blur-md shadow-md">
+        <!-- Live Broadcast Badge -->
+        <div class="flex items-center gap-1.5 bg-gradient-to-r from-red-600 to-rose-700 text-white font-black px-2 sm:px-3 py-1 rounded-lg uppercase text-[9px] sm:text-[10px] flex-shrink-0 tracking-wider shadow-lg border border-red-400/40">
+            <span class="w-2 h-2 rounded-full bg-white animate-ping inline-block"></span>
+            <i class="fa-solid fa-broadcast-tower text-[10px]"></i> <span class="hidden xs:inline font-sans">TRUYỀN HÌNH</span> BĐS
         </div>
-        <div class="overflow-hidden whitespace-nowrap ml-3 w-full text-slate-300">
-            <span id="ticker-content" class="inline-block animate-marquee font-medium">
-                Đang tải nguồn tin nóng BĐS thời gian thực từ VnExpress, CafeF, Báo Đầu Tư, VnEconomy, VietNamNet...
-            </span>
+
+        <!-- Dynamic Velocity Ticker Content -->
+        <div class="overflow-hidden whitespace-nowrap mx-2 w-full text-slate-200 relative mask-fade-edges" id="ticker-wrapper" onmouseenter="pauseTicker()" onmouseleave="resumeTicker()" ontouchstart="pauseTicker()" ontouchend="resumeTicker()">
+            <div id="ticker-content" class="animate-marquee font-medium flex items-center">
+                <span class="inline-flex items-center gap-3 text-xs text-slate-300">
+                    <span>📡 <b class="text-amber-400">[BẢN TIN THỜI SỰ BĐS]:</b> Đang kết nối luồng RSS từ 9 tòa soạn báo chí chính thống...</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Broadcast Controls (Play/Pause & Fast Refresh) -->
+        <div class="flex items-center gap-1 flex-shrink-0">
+            <button onclick="toggleTickerPlayPause()" id="btn-ticker-playpause" title="Tạm dừng / Tiếp tục chạy chữ" class="w-7 h-7 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-amber-400 hover:border-amber-400/40 flex items-center justify-center text-[10px] transition">
+                <i class="fa-solid fa-pause" id="icon-ticker-playpause"></i>
+            </button>
+            <button onclick="loadLiveTicker(true)" title="Cập nhật tin mới nhất ngay lập tức" class="w-7 h-7 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-amber-400 hover:border-amber-400/40 flex items-center justify-center text-[10px] transition">
+                <i class="fa-solid fa-arrows-rotate" id="icon-ticker-refresh"></i>
+            </button>
         </div>
     </div>
 
@@ -507,21 +527,93 @@
             }
         }
 
+        let isTickerManuallyPaused = false;
+
+        function pauseTicker() {
+            if (isTickerManuallyPaused) return;
+            const el = document.getElementById('ticker-content');
+            if (el) el.style.animationPlayState = 'paused';
+        }
+
+        function resumeTicker() {
+            if (isTickerManuallyPaused) return;
+            const el = document.getElementById('ticker-content');
+            if (el) el.style.animationPlayState = 'running';
+        }
+
+        function toggleTickerPlayPause() {
+            isTickerManuallyPaused = !isTickerManuallyPaused;
+            const el = document.getElementById('ticker-content');
+            const icon = document.getElementById('icon-ticker-playpause');
+            if (isTickerManuallyPaused) {
+                if (el) el.style.animationPlayState = 'paused';
+                if (icon) icon.className = 'fa-solid fa-play text-amber-400';
+            } else {
+                if (el) el.style.animationPlayState = 'running';
+                if (icon) icon.className = 'fa-solid fa-pause';
+            }
+        }
+
+        function applyTvBroadcastSpeed() {
+            const tickerEl = document.getElementById('ticker-content');
+            if (!tickerEl) return;
+            
+            // Measure physical rendered width of the track
+            const totalWidth = tickerEl.scrollWidth;
+            const halfWidth = totalWidth / 2;
+            
+            // TV Broadcast Standard Crawl Rate: 46 px/s (Mobile) and 52 px/s (Desktop)
+            const speedPxPerSec = window.innerWidth < 640 ? 46 : 52;
+            const calculatedDuration = Math.max(25, halfWidth / speedPxPerSec);
+            
+            tickerEl.style.animationDuration = `${calculatedDuration.toFixed(1)}s`;
+            console.log(`[TV News Ticker Engine] 📺 Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
+        }
+
         // Load live ticker
-        async function loadLiveTicker() {
+        async function loadLiveTicker(showSpin = false) {
+            const spinIcon = document.getElementById('icon-ticker-refresh');
+            if (showSpin && spinIcon) spinIcon.classList.add('fa-spin');
+
             try {
-                const res = await fetch('/api/news/ticker');
+                const res = await fetch('/api/news/ticker?refresh=1');
                 const data = await res.json();
                 if (data.ticker && data.ticker.length > 0) {
-                    const html = data.ticker.map(t => 
-                        `<span class="mr-6">📰 <b class="${t.sourceColor || 'text-amber-400'}">[${t.source} - ${t.time}]:</b> <a href="${t.link}" target="_blank" class="hover:underline text-slate-200">${t.title}</a></span>`
-                    ).join(' &nbsp; | &nbsp; ');
-                    document.getElementById('ticker-content').innerHTML = html;
+                    const itemsHtml = data.ticker.map((t, idx) => {
+                        const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
+                                           idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
+                                           idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
+                                                           'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+                        return `
+                        <span class="inline-flex items-center gap-2 mx-3.5">
+                            <span class="px-2 py-0.5 rounded-full border text-[10px] font-black tracking-wide ${badgeColor} shadow-sm">
+                                ${t.source} • ${t.time}
+                            </span>
+                            <a href="${t.link}" target="_blank" rel="noopener" class="hover:text-amber-300 text-slate-100 transition font-medium tracking-wide">
+                                ${t.title}
+                            </a>
+                        </span>
+                        `;
+                    }).join(' <span class="text-amber-400/40 font-bold mx-1">✦</span> ');
+
+                    // Duplicate content for smooth infinite seamless loop
+                    const fullTicker = `<div class="inline-flex items-center">${itemsHtml}</div><div class="inline-flex items-center">${itemsHtml}</div>`;
+                    const tickerEl = document.getElementById('ticker-content');
+                    if (tickerEl) {
+                        tickerEl.innerHTML = fullTicker;
+                        setTimeout(applyTvBroadcastSpeed, 100);
+                    }
                 }
             } catch (err) {
                 console.warn('[Ticker error]', err);
+            } finally {
+                if (spinIcon) setTimeout(() => spinIcon.classList.remove('fa-spin'), 600);
             }
         }
+
+        window.addEventListener('resize', () => {
+            applyTvBroadcastSpeed();
+        });
 
         // Clean raw JSON or corrupted summary
         function cleanSummaryText(raw) {

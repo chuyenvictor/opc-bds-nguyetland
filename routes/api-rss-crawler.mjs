@@ -5,6 +5,7 @@
  */
 
 import { upsertArticle, escapeHtml, slugify } from './api-content-db.mjs';
+import { buildArticleHtml } from './api-news-pipeline.mjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -18,12 +19,14 @@ if (!fs.existsSync(ARTICLES_DIR)) fs.mkdirSync(ARTICLES_DIR, { recursive: true }
 if (!fs.existsSync(ROOT_P_DIR)) fs.mkdirSync(ROOT_P_DIR, { recursive: true });
 
 export const RSS_SOURCES = [
-    { id: 'vnexpress', name: 'VnExpress BĐS', url: 'https://vnexpress.net/rss/bat-dong-san.rss', icon: 'fa-newspaper', color: 'text-red-400' },
     { id: 'cafef', name: 'CafeF BĐS', url: 'https://cafef.vn/bat-dong-san.rss', icon: 'fa-chart-line', color: 'text-amber-400' },
+    { id: 'vnexpress', name: 'VnExpress BĐS', url: 'https://vnexpress.net/rss/bat-dong-san.rss', icon: 'fa-newspaper', color: 'text-red-400' },
     { id: 'baodautu', name: 'Báo Đầu Tư', url: 'https://baodautu.vn/bat-dong-san.rss', icon: 'fa-briefcase', color: 'text-blue-400' },
     { id: 'vneconomy', name: 'VnEconomy', url: 'https://vneconomy.vn/bat-dong-san.rss', icon: 'fa-money-bill-trend-up', color: 'text-emerald-400' },
     { id: 'vietnamnet', name: 'VietNamNet BĐS', url: 'https://vietnamnet.vn/rss/bat-dong-san.rss', icon: 'fa-globe', color: 'text-rose-400' },
     { id: 'tuoitre', name: 'Tuổi Trẻ Kinh Doanh', url: 'https://tuoitre.vn/rss/kinh-doanh.rss', icon: 'fa-building-columns', color: 'text-cyan-400' },
+    { id: 'thanhnien', name: 'Thanh Niên BĐS', url: 'https://thanhnien.vn/rss/kinh-te.rss', icon: 'fa-newspaper', color: 'text-teal-400' },
+    { id: 'laodong', name: 'Lao Động BĐS', url: 'https://laodong.vn/rss/bat-dong-san.rss', icon: 'fa-landmark', color: 'text-orange-400' },
     { id: 'vietstock', name: 'VietStock BĐS', url: 'https://vietstock.vn/rss/bat-dong-san.rss', icon: 'fa-arrow-trend-up', color: 'text-purple-400' }
 ];
 
@@ -32,6 +35,22 @@ let rssCache = {
     items: [],
     ticker: []
 };
+
+// Clean HTML Entities
+function decodeHtmlEntities(str) {
+    if (!str) return '';
+    return str
+        .replace(/&amp;/g, '&')
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/&#39;/g, "'")
+        .replace(/&#039;/g, "'")
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
 
 // XML/Atom RSS Parser
 function parseXmlRss(xmlText, source) {
@@ -56,12 +75,12 @@ function parseXmlRss(xmlText, source) {
             || itemXml.match(/<summary[\s\S]*?>([\s\S]*?)<\/summary>/i);
         const pubDateMatch = itemXml.match(/<pubDate>([\s\S]*?)<\/pubDate>/i) || itemXml.match(/<published>([\s\S]*?)<\/published>/i);
 
-        let title = (titleMatch ? titleMatch[1] : '').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").trim();
-        link = link.trim();
+        let rawTitle = decodeHtmlEntities(titleMatch ? titleMatch[1] : '');
+        link = (link || '').trim();
         let rawDesc = (descMatch ? descMatch[1] : '').trim();
         let pubDate = pubDateMatch ? pubDateMatch[1] : new Date().toISOString();
 
-        if (!title || !link) continue;
+        if (!rawTitle || !link) continue;
 
         // Extract image URL from description or enclosure or media:content
         let image = '';
@@ -73,11 +92,11 @@ function parseXmlRss(xmlText, source) {
         }
 
         // Clean plain text summary
-        let cleanDesc = rawDesc.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ').replace(/&quot;/g, '"').trim();
+        let cleanDesc = decodeHtmlEntities(rawDesc.replace(/<[^>]*>/g, ''));
 
         items.push({
-            title: escapeHtml(title),
-            rawTitle: title,
+            title: escapeHtml(rawTitle),
+            rawTitle: rawTitle,
             link,
             description: escapeHtml(cleanDesc),
             rawDescription: cleanDesc,
@@ -206,7 +225,7 @@ TRẢ VỀ ĐÚNG FORMAT JSON DƯỚI ĐÂY (không bọc trong markdown codeblo
   }
 }`;
 
-    const models = ['gemini-3.7-flash', 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
     let rawAiText = '';
 
     for (const model of models) {
@@ -382,13 +401,25 @@ export function handleRssApi(req, res) {
                 if (payload.autoPublish && result.article) {
                     const articleData = result.article;
                     const slug = slugify(articleData.title, true);
-                    upsertArticle({
+                    const finalArticle = {
                         ...articleData,
                         slug,
                         source_url: payload.link || '',
                         author: 'Nguyệt Land × AI Insight',
                         status: 'published'
-                    });
+                    };
+                    upsertArticle(finalArticle);
+
+                    // Ghi file HTML tĩnh để link có thể truy cập được ngay lập tức
+                    try {
+                        const htmlContent = buildArticleHtml(finalArticle);
+                        fs.writeFileSync(path.join(ARTICLES_DIR, `${slug}.html`), htmlContent, 'utf8');
+                        fs.writeFileSync(path.join(ROOT_P_DIR, `${slug}.html`), htmlContent, 'utf8');
+                        console.log(`[RSS AI AutoPublish] 📄 Đã tạo file HTML tĩnh: /p/${slug}.html`);
+                    } catch (fErr) {
+                        console.warn('[RSS AI File Write Error]', fErr.message);
+                    }
+
                     publishedUrl = `/p/${slug}.html`;
                 }
 

@@ -71,7 +71,14 @@ const server = http.createServer((req, res) => {
         res.setHeader('Vary', 'Origin');
     }
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Webhook-Secret');
+
+    // OWASP Security Headers (SaaS Standard)
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-XSS-Protection', '1; mode=block');
+    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader('Permissions-Policy', 'geolocation=(), camera=(), microphone=()');
 
     if (req.method === 'OPTIONS') {
         res.writeHead(204);
@@ -240,7 +247,8 @@ const server = http.createServer((req, res) => {
 
     fs.stat(filePath, (err, stats) => {
         if (err || !stats.isFile()) {
-            filePath = path.join(__dirname, isMobile ? 'index_mobile.html' : 'index.html');
+            const mobileFile = path.join(__dirname, 'index_mobile.html');
+            filePath = (isMobile && fs.existsSync(mobileFile)) ? mobileFile : path.join(__dirname, 'index.html');
         }
 
         const ext = path.extname(filePath).toLowerCase();

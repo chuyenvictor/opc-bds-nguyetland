@@ -87,7 +87,7 @@ Trả về đúng JSON (không markdown):
   "seo_description": "Meta description 155 ký tự"
 }`;
 
-    const models = ['gemini-3.7-flash', 'gemini-3.5-flash', 'gemini-2.5-flash', 'gemini-2.0-flash'];
+    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
 
     for (const model of models) {
         try {

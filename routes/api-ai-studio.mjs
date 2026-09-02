@@ -4,10 +4,10 @@
  */
 
 const GEMINI_MODELS = [
-    'gemini-3.7-flash',
-    'gemini-3.5-flash',
     'gemini-2.5-flash',
-    'gemini-2.0-flash'
+    'gemini-2.0-flash',
+    'gemini-1.5-flash',
+    'gemini-1.5-pro'
 ];
 const GEMINI_BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models';
 
@@ -88,7 +88,7 @@ export async function handleAiGenerate(req, res) {
             }
 
             let resultText = '';
-            let usedModel = 'gemini-3.7-flash';
+            let usedModel = 'gemini-2.5-flash';
             let usedFallback = false;
 
             try {

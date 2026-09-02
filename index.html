@@ -167,32 +167,39 @@
             box-shadow: 0 0 35px rgba(245, 158, 11, 0.25);
         }
         @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
         }
         .animate-marquee {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
             white-space: nowrap;
-            animation: marquee 28s linear infinite;
+            animation: marquee 95s linear infinite;
+            will-change: transform;
         }
-        .animate-marquee:hover {
+        .animate-marquee:hover,
+        .animate-marquee:active {
             animation-play-state: paused;
+        }
+        .mask-fade-edges {
+            mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
         }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-gold-500 selection:text-slate-950 pb-24 md:pb-0">
 
     <!-- Top Navigation (Optimized Responsive Header) -->
-    <header class="glass-panel sticky top-0 z-50 px-4 md:px-6 py-3 md:py-4 flex items-center justify-between border-b border-gold-500/20">
-        <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-            <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-gold-600 via-amber-400 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-xl sm:text-2xl shadow-xl glow-gold flex-shrink-0">
+    <header class="glass-panel sticky top-0 z-50 px-3 md:px-6 py-2.5 md:py-3.5 flex items-center justify-between border-b border-gold-500/20">
+        <div class="flex items-center gap-2 sm:gap-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+            <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-gold-600 via-amber-400 to-yellow-200 flex items-center justify-center text-slate-950 font-black text-lg sm:text-xl shadow-lg glow-gold flex-shrink-0">
                 👑
             </div>
             <div>
-                <h1 class="font-serif font-black text-base sm:text-xl text-amber-300 tracking-wide flex items-center gap-1.5 flex-wrap">
-                    NGUYỆT LAND <span class="text-[10px] sm:text-xs font-sans px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30 whitespace-nowrap">BĐS Dòng Tiền Đà Nẵng</span>
+                <h1 class="font-serif font-black text-sm sm:text-lg md:text-xl text-amber-300 tracking-wide flex items-center gap-1 sm:gap-1.5 flex-wrap">
+                    NGUYỆT LAND <span class="text-[9px] sm:text-xs font-sans px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-full border border-emerald-500/30 whitespace-nowrap">BĐS Dòng Tiền Đà Nẵng</span>
                 </h1>
-                <p class="text-[10px] sm:text-xs text-slate-400 hidden xs:block truncate max-w-[220px] sm:max-w-none">Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật</p>
+                <p class="text-[9px] sm:text-xs text-slate-400 hidden xs:block truncate max-w-[220px] sm:max-w-none">Người Bản Địa — BĐS Thật — Giá Trị Thật — Dòng Tiền Thật</p>
             </div>
         </div>
 
@@ -215,50 +222,72 @@
         </div>
 
         <!-- Mobile Header Actions (VIP Quick Button + Hamburger Menu) -->
-        <div class="flex md:hidden items-center gap-2">
+        <div class="flex md:hidden items-center gap-1.5">
             <div id="auth-nav-container-mobile">
-                <button onclick="openAuthModal()" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-xs font-bold flex items-center gap-1 shadow-md">
+                <button onclick="openAuthModal()" class="px-2.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 text-xs font-black flex items-center gap-1 shadow-md">
                     <i class="fa-solid fa-crown text-[10px]"></i> VIP
                 </button>
             </div>
-            <button onclick="toggleMobileDrawer()" aria-label="Mở Menu" class="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center hover:text-amber-400 hover:border-amber-400/40 transition">
-                <i class="fa-solid fa-bars text-base"></i>
+            <button onclick="toggleMobileDrawer()" aria-label="Mở Menu" class="w-8 h-8 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 flex items-center justify-center hover:text-amber-400 hover:border-amber-400/40 transition">
+                <i class="fa-solid fa-bars text-sm"></i>
             </button>
         </div>
     </header>
 
-    <!-- Breaking News Ticker (Live Realtime RSS from Top VN Publishers) -->
-    <div class="bg-gradient-to-r from-amber-600/20 via-slate-900 to-rose-600/20 border-b border-amber-500/20 px-3 sm:px-4 py-1.5 sm:py-2 flex items-center overflow-hidden z-40 text-xs">
-        <div class="flex items-center gap-1.5 bg-amber-500 text-slate-950 font-black px-2 py-0.5 rounded uppercase text-[9px] sm:text-[10px] flex-shrink-0 tracking-wider shadow-sm animate-pulse">
-            <i class="fa-solid fa-bolt"></i> Tin Nóng
+    <!-- TV BROADCAST LIVE TICKER (CHUẨN ĐÀI TRUYỀN HÌNH VTV1 / BLOOMBERG BĐS 24/7) -->
+    <div class="bg-gradient-to-r from-red-950/40 via-slate-950 to-amber-950/40 border-b border-gold-500/30 px-2 sm:px-4 py-1.5 flex items-center overflow-hidden z-40 text-xs backdrop-blur-md shadow-md">
+        <!-- Live Broadcast Badge -->
+        <div class="flex items-center gap-1.5 bg-gradient-to-r from-red-600 to-rose-700 text-white font-black px-2 sm:px-3 py-1 rounded-lg uppercase text-[9px] sm:text-[10px] flex-shrink-0 tracking-wider shadow-lg border border-red-400/40">
+            <span class="w-2 h-2 rounded-full bg-white animate-ping inline-block"></span>
+            <i class="fa-solid fa-broadcast-tower text-[10px]"></i> <span class="hidden xs:inline font-sans">TRUYỀN HÌNH</span> BĐS
         </div>
-        <div class="overflow-hidden whitespace-nowrap ml-2.5 w-full text-slate-300">
-            <span id="ticker-content" class="inline-block animate-marquee font-medium">
-                🔥 <b>ĐÀ NẴNG 2026:</b> Công suất lấp phòng tại Phố Tây An Thượng & Biển Mỹ Khê đạt đỉnh 92.8% &nbsp; | &nbsp;
-                📈 <b>BẢNG GIÁ ĐẤT MỚI:</b> Tỷ suất dòng tiền căn hộ dịch vụ ven biển vượt mốc 10.5%/năm &nbsp; | &nbsp;
-                ⚡ <b>CƠ HỘI NGỘP TUẦN NÀY:</b> Tòa căn hộ 7 tầng An Thượng 29 (10 phòng) cần sang nhượng gấp giá 18.5 Tỷ (Cap Rate 9.8%) &nbsp; | &nbsp;
-                📜 <b>GÓC NHÌN BẢN ĐỊA:</b> Nguyệt Land thẩm định trực tiếp sổ đỏ gốc & dòng tiền sao kê trước khi chào bán!
-            </span>
+
+        <!-- Dynamic Velocity Ticker Content -->
+        <div class="overflow-hidden whitespace-nowrap mx-2 w-full text-slate-200 relative mask-fade-edges" id="ticker-wrapper" onmouseenter="pauseTicker()" onmouseleave="resumeTicker()" ontouchstart="pauseTicker()" ontouchend="resumeTicker()">
+            <div id="ticker-content" class="animate-marquee font-medium flex items-center">
+                <span class="inline-flex items-center gap-3 text-xs text-slate-300">
+                    <span>📡 <b class="text-amber-400">[BẢN TIN THỜI SỰ BĐS]:</b> Đang kết nối luồng RSS từ 9 tòa soạn báo chí chính thống...</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Broadcast Controls (Play/Pause, Refresh & News Portal Link) -->
+        <div class="flex items-center gap-1 flex-shrink-0">
+            <button onclick="toggleTickerPlayPause()" id="btn-ticker-playpause" title="Tạm dừng / Tiếp tục chạy chữ" class="w-7 h-7 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-amber-400 hover:border-amber-400/40 flex items-center justify-center text-[10px] transition">
+                <i class="fa-solid fa-pause" id="icon-ticker-playpause"></i>
+            </button>
+            <button onclick="loadLiveTicker(true)" title="Cập nhật tin mới nhất ngay lập tức" class="w-7 h-7 rounded-lg bg-slate-900/90 border border-slate-700 text-slate-300 hover:text-amber-400 hover:border-amber-400/40 flex items-center justify-center text-[10px] transition">
+                <i class="fa-solid fa-arrows-rotate" id="icon-ticker-refresh"></i>
+            </button>
+            <a href="/news" title="Xem cổng thông tin thời sự đầy đủ" class="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold hover:bg-amber-500/30 transition">
+                <span>Bản Tin</span> <i class="fa-solid fa-arrow-right text-[8px]"></i>
+            </a>
         </div>
     </div>
 
-    <section class="relative py-10 sm:py-16 px-4 sm:px-6 max-w-7xl mx-auto w-full text-center">
-        <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-[11px] sm:text-xs font-bold uppercase mb-4 sm:mb-6 shadow-sm">
-            ✨ HỆ THỐNG BẤT ĐỘNG SẢN DÒNG TIỀN THỰC CHIẾN ĐÀ NẴNG
+    <section class="relative py-8 sm:py-14 px-4 sm:px-6 max-w-7xl mx-auto w-full text-center">
+        <!-- Hero Header Badge with Elegant Responsive Split -->
+        <div class="inline-flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-2.5 px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl sm:rounded-full bg-gradient-to-r from-amber-500/15 via-yellow-500/10 to-amber-500/15 border border-amber-400/40 text-amber-300 text-[11px] sm:text-xs font-bold uppercase mb-4 sm:mb-6 shadow-xl backdrop-blur-md">
+            <span class="flex items-center gap-1.5">
+                <span class="text-amber-400">✨</span> HỆ THỐNG BẤT ĐỘNG SẢN DÒNG TIỀN THỰC CHIẾN
+            </span>
+            <span class="hidden sm:inline text-amber-400/40 font-bold">•</span>
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] sm:text-[11px] font-extrabold tracking-wider shadow-sm">
+                📍 NGAY TẠI ĐÀ NẴNG
+            </span>
         </div>
         
         <h2 class="font-serif font-black text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-slate-50 tracking-tight leading-tight max-w-4xl mx-auto flex flex-col items-center gap-1 sm:gap-2">
-            <span class="text-slate-100">Đầu Tư An Toàn</span>
-            <span class="text-amber-300">Nhận Dòng Tiền Thật</span>
-            <span class="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl lg:text-6xl my-1">
+            <span class="text-slate-100">Đầu Tư An Toàn — Nhận Dòng Tiền Thật</span>
+            <span class="bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500 bg-clip-text text-transparent text-3xl sm:text-4xl md:text-5xl lg:text-6xl my-1 font-serif">
                 8.5% – 14%/Năm
             </span>
-            <span class="text-xs sm:text-sm font-sans font-medium text-emerald-400 tracking-wider uppercase bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/30 mt-1">
-                📍 Ngay Tại Đà Nẵng
+            <span class="text-xs sm:text-sm font-sans font-semibold text-slate-300 tracking-wide mt-1">
+                Bảo chứng bởi Chuyên gia Bản địa & Dữ liệu Thẩm định 4 Lớp
             </span>
         </h2>
         
-        <p class="text-xs sm:text-base text-slate-300 max-w-2xl mx-auto mt-4 sm:mt-6 leading-relaxed">
+        <p class="text-xs sm:text-base text-slate-300 max-w-2xl mx-auto mt-3 sm:mt-5 leading-relaxed">
             "Không vẽ phối cảnh ảo — Không thổi giá đất — Chỉ tư vấn căn hộ dịch vụ, homestay, khách sạn có số liệu sao kê dòng tiền thật và pháp lý minh bạch."
         </p>
 
@@ -402,8 +431,8 @@
     </section>
 
     <!-- Hot Cashflow Property Showcase (12 PROPERTIES) -->
-    <section class="py-12 px-6 max-w-7xl mx-auto w-full">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <section class="py-12 px-6 max-w-7xl mx-auto w-full" id="properties-section">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
                 <h3 class="font-serif font-black text-2xl lg:text-3xl text-amber-300 flex items-center gap-3">
                     🏢 KHO HÀNG DÒNG TIỀN HOT NHẤT TUẦN NÀY
@@ -412,7 +441,33 @@
             </div>
             <div class="flex items-center gap-2">
                 <span class="text-xs font-bold text-slate-400">Tổng cộng:</span>
-                <span class="px-3 py-1 bg-amber-500/20 border border-amber-400/40 text-amber-300 rounded-full text-xs font-bold">12 Tài Sản Đã Thẩm Định</span>
+                <span class="px-3 py-1 bg-amber-500/20 border border-amber-400/40 text-amber-300 rounded-full text-xs font-bold" id="prop-count-badge">12 Tài Sản Đã Thẩm Định</span>
+            </div>
+        </div>
+
+        <!-- Zone Filter Tabs & Compare Action Toolbar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-8 p-2 rounded-2xl bg-slate-900/90 border border-amber-500/20 shadow-lg">
+            <div class="flex flex-wrap items-center gap-1.5" id="zone-filter-container">
+                <button type="button" onclick="filterZone('all')" id="zone-btn-all" class="px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs transition shadow-sm">
+                    Tất Cả (12)
+                </button>
+                <button type="button" onclick="filterZone('anthuong')" id="zone-btn-anthuong" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700">
+                    Phố Tây An Thượng (4)
+                </button>
+                <button type="button" onclick="filterZone('mykhe')" id="zone-btn-mykhe" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700">
+                    Biển Mỹ Khê & Bãi T20 (3)
+                </button>
+                <button type="button" onclick="filterZone('sontra')" id="zone-btn-sontra" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700">
+                    Bán Đảo Sơn Trà (3)
+                </button>
+                <button type="button" onclick="filterZone('haichau')" id="zone-btn-haichau" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700">
+                    Sông Hàn / Hải Châu (2)
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="openCompareModal()" id="btn-open-compare" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500/20 to-yellow-500/20 hover:from-amber-500/30 hover:to-yellow-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold flex items-center gap-1.5 transition">
+                    <i class="fa-solid fa-code-compare text-amber-400"></i> <span id="compare-btn-label">Bảng So Sánh (0)</span>
+                </button>
             </div>
         </div>
 
@@ -420,18 +475,25 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="property-grid">
             
             <!-- Item 1 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="anthuong" data-id="1">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800" alt="Tòa Căn Hộ An Thượng 29" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-amber-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.8%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(1, event)" id="cmp-badge-1" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         110 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 uppercase">Phố Tây An Thượng</span>
+                            <span class="text-slate-400 font-semibold">150m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             1. Tòa Căn Hộ 7 Tầng Phố Tây An Thượng 29
                         </h4>
@@ -439,34 +501,51 @@
                             <i class="fa-solid fa-location-dot text-amber-400"></i> Phường Mỹ An, Ngũ Hành Sơn, Đà Nẵng
                         </p>
                         <p class="text-xs text-slate-300 mt-3 line-clamp-2">
-                            10 Phòng Studio cao cấp + Thang máy + PCCC hoàn công chuẩn. Cách biển Mỹ Khê 150m, luôn kín khách Tây.
+                            10 Phòng Studio cao cấp + Thang máy + PCCC hoàn công chuẩn. Luôn kín khách Tây & Digital Nomad thuê dài hạn.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">18.5 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">18.5 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(1)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ 7 Tầng Phố Tây An Thượng 29')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(1)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ 7 Tầng Phố Tây An Thượng 29')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 2 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="mykhe" data-id="2">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800" alt="Khách Sạn Boutique Hà Bổng" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 10.5%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(2, event)" id="cmp-badge-2" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         160 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-emerald-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 uppercase">Biển Mỹ Khê</span>
+                            <span class="text-slate-400 font-semibold">120m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             2. Khách Sạn Boutique 14 Phòng Hà Bổng
                         </h4>
@@ -477,31 +556,48 @@
                             6 Tầng thang máy, hồ bơi sân thượng view biển, nội thất Indochine. Doanh thu mùa cao điểm đạt >200 Tr/tháng.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">23.5 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">23.5 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(2)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Khách Sạn Boutique 14 Phòng Hà Bổng')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(2)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Khách Sạn Boutique 14 Phòng Hà Bổng')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 3 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="sontra" data-id="3">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800" alt="Căn Hộ Dương Đình Nghệ" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-cyan-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.2%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(3, event)" id="cmp-badge-3" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         85 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 uppercase">Bán Đảo Sơn Trà</span>
+                            <span class="text-slate-400 font-semibold">250m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             3. Tòa Căn Hộ Dịch Vụ 5 Tầng Dương Đình Nghệ
                         </h4>
@@ -512,31 +608,48 @@
                             8 Căn hộ 1PN ban công thoáng, khu người Hàn & chuyên gia lưu trú. Tỷ lệ lấp đầy đạt 92% quanh năm.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">14.8 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">14.8 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(3)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ Dịch Vụ 5 Tầng Dương Đình Nghệ')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(3)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ Dịch Vụ 5 Tầng Dương Đình Nghệ')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 4 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="haichau" data-id="4">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800" alt="Villa Euro Village" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-purple-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 8.5%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(4, event)" id="cmp-badge-4" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         150 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-purple-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-purple-500/20 uppercase">Sông Hàn / Hải Châu</span>
+                            <span class="text-slate-400 font-semibold">Ven sông Hàn</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             4. Biệt Thự Homestay Sân Vườn Euro Village 1
                         </h4>
@@ -547,31 +660,48 @@
                             Diện tích 250m2, 5 Phòng ngủ Master sang trọng, hồ bơi riêng biệt lập, mô hình Luxury Retreat gia đình.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">32.0 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">32.0 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(4)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Biệt Thự Homestay Sân Vườn Euro Village 1')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(4)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Biệt Thự Homestay Sân Vườn Euro Village 1')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 5 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="anthuong" data-id="5">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800" alt="Căn Hộ Hồ Xuân Hương" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 10.2%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(5, event)" id="cmp-badge-5" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         175 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-emerald-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 uppercase">Phố Tây An Thượng</span>
+                            <span class="text-slate-400 font-semibold">180m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             5. Tòa Căn Hộ 6 Tầng Mặt Tiền Hồ Xuân Hương
                         </h4>
@@ -582,31 +712,48 @@
                             12 Căn hộ Full bếp + Mặt bằng tầng trệt kinh doanh Café. Trục đường du lịch sầm uất thông thẳng biển.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">26.8 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">26.8 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(5)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ 6 Tầng Mặt Tiền Hồ Xuân Hương')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(5)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ 6 Tầng Mặt Tiền Hồ Xuân Hương')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 6 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="anthuong" data-id="6">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800" alt="Căn Hộ Đại Học Kinh Tế" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-amber-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.5%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(6, event)" id="cmp-badge-6" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         48 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 uppercase">Phố Tây An Thượng</span>
+                            <span class="text-slate-400 font-semibold">600m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             6. Tòa Căn Hộ Mini 5 Tầng Gần ĐH Kinh Tế
                         </h4>
@@ -617,31 +764,48 @@
                             9 Phòng khép kín, phân khúc dòng tiền vừa túi tiền cho nhà đầu tư mới, tỷ lệ lấp đầy 100% không bao giờ trống.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">7.9 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">7.9 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(6)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ Mini 5 Tầng Gần ĐH Kinh Tế')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(6)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ Mini 5 Tầng Gần ĐH Kinh Tế')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 7 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="mykhe" data-id="7">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800" alt="Khách Sạn Võ Nguyên Giáp" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 10.8%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(7, event)" id="cmp-badge-7" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         320 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-emerald-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 uppercase">Biển Mỹ Khê</span>
+                            <span class="text-slate-400 font-semibold">Mặt biển (50m)</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             7. Khách Sạn Mini 9 Tầng Mặt Biển Mỹ Khê
                         </h4>
@@ -652,31 +816,48 @@
                             22 Phòng tiêu chuẩn 3 sao view trực diện biển, nhà hàng & Sky bar sân thượng. Tài sản sinh lời đỉnh cao.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">48.0 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">48.0 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(7)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Khách Sạn Mini 9 Tầng Mặt Biển Mỹ Khê')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(7)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Khách Sạn Mini 9 Tầng Mặt Biển Mỹ Khê')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 8 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="anthuong" data-id="8">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800" alt="Căn Hộ Phan Tôn" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-cyan-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.4%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(8, event)" id="cmp-badge-8" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         95 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 uppercase">Phố Tây An Thượng</span>
+                            <span class="text-slate-400 font-semibold">200m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             8. Tòa Căn Hộ Dịch Vụ 6 Tầng Phan Tôn
                         </h4>
@@ -687,31 +868,48 @@
                             8 Căn hộ Studio phong cách Địa Trung Hải, PCCC nghiệm thu chuẩn, thang máy thẻ từ thông minh.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">16.2 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">16.2 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(8)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ Dịch Vụ 6 Tầng Phan Tôn')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(8)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ Dịch Vụ 6 Tầng Phan Tôn')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 9 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="mykhe" data-id="9">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800" alt="Căn Hộ Nguyễn Văn Thoại" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-amber-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.6%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(9, event)" id="cmp-badge-9" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         75 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-amber-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-amber-500/20 uppercase">Biển Mỹ Khê</span>
+                            <span class="text-slate-400 font-semibold">300m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             9. Tòa Căn Hộ 5 Tầng Cửa Ngõ Biển Nguyễn Văn Thoại
                         </h4>
@@ -722,31 +920,48 @@
                             7 Phòng lớn có bếp riêng, trục đường sầm uất thông thẳng biển Mỹ Khê và Cầu Rồng, tính thanh khoản cực cao.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">12.5 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">12.5 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(9)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ 5 Tầng Cửa Ngõ Biển Nguyễn Văn Thoại')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(9)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ 5 Tầng Cửa Ngõ Biển Nguyễn Văn Thoại')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 10 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="sontra" data-id="10">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800" alt="Căn Hộ Trần Bạch Đằng" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-emerald-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 10.1%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(10, event)" id="cmp-badge-10" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         195 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-emerald-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 uppercase">Bán Đảo Sơn Trà</span>
+                            <span class="text-slate-400 font-semibold">100m ra biển</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             10. Tòa Căn Hộ 7 Tầng Đường Trần Bạch Đằng
                         </h4>
@@ -757,31 +972,48 @@
                             15 Căn hộ chuẩn 4 sao, hệ thống Smart Lock tự động hóa 100%, tỷ lệ hoàn vốn chỉ 9.9 năm.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">29.5 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">29.5 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(10)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Căn Hộ 7 Tầng Đường Trần Bạch Đằng')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(10)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Căn Hộ 7 Tầng Đường Trần Bạch Đằng')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 11 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="haichau" data-id="11">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800" alt="Tòa Nhà Nguyễn Chí Thanh" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-purple-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 8.9%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(11, event)" id="cmp-badge-11" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         130 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-purple-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-purple-500/20 uppercase">Sông Hàn / Hải Châu</span>
+                            <span class="text-slate-400 font-semibold">Trung tâm Hải Châu</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             11. Tòa Nhà Văn Phòng & Căn Hộ Nguyễn Chí Thanh
                         </h4>
@@ -792,31 +1024,48 @@
                             Vị trí lõi trung tâm Đà Nẵng, kết hợp văn phòng công ty và căn hộ cho chuyên gia Nhật/Hàn thuê dài hạn.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">21.0 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">21.0 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(11)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Tòa Nhà Văn Phòng & Căn Hộ Nguyễn Chí Thanh')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(11)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Tòa Nhà Văn Phòng & Căn Hộ Nguyễn Chí Thanh')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Item 12 -->
-            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group">
+            <div class="glass-card rounded-2xl overflow-hidden hover:border-amber-400/50 transition duration-300 flex flex-col group property-card" data-zone="sontra" data-id="12">
                 <div class="relative h-52 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800" alt="Villa Non Nước" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
                     <span class="absolute top-3 left-3 px-3 py-1 bg-cyan-500 text-slate-950 font-black text-[10px] rounded-full uppercase shadow-md">
                         Cap Rate 9.5%
                     </span>
+                    <button type="button" onclick="toggleCompareItem(12, event)" id="cmp-badge-12" class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-plus"></i> So Sánh
+                    </button>
                     <span class="absolute bottom-3 right-3 px-2.5 py-1 bg-slate-950/80 backdrop-blur-md text-emerald-400 text-xs font-bold rounded-lg border border-emerald-500/30">
                         125 Tr / Tháng
                     </span>
                 </div>
                 <div class="p-5 flex-1 flex flex-col justify-between">
                     <div>
+                        <div class="flex items-center justify-between text-[10px] text-cyan-400 font-bold mb-1">
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 uppercase">Bán Đảo Sơn Trà</span>
+                            <span class="text-slate-400 font-semibold">150m ra bãi tắm</span>
+                        </div>
                         <h4 class="font-serif font-bold text-lg text-slate-100 group-hover:text-amber-300 transition">
                             12. Biệt Thự Villa Nghỉ Dưỡng Ven Biển Non Nước
                         </h4>
@@ -827,14 +1076,24 @@
                             300m2 sân vườn rộng, 4 Phòng ngủ lớn + hồ bơi gia đình, doanh thu khai thác booking nghỉ dưỡng cao cấp.
                         </p>
                     </div>
-                    <div class="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                        <div>
-                            <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
-                            <span class="text-base font-bold text-amber-400 font-serif">19.8 Tỷ VNĐ</span>
+                    <div class="pt-4 mt-4 border-t border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 block uppercase">Giá Đầu Tư</span>
+                                <span class="text-base font-bold text-amber-400 font-serif">19.8 Tỷ VNĐ</span>
+                            </div>
+                            <button type="button" onclick="loadPropertyIntoCalc(12)" class="text-[11px] font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
+                                <i class="fa-solid fa-calculator"></i> Tính Đòn Bẩy
+                            </button>
                         </div>
-                        <button onclick="openLeadModal('Biệt Thự Villa Nghỉ Dưỡng Ven Biển Non Nước')" class="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition">
-                            Xem Sổ & Dòng Tiền
-                        </button>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="openAppraisalModal(12)" class="py-2 px-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-300 font-bold text-[11px] border border-amber-500/30 flex items-center justify-center gap-1 transition">
+                                <i class="fa-solid fa-file-pdf"></i> Thẩm Định 4 Lớp
+                            </button>
+                            <button type="button" onclick="openLeadModal('Biệt Thự Villa Nghỉ Dưỡng Ven Biển Non Nước')" class="py-2 px-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] shadow-md transition text-center">
+                                Xem Sổ & Dòng Tiền
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -843,7 +1102,7 @@
     </section>
 
     <!-- Interactive Bank Leverage & Net Cashflow Simulator (5-Star Feature) -->
-    <section class="py-16 px-6 max-w-7xl mx-auto w-full">
+    <section class="py-16 px-6 max-w-7xl mx-auto w-full" id="financial-calculator">
         <div class="glass-card rounded-3xl p-8 lg:p-12 border border-amber-500/30 shadow-2xl relative overflow-hidden">
             <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-amber-500/10 blur-3xl pointer-events-none"></div>
             
@@ -857,6 +1116,41 @@
                 <p class="text-xs text-slate-300 mt-2">
                     Tính toán chính xác số tiền bạn cần bỏ ra, số tiền trả ngân hàng mỗi tháng, và dòng tiền thực nhận về tài khoản sau khi trừ hết mọi chi phí vận hành.
                 </p>
+            </div>
+
+            <!-- Seasonal Occupancy Stress-Test Controls -->
+            <div class="p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 mb-8 shadow-inner">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <span class="text-xs font-bold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-cloud-sun text-amber-400 text-sm"></i> Stress-Test Khả Năng Chịu Lực Dòng Tiền Theo 2 Mùa Du Lịch Đà Nẵng:
+                    </span>
+                    <span id="season-badge" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/40 text-center">
+                        ✓ Lấp Đầy 85% (Bình Quân Năm)
+                    </span>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-bold">
+                    <button type="button" onclick="setSeasonMode('high')" id="btn-season-high" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-between transition">
+                        <div class="text-left">
+                            <span class="text-amber-300 block font-bold">☀️ Mùa Cao Điểm</span>
+                            <span class="text-[10px] font-normal text-slate-400">T3 - T8 & Lễ Pháo Hoa DIFF</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px]">95% Phòng</span>
+                    </button>
+                    <button type="button" onclick="setSeasonMode('avg')" id="btn-season-avg" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-400 flex items-center justify-between transition shadow-md">
+                        <div class="text-left">
+                            <span class="font-black block">⚖️ Bình Quân 12 Tháng</span>
+                            <span class="text-[10px] font-semibold text-slate-900">Mức Cơ Sở Chuẩn</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-slate-950/20 text-slate-950 font-black text-[10px]">85% Phòng</span>
+                    </button>
+                    <button type="button" onclick="setSeasonMode('low')" id="btn-season-low" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-between transition">
+                        <div class="text-left">
+                            <span class="text-sky-300 block font-bold">🌧️ Mùa Thấp Điểm</span>
+                            <span class="text-[10px] font-normal text-slate-400">T9 - T2 (Mùa Mưa / Du Lịch Chậm)</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px]">70% Phòng</span>
+                    </button>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -964,6 +1258,140 @@
 
         </div>
     </section>
+
+    <!-- TURNKEY PROPERTY MANAGEMENT COMMITMENT (Khép Kín Vận Hành Cho Khách Hàng Ở Xa) -->
+    <section class="py-12 px-6 max-w-7xl mx-auto w-full">
+        <div class="glass-card rounded-3xl p-8 lg:p-10 border border-emerald-500/30 shadow-2xl relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/20">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold uppercase border border-emerald-500/30">
+                        🛡️ GIẢI PHÁP AN TÂM CHO NHÀ ĐẦU TƯ HÀ NỘI / TP.HCM / VIỆT KIỀU
+                    </div>
+                    <h3 class="font-serif font-black text-2xl lg:text-4xl text-slate-50">
+                        Ủy Thác Vận Hành Khép Kín <span class="text-emerald-400">Nguyệt Land Care+</span>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        Bạn ở xa chỉ cần nhận tiền về tài khoản mỗi tháng. Nguyệt Land lo trọn gói từ hệ thống Smart Lock tự động check-in 100%, đội ngũ dọn phòng 5 sao, bảo trì cơ điện đến tối ưu thuật toán bán phòng trên Airbnb, Booking.com, Agoda.
+                    </p>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-emerald-400 font-black text-sm block">100% Không Chạm</span>
+                            <span class="text-[10px] text-slate-400">Smart Lock & Camera AI</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-amber-400 font-black text-sm block">> 85% Lấp Đầy</span>
+                            <span class="text-[10px] text-slate-400">Cam kết công suất thuê</span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="text-sky-400 font-black text-sm block">Sao Kê Ngày 05</span>
+                            <span class="text-[10px] text-slate-400">Minh bạch dòng tiền ròng</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-3 w-full lg:w-auto flex-shrink-0">
+                    <a href="https://zalo.me/0935509168" target="_blank" class="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs shadow-xl flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-handshake"></i> Đăng Ký Gói Ủy Thác Vận Hành
+                    </a>
+                    <button onclick="openLeadModal('Tư Vấn Gói Vận Hành Homestay Khách Sạn')" class="px-6 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-file-contract"></i> Xem Hợp Đồng Mẫu 2026
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLOATING COMPARE DOCK (Xuất hiện khi chọn 1-3 BĐS) -->
+    <div id="compare-floating-dock" class="fixed bottom-20 md:bottom-6 right-3 left-3 md:left-auto md:right-6 z-40 p-3.5 rounded-3xl bg-slate-950/95 border-2 border-amber-500/60 shadow-2xl backdrop-blur-2xl transition-all duration-300 transform translate-y-36 opacity-0 pointer-events-none flex items-center justify-between gap-3 max-w-md w-full">
+        <div class="flex items-center gap-2.5 overflow-hidden">
+            <div class="w-9 h-9 rounded-2xl bg-amber-500 text-slate-950 font-black flex items-center justify-center text-sm shadow-md flex-shrink-0">
+                <i class="fa-solid fa-code-compare"></i>
+            </div>
+            <div class="text-xs truncate">
+                <span class="font-bold text-amber-300 block" id="dock-compare-count">Đã chọn 0 BĐS</span>
+                <span class="text-[10px] text-slate-400 truncate">So sánh đối đầu Cap Rate & Dòng tiền</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-2 flex-shrink-0">
+            <button onclick="clearCompareSelection()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-semibold">
+                Xóa
+            </button>
+            <button onclick="openCompareModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs shadow-lg hover:brightness-110 transition flex items-center gap-1.5">
+                <span>So Sánh Ngay</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- COMPARISON MATRIX MODAL (Bảng So Sánh Đối Đầu Song Song) -->
+    <div id="compare-matrix-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="glass-panel rounded-3xl max-w-5xl w-full p-5 sm:p-8 shadow-2xl border border-amber-500/40 max-h-[92vh] flex flex-col">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center font-bold text-lg">
+                        <i class="fa-solid fa-code-compare"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-serif font-black text-xl sm:text-2xl text-amber-300">Bảng So Sánh BĐS Dòng Tiền Đà Nẵng</h3>
+                        <p class="text-xs text-slate-400">Phân tích đa chiều: Giá bán, Đơn giá m2, Cap Rate, Dòng tiền ròng & PCCC</p>
+                    </div>
+                </div>
+                <button onclick="closeCompareModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto overflow-y-auto flex-1 py-4 pr-1" id="compare-matrix-content">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 flex-shrink-0">
+                <span>💡 <i>Dữ liệu được thẩm định trực tiếp bởi Nguyệt Land & hệ thống định giá AI.</i></span>
+                <div class="flex items-center gap-2">
+                    <button onclick="clearCompareSelection(); closeCompareModal()" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white">
+                        Chọn Lại BĐS Khác
+                    </button>
+                    <a href="https://zalo.me/0935509168" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1.5">
+                        <i class="fa-solid fa-phone"></i> Hẹn Khảo Sát 1-1
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4-LAYER APPRAISAL PREVIEW MODAL (Xem Trước Báo Cáo Thẩm Định 4 Lớp) -->
+    <div id="appraisal-modal" class="fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-xl flex items-center justify-center p-3 sm:p-6 hidden">
+        <div class="glass-panel rounded-3xl max-w-3xl w-full p-6 sm:p-8 shadow-2xl border border-amber-500/40 max-h-[92vh] flex flex-col">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-800 flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 text-slate-950 flex items-center justify-center font-black text-lg shadow-md">
+                        📜
+                    </div>
+                    <div>
+                        <span class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">HỒ SƠ BẢO CHỨNG ĐỘC QUYỀN NGUYỆT LAND</span>
+                        <h3 class="font-serif font-black text-xl sm:text-2xl text-slate-100" id="appraisal-modal-title">Báo Cáo Thẩm Định 4 Lớp</h3>
+                    </div>
+                </div>
+                <button onclick="closeAppraisalModal()" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white flex items-center justify-center text-lg font-bold">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <div class="overflow-y-auto flex-1 py-4 space-y-4 text-xs sm:text-sm text-slate-200" id="appraisal-modal-body">
+                <!-- Injected via JS -->
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs flex-shrink-0">
+                <span class="text-slate-400">Hotline Thẩm Định Trực Tiếp: <b class="text-amber-400">0935.509.168</b></span>
+                <div class="flex items-center gap-2">
+                    <button onclick="downloadAppraisalPdf()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 text-white font-bold flex items-center gap-2 shadow-lg hover:brightness-110">
+                        <i class="fa-solid fa-file-pdf"></i> Tải Báo Cáo PDF Đầy Đủ
+                    </button>
+                    <button onclick="closeAppraisalModal(); openLeadModal(currentAppraisalTitle)" class="px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-bold hover:bg-amber-400">
+                        Đặt Lịch Khảo Sát
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Lead Modal Popup -->
     <div id="lead-modal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 hidden">
@@ -1350,7 +1778,636 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
     </div>
 
     <script>
-        // ── 🧮 INTERACTIVE MORTGAGE & NET CASHFLOW SIMULATOR ENGINE ──
+        // ── 🏢 12 REAL ESTATE PROPERTIES MASTER DATA RECORD ──
+        const PROPERTIES_DB = [
+            {
+                id: 1,
+                title: "Tòa Căn Hộ 7 Tầng Phố Tây An Thượng 29",
+                zone: "anthuong",
+                zoneName: "Phố Tây An Thượng",
+                location: "Phường Mỹ An, Ngũ Hành Sơn, Đà Nẵng",
+                priceText: "18.5 Tỷ VNĐ",
+                priceNum: 18.5,
+                landArea: "115 m² (Mặt tiền 6m)",
+                pricePerM2: "160.8 Tr / m²",
+                floors: "7 Tầng (Thang máy 630kg)",
+                rooms: "10 Căn Hộ Studio Full Bếp",
+                monthlyRevText: "110 Tr / Tháng",
+                monthlyRevNum: 110,
+                capRate: "9.8% / Năm",
+                distanceSea: "150m (3 phút đi bộ bãi Mỹ An)",
+                pccc: "Đã nghiệm thu PCCC hoàn công chuẩn 100%",
+                legal: "Sổ hồng lâu dài, sẵn sàng công chứng",
+                leverage50Net: "+31.4 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800",
+                desc: "Vị trí kim cương phố Tây An Thượng, 100% khách lưu trú là chuyên gia quốc tế & Digital Nomad.",
+                expertNote: "Dòng tiền siêu ổn định quanh năm, tỷ lệ lấp đầy >92% ngay cả mùa thấp điểm."
+            },
+            {
+                id: 2,
+                title: "Khách Sạn Boutique 14 Phòng Hà Bổng",
+                zone: "mykhe",
+                zoneName: "Biển Mỹ Khê",
+                location: "Phước Mỹ, Sơn Trà, Đà Nẵng",
+                priceText: "23.5 Tỷ VNĐ",
+                priceNum: 23.5,
+                landArea: "135 m² (Mặt tiền 7.5m)",
+                pricePerM2: "174.0 Tr / m²",
+                floors: "6 Tầng (Thang máy + Hồ bơi rooftop)",
+                rooms: "14 Phòng Khách Sạn Indochine Luxury",
+                monthlyRevText: "160 Tr / Tháng",
+                monthlyRevNum: 160,
+                capRate: "10.5% / Năm",
+                distanceSea: "120m (2 phút đi bộ bãi T20)",
+                pccc: "Đã nghiệm thu PCCC tự động Sprinkler 100%",
+                legal: "Sổ hồng hoàn công khách sạn đầy đủ",
+                leverage50Net: "+44.8 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+                desc: "Khách sạn Boutique view biển Mỹ Khê, hồ bơi vô cực ngắm pháo hoa quốc tế DIFF.",
+                expertNote: "Mùa cao điểm đạt doanh thu >220 Tr/tháng, tỷ suất sinh lời top đầu bãi biển Mỹ Khê."
+            },
+            {
+                id: 3,
+                title: "Tòa Căn Hộ Dịch Vụ 5 Tầng Dương Đình Nghệ",
+                zone: "sontra",
+                zoneName: "Bán Đảo Sơn Trà",
+                location: "An Hải Bắc, Sơn Trà, Đà Nẵng",
+                priceText: "14.8 Tỷ VNĐ",
+                priceNum: 14.8,
+                landArea: "100 m² (Mặt tiền 5m)",
+                pricePerM2: "148.0 Tr / m²",
+                floors: "5 Tầng thang máy hiện đại",
+                rooms: "8 Căn Hộ 1PN Có Ban Công",
+                monthlyRevText: "85 Tr / Tháng",
+                monthlyRevNum: 85,
+                capRate: "9.2% / Năm",
+                distanceSea: "250m ra biển Phạm Văn Đồng",
+                pccc: "Nghiệm thu PCCC & Thang thoát hiểm ngoài trời",
+                legal: "Sổ đỏ cá nhân, không quy hoạch",
+                leverage50Net: "+22.5 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800",
+                desc: "Khu vực chuyên gia Hàn Quốc & kỹ sư phần mềm lưu trú, tỷ lệ kín phòng dài hạn 100%.",
+                expertNote: "Chi phí vận hành thấp, dòng tiền ròng sau chi phí đạt hơn 75% doanh thu gộp."
+            },
+            {
+                id: 4,
+                title: "Biệt Thự Homestay Sân Vườn Euro Village 1",
+                zone: "haichau",
+                zoneName: "Sông Hàn / Hải Châu",
+                location: "Làng Châu Âu, Sông Hàn, Hải Châu",
+                priceText: "32.0 Tỷ VNĐ",
+                priceNum: 32.0,
+                landArea: "250 m² (Biệt thự song lập)",
+                pricePerM2: "128.0 Tr / m²",
+                floors: "3 Tầng + Hồ bơi sân vườn riêng",
+                rooms: "5 Phòng Ngủ Master King Bed",
+                monthlyRevText: "150 Tr / Tháng",
+                monthlyRevNum: 150,
+                capRate: "8.5% / Năm",
+                distanceSea: "Ven sông Hàn (Cạnh Cầu Rồng)",
+                pccc: "Tiêu chuẩn an toàn PCCC Biệt thự cao cấp",
+                legal: "Sổ hồng sở hữu lâu dài KĐT Euro Village",
+                leverage50Net: "+38.2 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800",
+                desc: "Khu compound an ninh khép kín đẳng cấp nhất Đà Nẵng, chuyên đón đoàn chuyên gia VIP & gia đình du lịch cao cấp.",
+                expertNote: "Giá trị đất ven sông Hàn tăng trưởng ổn định 12-15%/năm, thanh khoản cực kỳ cao."
+            },
+            {
+                id: 5,
+                title: "Tòa Căn Hộ 6 Tầng Mặt Tiền Hồ Xuân Hương",
+                zone: "anthuong",
+                zoneName: "Phố Tây An Thượng",
+                location: "Khu Resort Furama, Ngũ Hành Sơn",
+                priceText: "26.8 Tỷ VNĐ",
+                priceNum: 26.8,
+                landArea: "150 m² (Mặt tiền đại lộ 15m)",
+                pricePerM2: "178.6 Tr / m²",
+                floors: "6 Tầng (Thang máy thẻ từ)",
+                rooms: "12 Căn Hộ + Mặt Bằng Café Trệt",
+                monthlyRevText: "175 Tr / Tháng",
+                monthlyRevNum: 175,
+                capRate: "10.2% / Năm",
+                distanceSea: "180m ra bãi tắm Furama Resort",
+                pccc: "Nghiệm thu PCCC thương mại & hoàn công chuẩn",
+                legal: "Sổ hồng đã cập nhật tài sản trên đất",
+                leverage50Net: "+52.6 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800",
+                desc: "Trục đại lộ du lịch huyết mạch nối Đà Nẵng - Hội An, kết hợp cho thuê mặt bằng Café và căn hộ nghỉ dưỡng.",
+                expertNote: "Tài sản 2 trong 1 vừa có dòng tiền cho thuê căn hộ vừa có dòng tiền mặt bằng kinh doanh."
+            },
+            {
+                id: 6,
+                title: "Tòa Căn Hộ Mini 5 Tầng Gần ĐH Kinh Tế",
+                zone: "anthuong",
+                zoneName: "Phố Tây An Thượng",
+                location: "Phường Mỹ An, Ngũ Hành Sơn",
+                priceText: "7.9 Tỷ VNĐ",
+                priceNum: 7.9,
+                landArea: "75 m² (Mặt tiền 4.5m)",
+                pricePerM2: "105.3 Tr / m²",
+                floors: "5 Tầng (Thang bộ rộng + Khóa vân tay)",
+                rooms: "9 Phòng Khép Kín Full Nội Thất",
+                monthlyRevText: "48 Tr / Tháng",
+                monthlyRevNum: 48,
+                capRate: "9.5% / Năm",
+                distanceSea: "600m ra biển Mỹ An",
+                pccc: "Trang bị PCCC báo khói tự động từng phòng",
+                legal: "Sổ đỏ thổ cư 100%, sẵn sàng giao dịch",
+                leverage50Net: "+14.6 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800",
+                desc: "Phân khúc đầu tư dòng tiền vừa túi tiền nhất, luôn kín phòng 100% nhờ sinh viên & nhân viên văn phòng thuê quanh năm.",
+                expertNote: "Thích hợp cho nhà đầu tư mới bắt đầu giải ngân BĐS dòng tiền tại Đà Nẵng."
+            },
+            {
+                id: 7,
+                title: "Khách Sạn Mini 9 Tầng Mặt Biển Mỹ Khê",
+                zone: "mykhe",
+                zoneName: "Biển Mỹ Khê",
+                location: "Đường Võ Nguyên Giáp, Sơn Trà",
+                priceText: "48.0 Tỷ VNĐ",
+                priceNum: 48.0,
+                landArea: "180 m² (Mặt tiền đường biển lớn)",
+                pricePerM2: "266.6 Tr / m²",
+                floors: "9 Tầng (2 Thang máy + Sky Bar)",
+                rooms: "22 Phòng Khách Sạn View Biển 100%",
+                monthlyRevText: "320 Tr / Tháng",
+                monthlyRevNum: 320,
+                capRate: "10.8% / Năm",
+                distanceSea: "Mặt biển Võ Nguyên Giáp (50m)",
+                pccc: "Nghiệm thu PCCC Khách sạn cấp Quận / TP",
+                legal: "Sổ hồng hoàn công 9 tầng đầy đủ",
+                leverage50Net: "+95.8 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800",
+                desc: "Vị trí độc bản mặt đường biển Võ Nguyên Giáp, khai thác booking khách quốc tế và tour lữ hành.",
+                expertNote: "Tài sản kim cương giữ tiền chống lạm phát và tạo dòng tiền khủng hàng tháng."
+            },
+            {
+                id: 8,
+                title: "Tòa Căn Hộ Dịch Vụ 6 Tầng Phan Tôn",
+                zone: "anthuong",
+                zoneName: "Phố Tây An Thượng",
+                location: "Phố Tây An Thượng, Ngũ Hành Sơn",
+                priceText: "16.2 Tỷ VNĐ",
+                priceNum: 16.2,
+                landArea: "95 m² (Mặt tiền 5m)",
+                pricePerM2: "170.5 Tr / m²",
+                floors: "6 Tầng (Thang máy Mitsubishi)",
+                rooms: "8 Căn Hộ Studio Địa Trung Hải",
+                monthlyRevText: "95 Tr / Tháng",
+                monthlyRevNum: 95,
+                capRate: "9.4% / Năm",
+                distanceSea: "200m ra biển Mỹ Khê",
+                pccc: "Nghiệm thu PCCC & lối thoát nạn tiêu chuẩn",
+                legal: "Sổ hồng riêng chính chủ",
+                leverage50Net: "+26.8 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800",
+                desc: "Phong cách thiết kế Địa Trung Hải trẻ trung, thu hút khách nước ngoài lưu trú dài hạn.",
+                expertNote: "Nằm ngay lõi phố đi bộ đêm An Thượng, giá phòng trung bình đạt 12-14 Tr/tháng/căn."
+            },
+            {
+                id: 9,
+                title: "Tòa Căn Hộ 5 Tầng Cửa Ngõ Biển Nguyễn Văn Thoại",
+                zone: "mykhe",
+                zoneName: "Biển Mỹ Khê",
+                location: "Phường Mỹ An, Ngũ Hành Sơn",
+                priceText: "12.5 Tỷ VNĐ",
+                priceNum: 12.5,
+                landArea: "85 m² (Mặt tiền 5m)",
+                pricePerM2: "147.0 Tr / m²",
+                floors: "5 Tầng (Thang máy gia đình)",
+                rooms: "7 Phòng Căn Hộ Lớn Có Bếp",
+                monthlyRevText: "75 Tr / Tháng",
+                monthlyRevNum: 75,
+                capRate: "9.6% / Năm",
+                distanceSea: "300m ra bãi tắm T20",
+                pccc: "Trang bị hệ thống PCCC tiêu chuẩn",
+                legal: "Sổ đỏ vuông vắn, pháp lý sạch",
+                leverage50Net: "+21.2 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800",
+                desc: "Trục đường ăn uống mua sắm sầm uất nhất khu biển Mỹ Khê, nối thẳng Cầu Rồng ra bãi tắm.",
+                expertNote: "Thanh khoản cực kỳ cao, dễ dàng bán lại hoặc thế chấp ngân hàng định giá tốt."
+            },
+            {
+                id: 10,
+                title: "Tòa Căn Hộ 7 Tầng Đường Trần Bạch Đằng",
+                zone: "sontra",
+                zoneName: "Bán Đảo Sơn Trà",
+                location: "Phố Du Lịch An Thượng, Ngũ Hành Sơn",
+                priceText: "29.5 Tỷ VNĐ",
+                priceNum: 29.5,
+                landArea: "160 m² (Mặt tiền 8m rộng)",
+                pricePerM2: "184.3 Tr / m²",
+                floors: "7 Tầng (Thang máy tải trọng lớn)",
+                rooms: "15 Căn Hộ Chuẩn Khách Sạn 4 Sao",
+                monthlyRevText: "195 Tr / Tháng",
+                monthlyRevNum: 195,
+                capRate: "10.1% / Năm",
+                distanceSea: "100m ra biển (2 phút đi bộ)",
+                pccc: "Nghiệm thu PCCC tòa nhà cao tầng đầy đủ",
+                legal: "Sổ hồng hoàn công 7 tầng",
+                leverage50Net: "+58.4 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800",
+                desc: "Trục đường Trần Bạch Đằng sầm uất nhất phố biển, trang bị hệ thống Smart Lock không chạm 100%.",
+                expertNote: "Tỷ lệ hoàn vốn 9.9 năm, là cơ hội đầu tư dòng tiền cao cấp rất hiếm tại thời điểm này."
+            },
+            {
+                id: 11,
+                title: "Tòa Nhà Văn Phòng & Căn Hộ Nguyễn Chí Thanh",
+                zone: "haichau",
+                zoneName: "Sông Hàn / Hải Châu",
+                location: "Trung Tâm Quận Hải Châu, Đà Nẵng",
+                priceText: "21.0 Tỷ VNĐ",
+                priceNum: 21.0,
+                landArea: "110 m² (Mặt tiền 6m trung tâm)",
+                pricePerM2: "190.9 Tr / m²",
+                floors: "6 Tầng (Thang máy Schindlers)",
+                rooms: "3 Tầng VP + 6 Căn Hộ Chuyên Gia",
+                monthlyRevText: "130 Tr / Tháng",
+                monthlyRevNum: 130,
+                capRate: "8.9% / Năm",
+                distanceSea: "Trung tâm phố tài chính",
+                pccc: "PCCC văn phòng & nhà ở kết hợp hoàn chỉnh",
+                legal: "Sổ hồng chính chủ, sẵn sàng công chứng",
+                leverage50Net: "+35.5 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800",
+                desc: "Khu vực tài chính trung tâm thành phố, kết hợp văn phòng công ty và căn hộ cho chuyên gia Nhật Bản.",
+                expertNote: "Thuê hợp đồng dài hạn 3-5 năm cố định, không phụ thuộc vào mùa du lịch."
+            },
+            {
+                id: 12,
+                title: "Biệt Thự Villa Nghỉ Dưỡng Ven Biển Non Nước",
+                zone: "sontra",
+                zoneName: "Bán Đảo Sơn Trà",
+                location: "Phường Hòa Hải, Ngũ Hành Sơn",
+                priceText: "19.8 Tỷ VNĐ",
+                priceNum: 19.8,
+                landArea: "300 m² (Sân vườn & hồ bơi)",
+                pricePerM2: "66.0 Tr / m²",
+                floors: "2 Tầng Villa phong cách Tropical",
+                rooms: "4 Phòng Ngủ Lớn King Ensuite",
+                monthlyRevText: "125 Tr / Tháng",
+                monthlyRevNum: 125,
+                capRate: "9.5% / Năm",
+                distanceSea: "150m ra bãi biển Non Nước",
+                pccc: "Tiêu chuẩn an toàn Villa nghỉ dưỡng",
+                legal: "Sổ đỏ đất ở đô thị lâu dài",
+                leverage50Net: "+36.2 Tr / Tháng",
+                image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=800",
+                desc: "Villa nghỉ dưỡng ven biển Non Nước, không gian riêng tư đẳng cấp cho khách thuê gia đình & đoàn ngoại giao.",
+                expertNote: "Đơn giá đất chỉ 66 Tr/m2 còn rất mềm so với tiềm năng phát triển trục du lịch phía Nam Đà Nẵng."
+            }
+        ];
+
+        // ── 🌐 STATE MANAGEMENT ──
+        let selectedCompareIds = new Set();
+        let currentSeasonMode = 'avg'; // 'avg' | 'high' | 'low'
+        let currentAppraisalTitle = 'Tòa Căn Hộ 7 Tầng Phố Tây An Thượng 29';
+
+        // ── 🔍 ZONE FILTERING CONTROLLER ──
+        function filterZone(zone) {
+            const cards = document.querySelectorAll('.property-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const cardZone = card.getAttribute('data-zone');
+                if (zone === 'all' || cardZone === zone) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Update Active Filter Button
+            const buttons = document.querySelectorAll('#zone-filter-container button');
+            buttons.forEach(btn => {
+                btn.className = 'px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition border border-slate-700';
+            });
+            const activeBtn = document.getElementById(`zone-btn-${zone}`);
+            if (activeBtn) {
+                activeBtn.className = 'px-3.5 py-1.5 rounded-xl bg-amber-500 text-slate-950 font-bold text-xs transition shadow-sm';
+            }
+
+            // Update Count Badge
+            const badge = document.getElementById('prop-count-badge');
+            if (badge) badge.innerText = `${visibleCount} Tài Sản Đang Hiển Thị`;
+
+            trackEvent('filter_zone', { zone_name: zone, visible_count: visibleCount });
+        }
+
+        // ── ⚖️ PROPERTY COMPARISON ENGINE ──
+        function toggleCompareItem(id, event) {
+            if (event) event.stopPropagation();
+
+            if (selectedCompareIds.has(id)) {
+                selectedCompareIds.delete(id);
+            } else {
+                if (selectedCompareIds.size >= 3) {
+                    alert('⚠️ Bạn chỉ có thể chọn tối đa 3 bất động sản để so sánh cùng lúc!');
+                    return;
+                }
+                selectedCompareIds.add(id);
+            }
+
+            updateCompareUI();
+        }
+
+        function updateCompareUI() {
+            // Update Badges on All Cards
+            for (let i = 1; i <= 12; i++) {
+                const badge = document.getElementById(`cmp-badge-${i}`);
+                if (!badge) continue;
+                if (selectedCompareIds.has(i)) {
+                    badge.className = 'absolute top-3 right-3 px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black border border-amber-400 transition flex items-center gap-1 shadow-lg ring-2 ring-amber-400/50';
+                    badge.innerHTML = '<i class="fa-solid fa-check"></i> Đã Chọn';
+                } else {
+                    badge.className = 'absolute top-3 right-3 px-2.5 py-1 rounded-full bg-slate-950/80 hover:bg-amber-500 hover:text-slate-950 text-slate-300 text-[10px] font-bold border border-slate-700 transition flex items-center gap-1 shadow-md';
+                    badge.innerHTML = '<i class="fa-solid fa-plus"></i> So Sánh';
+                }
+            }
+
+            // Update Floating Dock
+            const dock = document.getElementById('compare-floating-dock');
+            const countLabel = document.getElementById('dock-compare-count');
+            const btnLabel = document.getElementById('compare-btn-label');
+
+            const count = selectedCompareIds.size;
+            if (btnLabel) btnLabel.innerText = `Bảng So Sánh (${count})`;
+
+            if (count > 0) {
+                if (dock) {
+                    dock.classList.remove('translate-y-36', 'opacity-0', 'pointer-events-none');
+                    dock.classList.add('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                }
+                if (countLabel) countLabel.innerText = `Đã chọn ${count}/3 Bất Động Sản`;
+            } else {
+                if (dock) {
+                    dock.classList.add('translate-y-36', 'opacity-0', 'pointer-events-none');
+                    dock.classList.remove('translate-y-0', 'opacity-100', 'pointer-events-auto');
+                }
+            }
+        }
+
+        function clearCompareSelection() {
+            selectedCompareIds.clear();
+            updateCompareUI();
+        }
+
+        function openCompareModal() {
+            // If none selected, pick first 2 properties by default
+            if (selectedCompareIds.size === 0) {
+                selectedCompareIds.add(1);
+                selectedCompareIds.add(2);
+                updateCompareUI();
+            }
+
+            renderCompareMatrix();
+            document.getElementById('compare-matrix-modal')?.classList.remove('hidden');
+            trackEvent('open_compare_matrix', { items_count: selectedCompareIds.size });
+        }
+
+        function closeCompareModal() {
+            document.getElementById('compare-matrix-modal')?.classList.add('hidden');
+        }
+
+        function renderCompareMatrix() {
+            const container = document.getElementById('compare-matrix-content');
+            if (!container) return;
+
+            const items = Array.from(selectedCompareIds).map(id => PROPERTIES_DB.find(p => p.id === id)).filter(Boolean);
+            if (items.length === 0) return;
+
+            const colWidth = items.length === 1 ? 'w-full' : items.length === 2 ? 'w-1/2' : 'w-1/3';
+
+            let html = `
+            <div class="min-w-[650px]">
+                <table class="w-full text-left text-xs border-collapse">
+                    <thead>
+                        <tr class="border-b border-slate-800">
+                            <th class="p-3 bg-slate-900/90 text-slate-400 font-bold uppercase text-[10px] w-44">Chỉ Số So Sánh</th>
+                            ${items.map(it => `
+                                <th class="p-3 bg-slate-900/60 border-l border-slate-800 ${colWidth}">
+                                    <div class="space-y-2">
+                                        <div class="relative h-28 rounded-xl overflow-hidden shadow-md">
+                                            <img src="${it.image}" alt="${it.title}" class="w-full h-full object-cover" />
+                                            <span class="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 font-black text-[9px]">Cap Rate ${it.capRate}</span>
+                                        </div>
+                                        <h5 class="font-serif font-bold text-sm text-amber-300 leading-snug line-clamp-2">${it.title}</h5>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-base font-black text-amber-400 font-serif">${it.priceText}</span>
+                                            <button onclick="loadPropertyIntoCalc(${it.id}); closeCompareModal();" class="text-[10px] px-2 py-1 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 font-bold">
+                                                <i class="fa-solid fa-calculator"></i> Tính đòn bẩy
+                                            </button>
+                                        </div>
+                                    </div>
+                                </th>
+                            `).join('')}
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-800/60">
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">📍 Khu Vực</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-200 font-semibold">${it.zoneName}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">🌊 Khoảng Cách Biển</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-emerald-400 font-bold">${it.distanceSea}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">📐 Diện Tích & Đơn Giá</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-200"><b>${it.landArea}</b><br/><span class="text-amber-400">~ ${it.pricePerM2}</span></td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">🏢 Quy Mô Khai Thác</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-200 font-medium">${it.floors}<br/><span class="text-slate-400 text-[11px]">${it.rooms}</span></td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">💰 Doanh Thu Gộp</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-cyan-400 font-black text-sm">${it.monthlyRevText}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">📈 Tỷ Suất Cap Rate</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-amber-300 font-black text-sm">${it.capRate}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">💵 Dòng Tiền Ròng (Vay 50%)</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-emerald-400 font-bold bg-emerald-500/10">${it.leverage50Net}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">🚒 Tình Trạng PCCC</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-300 text-[11px]"><i class="fa-solid fa-shield-check text-emerald-400 mr-1"></i> ${it.pccc}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">📜 Pháp Lý</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-300 text-[11px]"><i class="fa-solid fa-file-contract text-amber-400 mr-1"></i> ${it.legal}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">👑 Nhận Định Bản Địa</td>
+                            ${items.map(it => `<td class="p-3 border-l border-slate-800 text-slate-300 text-[11px] italic bg-slate-900/30">${it.expertNote}</td>`).join('')}
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold text-slate-300 bg-slate-900/40">Hành Động</td>
+                            ${items.map(it => `
+                                <td class="p-3 border-l border-slate-800">
+                                    <button onclick="closeCompareModal(); openLeadModal('${it.title}')" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition text-center">
+                                        Chọn Căn Này & Hẹn Xem
+                                    </button>
+                                </td>
+                            `).join('')}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        // ── 📄 4-LAYER APPRAISAL PREVIEW MODAL ──
+        function openAppraisalModal(id) {
+            const item = PROPERTIES_DB.find(p => p.id === id) || PROPERTIES_DB[0];
+            currentAppraisalTitle = item.title;
+
+            document.getElementById('appraisal-modal-title').innerText = item.title;
+
+            const bodyHtml = `
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs text-slate-400 block">Mã Thẩm Định: <b class="text-slate-200">OPC-DN-2026-${String(item.id).padStart(3, '0')}</b></span>
+                        <span class="text-base font-serif font-black text-amber-300">${item.priceText} — Cap Rate ${item.capRate}</span>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xs border border-emerald-500/30">✓ ĐẠT 4/4 TIÊU CHUẨN</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Layer 1 -->
+                    <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <div class="flex items-center gap-2 text-amber-400 font-bold text-xs mb-2">
+                            <i class="fa-solid fa-scroll"></i> LỚP 1: PHÁP LÝ SỔ ĐỎ & HOÀN CÔNG
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1">
+                            <li>• Sổ hồng cá nhân chính chủ, không tranh chấp, không kê biên.</li>
+                            <li>• Bản vẽ hoàn công đúng ${item.floors}.</li>
+                            <li>• Đất ở đô thị ODT sở hữu lâu dài (100% thổ cư).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 2 -->
+                    <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <div class="flex items-center gap-2 text-rose-400 font-bold text-xs mb-2">
+                            <i class="fa-solid fa-fire-extinguisher"></i> LỚP 2: NGHIỆM THU AN TOÀN PCCC
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1">
+                            <li>• ${item.pccc}.</li>
+                            <li>• Cửa chống cháy, chuông báo cháy kết nối trung tâm.</li>
+                            <li>• Đủ điều kiện cấp giấy phép An ninh trật tự & Lưu trú.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 3 -->
+                    <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <div class="flex items-center gap-2 text-cyan-400 font-bold text-xs mb-2">
+                            <i class="fa-solid fa-chart-line"></i> LỚP 3: SAO KÊ DÒNG TIỀN THỰC TẾ
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1">
+                            <li>• Doanh thu gộp trung bình: <b>${item.monthlyRevText}</b>.</li>
+                            <li>• Công suất lấp phòng mùa cao điểm: <b>95%</b> (T3 - T8).</li>
+                            <li>• Công suất lấp phòng mùa thấp điểm: <b>70-75%</b> (T9 - T2).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Layer 4 -->
+                    <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800">
+                        <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs mb-2">
+                            <i class="fa-solid fa-scale-balanced"></i> LỚP 4: KẾ HOẠCH ĐÒN BẨY TỐI ƯU
+                        </div>
+                        <ul class="text-xs text-slate-300 space-y-1">
+                            <li>• Tỷ lệ đòn bẩy đề xuất: 40% - 50% (Gói vay 15-20 năm).</li>
+                            <li>• Dòng tiền ròng bỏ túi sau nợ: <b>${item.leverage50Net}</b>.</li>
+                            <li>• Căn nhà tự nuôi 100% gốc lãi ngân hàng.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="p-3 bg-slate-900/60 rounded-xl border border-slate-800 text-[11px] text-slate-400">
+                    👑 <b>Bảo chứng bởi Chuyên gia Bản địa Nguyệt Land:</b> <i>"${item.expertNote}"</i>
+                </div>
+            </div>
+            `;
+
+            document.getElementById('appraisal-modal-body').innerHTML = bodyHtml;
+            document.getElementById('appraisal-modal')?.classList.remove('hidden');
+            trackEvent('view_appraisal_modal', { property_id: id, property_title: item.title });
+        }
+
+        function closeAppraisalModal() {
+            document.getElementById('appraisal-modal')?.classList.add('hidden');
+        }
+
+        function downloadAppraisalPdf() {
+            alert(`🎉 Hồ sơ thẩm định 4 lớp đầy đủ của "${currentAppraisalTitle}" đang được tạo bản PDF chuẩn in. Quý khách cũng có thể liên hệ Zalo 0935.509.168 để nhận file gốc có đóng dấu.`);
+            window.print();
+        }
+
+        // ── 🧮 1-CLICK LOAD PROPERTY INTO CALCULATOR ──
+        function loadPropertyIntoCalc(id) {
+            const item = PROPERTIES_DB.find(p => p.id === id);
+            if (!item) return;
+
+            const priceEl = document.getElementById('slider-price');
+            const revEl = document.getElementById('slider-rev');
+
+            if (priceEl) priceEl.value = item.priceNum;
+            if (revEl) revEl.value = item.monthlyRevNum;
+
+            updateMortgageCalc();
+
+            const calcSection = document.getElementById('financial-calculator');
+            if (calcSection) {
+                calcSection.scrollIntoView({ behavior: 'smooth' });
+            }
+
+            trackEvent('load_property_calc', { property_id: id, price: item.priceNum, revenue: item.monthlyRevNum });
+        }
+
+        // ── ☀️ SEASONAL STRESS-TEST CONTROLLER ──
+        function setSeasonMode(mode) {
+            currentSeasonMode = mode;
+
+            const btnHigh = document.getElementById('btn-season-high');
+            const btnAvg = document.getElementById('btn-season-avg');
+            const btnLow = document.getElementById('btn-season-low');
+            const badge = document.getElementById('season-badge');
+
+            // Reset styles
+            [btnHigh, btnAvg, btnLow].forEach(btn => {
+                if (btn) btn.className = 'py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-between transition';
+            });
+
+            if (mode === 'high') {
+                if (btnHigh) btnHigh.className = 'py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-400 flex items-center justify-between transition shadow-md font-black';
+                if (badge) {
+                    badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 font-bold text-xs border border-amber-500/40 text-center';
+                    badge.innerText = '☀️ Mùa Cao Điểm (Lấp Đầy 95% + Doanh Thu Tăng 15%)';
+                }
+            } else if (mode === 'low') {
+                if (btnLow) btnLow.className = 'py-2.5 px-3 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950 border border-sky-400 flex items-center justify-between transition shadow-md font-black';
+                if (badge) {
+                    badge.className = 'px-3 py-1 rounded-full bg-sky-500/20 text-sky-300 font-bold text-xs border border-sky-500/40 text-center';
+                    badge.innerText = '🌧️ Mùa Thấp Điểm (Stress-Test Lấp Đầy 70%)';
+                }
+            } else {
+                if (btnAvg) btnAvg.className = 'py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-400 flex items-center justify-between transition shadow-md font-black';
+                if (badge) {
+                    badge.className = 'px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/40 text-center';
+                    badge.innerText = '✓ Lấp Đầy 85% (Bình Quân Năm Chuẩn)';
+                }
+            }
+
+            updateMortgageCalc();
+        }
+
+        // ── 🧮 INTERACTIVE MORTGAGE & NET CASHFLOW SIMULATOR ENGINE (ENHANCED) ──
         function updateMortgageCalc() {
             try {
                 const priceEl = document.getElementById('slider-price');
@@ -1363,9 +2420,16 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
 
                 const price = parseFloat(priceEl.value) || 18.5; // Tỷ VNĐ
                 const loanPct = parseFloat(loanPctEl.value) || 40; // %
-                const grossRev = parseFloat(revEl.value) || 110; // Triệu / Tháng
-                const years = parseInt(yearsEl.value) || 15;
-                const interestRate = parseFloat(interestEl.value) || 8.5; // % / năm
+                let baseGrossRev = parseFloat(revEl.value) || 110; // Triệu / Tháng
+                const years = parseInt(yearsEl?.value) || 15;
+                const interestRate = parseFloat(interestEl?.value) || 8.5; // % / năm
+
+                // Apply Season Multiplier
+                let seasonMultiplier = 1.0;
+                if (currentSeasonMode === 'high') seasonMultiplier = 1.15;
+                else if (currentSeasonMode === 'low') seasonMultiplier = 0.75;
+
+                const effectiveGrossRev = baseGrossRev * seasonMultiplier;
 
                 // 1. Calculate Loan & Equity
                 const loanAmountBillion = (price * loanPct) / 100;
@@ -1374,7 +2438,7 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 // Update Slider Labels
                 document.getElementById('calc-val-price').innerText = price.toFixed(1) + ' Tỷ';
                 document.getElementById('calc-val-loan-pct').innerText = `${loanPct}% Vay (${loanAmountBillion.toFixed(2)} Tỷ)`;
-                document.getElementById('calc-val-rev').innerText = `${grossRev} Triệu / Tháng`;
+                document.getElementById('calc-val-rev').innerText = `${baseGrossRev} Triệu / Tháng ${seasonMultiplier !== 1 ? `(Thực tế: ${effectiveGrossRev.toFixed(1)} Tr)` : ''}`;
 
                 // 2. Calculate Monthly Debt Payment (Annuity Formula PMT)
                 let monthlyDebtMillion = 0;
@@ -1387,7 +2451,7 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 }
 
                 // 3. Operating Expenses (OPEX 20%) & Net Operating Income (NOI)
-                const noiMillion = grossRev * 0.8;
+                const noiMillion = effectiveGrossRev * 0.8;
 
                 // 4. Net Pocket Cashflow
                 const netPocketMillion = noiMillion - monthlyDebtMillion;
@@ -1437,27 +2501,92 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
             document.getElementById('auth-modal')?.classList.add('hidden');
         }
 
-        async function loadLiveTicker() {
-            try {
-                const res = await fetch('/api/news/ticker');
-                if (!res.ok) return;
-                const data = await res.json();
-                if (data.ticker && data.ticker.length > 0) {
-                    const html = data.ticker.map(t => 
-                        `<span class="mr-6">📰 <b class="${t.sourceColor || 'text-amber-400'}">[${t.source} - ${t.time}]:</b> <a href="${t.link}" target="_blank" class="hover:underline text-slate-200">${t.title}</a></span>`
-                    ).join(' &nbsp; | &nbsp; ');
-                    document.getElementById('ticker-content').innerHTML = html;
-                }
-            } catch (err) {
-                console.warn('[Live Ticker Fetch]', err);
+        let isTickerManuallyPaused = false;
+
+        function pauseTicker() {
+            if (isTickerManuallyPaused) return;
+            const el = document.getElementById('ticker-content');
+            if (el) el.style.animationPlayState = 'paused';
+        }
+
+        function resumeTicker() {
+            if (isTickerManuallyPaused) return;
+            const el = document.getElementById('ticker-content');
+            if (el) el.style.animationPlayState = 'running';
+        }
+
+        function toggleTickerPlayPause() {
+            isTickerManuallyPaused = !isTickerManuallyPaused;
+            const el = document.getElementById('ticker-content');
+            const icon = document.getElementById('icon-ticker-playpause');
+            if (isTickerManuallyPaused) {
+                if (el) el.style.animationPlayState = 'paused';
+                if (icon) icon.className = 'fa-solid fa-play text-amber-400';
+            } else {
+                if (el) el.style.animationPlayState = 'running';
+                if (icon) icon.className = 'fa-solid fa-pause';
             }
         }
 
-        // Initialize on DOM Ready
-        window.addEventListener('DOMContentLoaded', () => {
-            updateMortgageCalc();
-            loadLiveTicker();
-            setInterval(loadLiveTicker, 180000);
+        function applyTvBroadcastSpeed() {
+            const tickerEl = document.getElementById('ticker-content');
+            if (!tickerEl) return;
+            
+            // Measure physical rendered width of the track
+            const totalWidth = tickerEl.scrollWidth;
+            const halfWidth = totalWidth / 2;
+            
+            // TV Broadcast Standard Crawl Rate: 46 px/s (Mobile) and 52 px/s (Desktop)
+            const speedPxPerSec = window.innerWidth < 640 ? 46 : 52;
+            const calculatedDuration = Math.max(25, halfWidth / speedPxPerSec);
+            
+            tickerEl.style.animationDuration = `${calculatedDuration.toFixed(1)}s`;
+            console.log(`[TV News Ticker Engine] 📺 Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
+        }
+
+        async function loadLiveTicker(showSpin = false) {
+            const spinIcon = document.getElementById('icon-ticker-refresh');
+            if (showSpin && spinIcon) spinIcon.classList.add('fa-spin');
+            
+            try {
+                const res = await fetch('/api/news/ticker?refresh=1');
+                if (!res.ok) return;
+                const data = await res.json();
+                if (data.ticker && data.ticker.length > 0) {
+                    const itemsHtml = data.ticker.map((t, idx) => {
+                        const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
+                                           idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
+                                           idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
+                                                           'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+                        return `
+                        <span class="inline-flex items-center gap-2 mx-3.5">
+                            <span class="px-2 py-0.5 rounded-full border text-[10px] font-black tracking-wide ${badgeColor} shadow-sm">
+                                ${t.source} • ${t.time}
+                            </span>
+                            <a href="${t.link}" target="_blank" rel="noopener" class="hover:text-amber-300 text-slate-100 transition font-medium tracking-wide">
+                                ${t.title}
+                            </a>
+                        </span>
+                        `;
+                    }).join(' <span class="text-amber-400/40 font-bold mx-1">✦</span> ');
+
+                    // Duplicate content for smooth infinite seamless loop
+                    const fullTicker = `<div class="inline-flex items-center">${itemsHtml}</div><div class="inline-flex items-center">${itemsHtml}</div>`;
+                    const tickerEl = document.getElementById('ticker-content');
+                    if (tickerEl) {
+                        tickerEl.innerHTML = fullTicker;
+                        setTimeout(applyTvBroadcastSpeed, 100);
+                    }
+                }
+            } catch (err) {
+                console.warn('[Live Ticker Fetch]', err);
+            } finally {
+                if (spinIcon) setTimeout(() => spinIcon.classList.remove('fa-spin'), 600);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            applyTvBroadcastSpeed();
         });
 
         // ── MOBILE DRAWER CONTROLLER ──────────────────────
@@ -1478,6 +2607,13 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 document.body.style.overflow = '';
             }
         }
+
+        // Initialize on DOM Ready
+        window.addEventListener('DOMContentLoaded', () => {
+            updateMortgageCalc();
+            loadLiveTicker();
+            setInterval(loadLiveTicker, 180000);
+        });
     </script>
 
     <!-- Mobile Drawer Overlay & Slide-out Menu -->

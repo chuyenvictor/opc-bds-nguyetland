@@ -1,7 +1,11 @@
 import fs from 'fs/promises';
 import fsSync from 'fs';
 import path from 'path';
-import { escapeHtml } from './api-content-db.mjs';
+import { fileURLToPath } from 'url';
+import { escapeHtml, upsertLeadDb } from './api-content-db.mjs';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export async function handleBdsLeadSubmit(req, res) {
     let body = '';
@@ -28,7 +32,31 @@ export async function handleBdsLeadSubmit(req, res) {
 
             console.log(`[VIP BDS LEAD] Investor: ${lead.name} | Phone: ${lead.phone} | Budget: ${lead.budget} | Property: ${lead.propertyTitle}`);
 
-            // 1. Send Telegram Alert to Chairman & Nguyet Land
+            const budgetValue = parseFloat((lead.budget || '0').replace(/[^0-9.]/g, '')) || 0;
+            const leadScore = budgetValue >= 20 ? 'HOT' : budgetValue >= 10 ? 'WARM' : 'COLD';
+            const leadId = 'LEAD_' + Date.now().toString(36).toUpperCase();
+
+            // 1. Lưu Lead vào SQLite Database
+            try {
+                upsertLeadDb({
+                    lead_id: leadId,
+                    name: lead.name,
+                    phone: rawPhone,
+                    email: lead.email || '',
+                    property: lead.propertyTitle || 'BĐS Dòng Tiền Đà Nẵng',
+                    budget: lead.budget || '5 - 15 Tỷ',
+                    heat: leadScore,
+                    source: 'OPC-BDS Portal Lead Form',
+                    note: lead.note || 'Yêu cầu thẩm định dòng tiền & sổ đỏ',
+                    email_step: 1,
+                    status: 'NEW'
+                });
+                console.log(`[SQLite Lead] ✅ Saved lead ${leadId} to SQLite`);
+            } catch (dbErr) {
+                console.warn('[SQLite Lead Save Error]', dbErr.message);
+            }
+
+            // 2. Send Telegram Alert to Chairman & Nguyet Land
             const botToken = process.env.TELEGRAM_BOT_TOKEN;
             const chatId = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
 
@@ -52,9 +80,9 @@ export async function handleBdsLeadSubmit(req, res) {
                 }).catch(tErr => console.warn('[Telegram Alert Warning]', tErr.message));
             }
 
-            // 2. Save Lead Note into Obsidian Vault asynchronously
+            // 3. Save Lead Note into Obsidian Vault asynchronously
             try {
-                const vaultDir = 'E:\\OPC-BĐS\\WIKI_OBSIDIAN_BĐS\\11_CRM_KHACH_HANG';
+                const vaultDir = path.resolve(__dirname, '..', '..', '..', 'WIKI_OBSIDIAN_BĐS', '11_CRM_KHACH_HANG');
                 if (fsSync.existsSync(vaultDir)) {
                     const notePath = path.join(vaultDir, `LEAD_${cleanPhone}_${Date.now()}.md`);
                     const noteContent = `---

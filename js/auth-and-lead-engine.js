@@ -330,35 +330,25 @@
 
     const OPC_CONFIG = {
         GOOGLE_SHEET_WEBHOOK: 'https://script.google.com/macros/s/AKfycbyxNv81Vz3zB98QqlIyQmYdIKiKsJKGXM962TnsrPfNQXK4HVThMHzHJFnhV3O7FIaK/exec',
-        TELEGRAM_BOT_TOKEN: '8832028862:AAFCmbp9QEY3eEdh-NYoOHHjXmUkUyti1Do',
-        TELEGRAM_CHAT_ID: '-1003891453026'
+        BACKEND_LEAD_API: '/api/bds/lead-submit'
     };
 
     window.syncLeadToGoogleAndTelegram = function (leadData) {
-        // 1. Send Telegram Alert Realtime
-        if (OPC_CONFIG.TELEGRAM_BOT_TOKEN) {
-            try {
-                const roleBadge = leadData.role === 'ADMIN' ? '👑 [ADMIN QUẢN TRỊ]' : '⭐ [HỘI VIÊN VIP MỚI / LEAD]';
-                const msg = `${roleBadge} <b>ĐĂNG KÝ THÀNH CÔNG</b>\n\n` +
-                    `👤 <b>Họ tên:</b> ${leadData.name || 'Quý Nhà Đầu Tư'}\n` +
-                    `📞 <b>SĐT / Zalo:</b> <code>${leadData.phone}</code>\n` +
-                    `📧 <b>Email:</b> ${leadData.email || 'Chưa cung cấp'}\n` +
-                    `💰 <b>Tầm tài chính:</b> ${leadData.budget || '15 - 30 Tỷ'}\n` +
-                    `🏢 <b>Tài sản quan tâm:</b> ${leadData.property || leadData.propertyTitle || 'Cổng VIP Nguyệt Land'}\n` +
-                    `⏰ <b>Thời gian:</b> ${new Date().toLocaleString('vi-VN')}\n\n` +
-                    `👉 <a href="https://docs.google.com/spreadsheets/d/1E8sUXO4g4E6Gxi0hYlP0W3X8KYmgroJiUIERaiXGV3g/edit">Mở Google Sheet CRM</a>`;
-
-                fetch(`https://api.telegram.org/bot${OPC_CONFIG.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: OPC_CONFIG.TELEGRAM_CHAT_ID,
-                        text: msg,
-                        parse_mode: 'HTML'
-                    })
-                }).catch(e => console.warn('[Telegram sync warning]', e));
-            } catch (_) {}
-        }
+        // 1. Dispatch to Secure Backend API (Backend securely saves to SQLite and sends Telegram Alert using server-side env)
+        try {
+            fetch(OPC_CONFIG.BACKEND_LEAD_API, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: leadData.name || 'Quý Nhà Đầu Tư',
+                    phone: leadData.phone,
+                    email: leadData.email || '',
+                    budget: leadData.budget || '15 - 30 Tỷ',
+                    propertyTitle: leadData.property || leadData.propertyTitle || 'Cổng VIP Nguyệt Land',
+                    note: leadData.note || 'Đăng ký Hội Viên VIP / Nhận hồ sơ thẩm định 4 lớp'
+                })
+            }).catch(e => console.warn('[Backend lead sync warning]', e));
+        } catch (_) {}
 
         // 2. Send Google Apps Script Webhook (no-cors mode ensures browser never blocks)
         if (OPC_CONFIG.GOOGLE_SHEET_WEBHOOK) {

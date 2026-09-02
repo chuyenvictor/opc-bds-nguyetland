@@ -18,14 +18,15 @@ export async function handleAppScriptWebhook(req, res) {
         try {
             const data = JSON.parse(body || '{}');
 
-            // Optional secret validation
-            if (data.secret && data.secret !== WEBHOOK_SECRET) {
-                res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
-                return res.end(JSON.stringify({ success: false, message: 'Unauthorized' }));
-            }
-
             const action = (data.action || 'unknown').toLowerCase();
             console.log(`[Apps Script Webhook] Action: ${action} | Time: ${new Date().toLocaleString('vi-VN')}`);
+
+            // Webhook secret validation (bỏ qua xác thực cho heartbeat health check nếu cần)
+            const providedSecret = data.secret || req.headers['x-webhook-secret'] || '';
+            if (WEBHOOK_SECRET && action !== 'heartbeat' && providedSecret !== WEBHOOK_SECRET) {
+                res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
+                return res.end(JSON.stringify({ success: false, message: 'Unauthorized: Sai hoặc thiếu Webhook Secret Token' }));
+            }
 
             switch (action) {
                 case 'new_lead': {
