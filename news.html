@@ -8,6 +8,13 @@
     <meta name="keywords" content="tin tức bđs đà nẵng, tin nóng bđs việt nam, rss bat dong san, podcast bđs, video bđs 60s, nguyệt land">
     <link rel="canonical" href="https://bds.breaths.live/news">
     <link rel="icon" type="image/png" href="/img/nguyet-bds.png">
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bản Tin BĐS Đà Nẵng & Việt Nam — Nguyệt Land 2026">
+    <meta property="og:description" content="Trung tâm tin tức BĐS chính thống, phân tích dòng tiền, Podcast 5 phút & Video Shorts 60s.">
+    <meta property="og:image" content="https://bds.breaths.live/img/nguyet-bds.png">
+    <meta property="og:url" content="https://bds.breaths.live/news">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,6 +25,10 @@
                 extend: {
                     colors: {
                         brand: { gold: '#fbbf24', emerald: '#10b981', dark: '#090d16', card: '#0f172a' }
+                    },
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif']
                     }
                 }
             }
@@ -118,7 +129,7 @@
                 AUTONOMOUS BĐS CONTENT PIPELINE — Q3/2026
             </div>
             
-            <h1 class="font-serif font-black text-2xl sm:text-4xl lg:text-5xl text-slate-100 tracking-tight leading-tight">
+            <h1 id="heading-hero-news" class="font-sans font-black text-2xl sm:text-4xl lg:text-5xl text-slate-100 tracking-tight leading-tight">
                 TIN TỨC BĐS, <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-yellow-200 to-amber-500">PODCAST & SHORTS 60S</span>
             </h1>
             
@@ -210,8 +221,9 @@
         <section id="sec-podcasts" class="space-y-6 hidden">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
-                        <i class="fa-solid fa-microphone-lines text-amber-400"></i> Kịch Bản Podcast Chuyên Sâu 3 - 5 Phút
+                    <h2 id="heading-kich-ban-podcast" class="font-sans font-black text-xl sm:text-2xl text-slate-100 flex items-center gap-2.5 tracking-tight">
+                        <span class="w-8 h-8 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/30 flex items-center justify-center text-sm shadow-sm flex-shrink-0"><i class="fa-solid fa-microphone-lines"></i></span>
+                        <span>Kịch Bản Podcast Chuyên Sâu <span class="text-rose-400 font-extrabold">3 - 5 Phút</span></span>
                     </h2>
                     <p class="text-xs text-slate-400 mt-1">Đối thoại giữa Host Nguyệt Land & Chuyên Gia Tài Chính Victor — Sẵn sàng thu âm</p>
                 </div>
@@ -227,8 +239,9 @@
         <section id="sec-shorts" class="space-y-6 hidden">
             <div class="flex items-center justify-between">
                 <div>
-                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
-                        <i class="fa-brands fa-tiktok text-rose-400"></i> Video Shorts 60s & Bài Đăng Mạng Xã Hội
+                    <h2 id="heading-video-shorts-60s" class="font-sans font-black text-xl sm:text-2xl text-slate-100 flex items-center gap-2.5 tracking-tight">
+                        <span class="w-8 h-8 rounded-xl bg-pink-500/20 text-pink-400 border border-pink-500/30 flex items-center justify-center text-sm shadow-sm flex-shrink-0"><i class="fa-brands fa-tiktok"></i></span>
+                        <span>Video Shorts 60s <span class="text-pink-400 font-extrabold">& Bài Đăng MXH</span></span>
                     </h2>
                     <p class="text-xs text-slate-400 mt-1">Kịch bản 4 phân đoạn giữ chân người xem + Prompt sinh ảnh 8K + Caption Facebook/Zalo</p>
                 </div>
@@ -244,8 +257,9 @@
         <section id="sec-rss" class="space-y-6 hidden">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                    <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
-                        <i class="fa-solid fa-satellite-dish text-sky-400"></i> Nguồn Tin Nóng RSS Báo Chí
+                    <h2 id="heading-tin-nong-rss" class="font-sans font-black text-xl sm:text-2xl text-slate-100 flex items-center gap-2.5 tracking-tight">
+                        <span class="w-8 h-8 rounded-xl bg-sky-500/20 text-sky-400 border border-sky-500/30 flex items-center justify-center text-sm shadow-sm flex-shrink-0"><i class="fa-solid fa-satellite-dish"></i></span>
+                        <span>Nguồn Tin Nóng RSS <span class="text-sky-400 font-extrabold">Báo Chí</span></span>
                     </h2>
                     <p class="text-xs text-slate-400 mt-1">Cập nhật thời gian thực từ VnExpress, CafeF, Báo Đầu Tư, VnEconomy, VietNamNet...</p>
                 </div>
@@ -268,8 +282,9 @@
         <!-- ══════════════════════════════════════════════════════════════════ -->
         <section id="sec-videos" class="space-y-6 hidden">
             <div>
-                <h2 class="font-serif font-bold text-xl sm:text-2xl text-slate-100 flex items-center gap-2">
-                    <i class="fa-brands fa-youtube text-rose-500"></i> Video Phân Tích & Điểm Tin BĐS
+                <h2 id="heading-video-phan-tich" class="font-sans font-black text-xl sm:text-2xl text-slate-100 flex items-center gap-2.5 tracking-tight">
+                    <span class="w-8 h-8 rounded-xl bg-rose-600/20 text-rose-500 border border-rose-500/30 flex items-center justify-center text-sm shadow-sm flex-shrink-0"><i class="fa-brands fa-youtube"></i></span>
+                    <span>Video Phân Tích <span class="text-rose-500 font-extrabold">& Điểm Tin BĐS</span></span>
                 </h2>
                 <p class="text-xs text-slate-400 mt-1">Video phân tích thực địa và định giá tài sản Đà Nẵng</p>
             </div>
@@ -291,7 +306,7 @@
                     <i class="fa-solid fa-microphone-lines"></i>
                 </div>
                 <div>
-                    <h3 class="font-serif font-bold text-lg text-amber-300" id="modal-title">Chi Tiết Kịch Bản</h3>
+                    <h3 class="font-sans font-bold text-lg text-amber-300" id="modal-title">Chi Tiết Kịch Bản</h3>
                     <p class="text-xs text-slate-400" id="modal-subtitle">Nguyệt Land Content Hub</p>
                 </div>
             </div>
@@ -319,7 +334,7 @@
                 <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-400 flex items-center justify-center mx-auto text-amber-400 text-xl font-bold">
                     <i class="fa-solid fa-crown"></i>
                 </div>
-                <h3 class="font-serif font-bold text-xl text-amber-300">Đăng Ký Nhà Đầu Tư VIP</h3>
+                <h3 class="font-sans font-bold text-xl text-amber-300">Đăng Ký Nhà Đầu Tư VIP</h3>
                 <p class="text-xs text-slate-400">Nhận Ebook BĐS Dòng Tiền & Chuỗi 30 Ngày Tư Vấn Chuyên Sâu</p>
             </div>
             <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
@@ -583,7 +598,8 @@
 
             try {
                 const res = await fetch('/api/news/ticker?refresh=1');
-                const data = await res.json();
+                const text = await res.text().catch(() => '');
+                const data = text ? JSON.parse(text) : {};
                 if (data.ticker && data.ticker.length > 0) {
                     const itemsHtml = data.ticker.map((t, idx) => {
                         const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
@@ -756,7 +772,7 @@
                             </span>
                         </div>
 
-                        <h3 class="font-serif font-bold text-base text-slate-100 mb-2 leading-snug">
+                        <h3 class="font-sans font-bold text-base text-slate-100 mb-2 leading-snug">
                             Điểm Tin BĐS Q3/2026: Giải Mã Dòng Tiền ${a.location || 'Đà Nẵng'}
                         </h3>
                         <p class="text-xs text-slate-400 leading-relaxed mb-4 line-clamp-2">${cleanSum}</p>
@@ -1257,6 +1273,7 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
                 <i class="fa-solid fa-stop"></i>
             </button>
         </div>
+    </div>
     <!-- Mobile Drawer Overlay & Slide-out Menu -->
     <div id="mobile-drawer-backdrop" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden transition-opacity duration-300 opacity-0" onclick="toggleMobileDrawer()"></div>
     <div id="mobile-drawer" class="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-slate-950/98 border-l border-amber-500/30 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-6 shadow-2xl">
