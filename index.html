@@ -1118,54 +1118,54 @@
                 </p>
             </div>
 
-            <!-- Seasonal Occupancy Stress-Test Controls -->
-            <div class="p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 mb-8 shadow-inner">
+            <!-- Seasonal Occupancy Stress-Test Controls (VIP Mobile Ready) -->
+            <div class="p-3.5 sm:p-4 rounded-2xl bg-slate-900/90 border border-amber-500/30 mb-6 sm:mb-8 shadow-inner">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                     <span class="text-xs font-bold text-amber-300 flex items-center gap-2">
-                        <i class="fa-solid fa-cloud-sun text-amber-400 text-sm"></i> Stress-Test Khả Năng Chịu Lực Dòng Tiền Theo 2 Mùa Du Lịch Đà Nẵng:
+                        <i class="fa-solid fa-cloud-sun text-amber-400 text-sm"></i> Stress-Test Dòng Tiền Theo 2 Mùa Du Lịch Đà Nẵng:
                     </span>
-                    <span id="season-badge" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-bold text-xs border border-emerald-500/40 text-center">
+                    <span id="season-badge" class="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 font-extrabold text-[11px] sm:text-xs border border-emerald-500/40 text-center tracking-wide">
                         ✓ Lấp Đầy 85% (Bình Quân Năm)
                     </span>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-bold">
-                    <button type="button" onclick="setSeasonMode('high')" id="btn-season-high" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-between transition">
-                        <div class="text-left">
-                            <span class="text-amber-300 block font-bold">☀️ Mùa Cao Điểm</span>
-                            <span class="text-[10px] font-normal text-slate-400">T3 - T8 & Lễ Pháo Hoa DIFF</span>
+                <div class="grid grid-cols-3 gap-1.5 sm:gap-2.5 text-xs font-bold">
+                    <button type="button" onclick="setSeasonMode('high')" id="btn-season-high" class="py-2.5 px-2 sm:px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-1 transition text-center sm:text-left">
+                        <div>
+                            <span class="text-amber-300 block font-bold text-[11px] sm:text-xs">☀️ Cao Điểm</span>
+                            <span class="text-[9px] sm:text-[10px] font-normal text-slate-400 hidden xs:block">T3 - T8 & DIFF</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px]">95% Phòng</span>
+                        <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[9px] sm:text-[10px] font-extrabold">95%</span>
                     </button>
-                    <button type="button" onclick="setSeasonMode('avg')" id="btn-season-avg" class="py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-400 flex items-center justify-between transition shadow-md">
-                        <div class="text-left">
-                            <span class="font-black block">⚖️ Bình Quân 12 Tháng</span>
-                            <span class="text-[10px] font-semibold text-slate-900">Mức Cơ Sở Chuẩn</span>
+                    <button type="button" onclick="setSeasonMode('avg')" id="btn-season-avg" class="py-2.5 px-2 sm:px-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 border border-amber-400 flex flex-col sm:flex-row items-center justify-between gap-1 transition shadow-md text-center sm:text-left">
+                        <div>
+                            <span class="font-black block text-[11px] sm:text-xs">⚖️ Bình Quân</span>
+                            <span class="text-[9px] sm:text-[10px] font-semibold text-slate-900 hidden xs:block">12 Tháng</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-slate-950/20 text-slate-950 font-black text-[10px]">85% Phòng</span>
+                        <span class="px-1.5 py-0.5 rounded bg-slate-950/20 text-slate-950 font-black text-[9px] sm:text-[10px]">85%</span>
                     </button>
-                    <button type="button" onclick="setSeasonMode('low')" id="btn-season-low" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center justify-between transition">
-                        <div class="text-left">
-                            <span class="text-sky-300 block font-bold">🌧️ Mùa Thấp Điểm</span>
-                            <span class="text-[10px] font-normal text-slate-400">T9 - T2 (Mùa Mưa / Du Lịch Chậm)</span>
+                    <button type="button" onclick="setSeasonMode('low')" id="btn-season-low" class="py-2.5 px-2 sm:px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 flex flex-col sm:flex-row items-center justify-between gap-1 transition text-center sm:text-left">
+                        <div>
+                            <span class="text-sky-300 block font-bold text-[11px] sm:text-xs">🌧️ Thấp Điểm</span>
+                            <span class="text-[9px] sm:text-[10px] font-normal text-slate-400 hidden xs:block">T9 - T2 Mùa Mưa</span>
                         </div>
-                        <span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[10px]">70% Phòng</span>
+                        <span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 text-[9px] sm:text-[10px] font-extrabold">70%</span>
                     </button>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
                 
                 <!-- Sliders & Inputs (7 Cols) -->
-                <div class="lg:col-span-7 space-y-6">
+                <div class="lg:col-span-7 space-y-4 sm:space-y-5">
                     
                     <!-- Property Value -->
-                    <div>
-                        <div class="flex justify-between items-center text-xs mb-1.5 font-bold">
+                    <div class="bg-slate-900/60 p-3.5 sm:p-4 rounded-2xl border border-slate-800/80">
+                        <div class="flex justify-between items-baseline gap-2 mb-2 font-bold text-xs">
                             <span class="text-slate-300">Tổng Mức Đầu Tư (VNĐ):</span>
-                            <span id="calc-val-price" class="text-amber-400 font-serif text-base">18.5 Tỷ</span>
+                            <span id="calc-val-price" class="text-amber-400 font-serif text-base sm:text-lg whitespace-nowrap flex-shrink-0">18.5 Tỷ</span>
                         </div>
-                        <input type="range" id="slider-price" min="5" max="50" step="0.5" value="18.5" oninput="updateMortgageCalc()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                        <input type="range" id="slider-price" min="5" max="50" step="0.5" value="18.5" oninput="updateMortgageCalc()" class="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-amber-500" />
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
                             <span>5 Tỷ</span>
                             <span>25 Tỷ</span>
                             <span>50 Tỷ</span>
@@ -1173,82 +1173,95 @@
                     </div>
 
                     <!-- Loan Percentage -->
-                    <div>
-                        <div class="flex justify-between items-center text-xs mb-1.5 font-bold">
-                            <span class="text-slate-300">Tỷ Lệ Vay Ngân Hàng (Đòn Bẩy):</span>
-                            <span id="calc-val-loan-pct" class="text-emerald-400 text-sm">40% Vay (7.40 Tỷ)</span>
+                    <div class="bg-slate-900/60 p-3.5 sm:p-4 rounded-2xl border border-slate-800/80">
+                        <div class="flex justify-between items-baseline gap-2 mb-2 font-bold text-xs">
+                            <span class="text-slate-300">Đòn Bẩy Vay Ngân Hàng:</span>
+                            <span id="calc-val-loan-pct" class="text-emerald-400 font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0">40% Vay (7.40 Tỷ)</span>
                         </div>
-                        <input type="range" id="slider-loan-pct" min="0" max="70" step="5" value="40" oninput="updateMortgageCalc()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
-                        <div class="flex justify-between text-[10px] text-slate-400 mt-1">
-                            <span>0% (100% Vốn Tự Có)</span>
-                            <span>40% (Mức An Toàn Vàng)</span>
+                        <input type="range" id="slider-loan-pct" min="0" max="70" step="5" value="40" oninput="updateMortgageCalc()" class="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500" />
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                            <span>0% (Vốn 100%)</span>
+                            <span>40% (Chuẩn Vàng)</span>
                             <span>70% (Tối Đa)</span>
                         </div>
                     </div>
 
                     <!-- Gross Monthly Revenue -->
-                    <div>
-                        <div class="flex justify-between items-center text-xs mb-1.5 font-bold">
-                            <span class="text-slate-300">Doanh Thu Cho Thuê Gộp / Tháng:</span>
-                            <span id="calc-val-rev" class="text-cyan-400 text-sm">110 Triệu / Tháng</span>
+                    <div class="bg-slate-900/60 p-3.5 sm:p-4 rounded-2xl border border-slate-800/80">
+                        <div class="flex justify-between items-baseline gap-2 mb-2 font-bold text-xs">
+                            <span class="text-slate-300">Doanh Thu Thuê Gộp:</span>
+                            <span id="calc-val-rev" class="text-cyan-400 font-bold text-xs sm:text-sm whitespace-nowrap flex-shrink-0">110 Triệu / Tháng</span>
                         </div>
-                        <input type="range" id="slider-rev" min="30" max="350" step="5" value="110" oninput="updateMortgageCalc()" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" />
+                        <input type="range" id="slider-rev" min="30" max="350" step="5" value="110" oninput="updateMortgageCalc()" class="w-full h-2.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-cyan-500" />
+                        <div class="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                            <span>30 Tr/tháng</span>
+                            <span>180 Tr/tháng</span>
+                            <span>350 Tr/tháng</span>
+                        </div>
                     </div>
 
                     <!-- Loan Term & Interest Grid -->
-                    <div class="grid grid-cols-2 gap-4 pt-2">
-                        <div>
-                            <label class="text-[11px] font-bold text-slate-400 uppercase">Thời Hạn Vay</label>
-                            <select id="select-loan-years" onchange="updateMortgageCalc()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 mt-1 focus:border-amber-400">
+                    <div class="grid grid-cols-2 gap-3 sm:gap-4 pt-1">
+                        <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-800/80">
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                                <i class="fa-solid fa-clock text-amber-400"></i> Thời Hạn Vay
+                            </label>
+                            <select id="select-loan-years" onchange="updateMortgageCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:border-amber-400 font-semibold">
                                 <option value="5">5 Năm (60 tháng)</option>
                                 <option value="10">10 Năm (120 tháng)</option>
                                 <option value="15" selected>15 Năm (180 tháng)</option>
                                 <option value="20">20 Năm (240 tháng)</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="text-[11px] font-bold text-slate-400 uppercase">Lãi Suất Vay / Năm (%)</label>
-                            <input type="number" id="input-interest" value="8.5" step="0.1" oninput="updateMortgageCalc()" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-slate-200 mt-1 focus:border-amber-400 font-bold text-amber-400" />
+                        <div class="bg-slate-900/60 p-3 rounded-2xl border border-slate-800/80">
+                            <label class="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-1">
+                                <i class="fa-solid fa-percent text-amber-400"></i> Lãi Suất / Năm (%)
+                            </label>
+                            <input type="number" id="input-interest" value="8.5" step="0.1" oninput="updateMortgageCalc()" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-2 text-xs text-amber-400 font-bold focus:border-amber-400" />
                         </div>
                     </div>
 
                 </div>
 
-                <!-- Calculation Result Card (5 Cols) -->
-                <div class="lg:col-span-5 bg-slate-900/90 rounded-2xl p-6 border border-emerald-500/30 shadow-2xl flex flex-col justify-between space-y-4">
+                <!-- Calculation Result Card (5 Cols) VIP Mobile Enhanced -->
+                <div class="lg:col-span-5 bg-gradient-to-br from-slate-900 via-slate-950 to-emerald-950/40 rounded-3xl p-5 sm:p-6 border border-emerald-500/40 shadow-2xl flex flex-col justify-between space-y-4">
                     
-                    <div>
-                        <span class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">VỐN TỰ CÓ THỰC TẾ CẦN CÓ</span>
-                        <p id="res-equity" class="text-3xl font-black text-amber-400 font-serif mt-1">11.10 Tỷ VNĐ</p>
+                    <div class="border-b border-slate-800/80 pb-3">
+                        <span class="text-[10px] sm:text-[11px] text-slate-400 font-bold uppercase tracking-wider block">VỐN TỰ CÓ THỰC TẾ CẦN CÓ</span>
+                        <p id="res-equity" class="text-2xl sm:text-3xl font-black text-amber-400 font-serif mt-1">11.10 Tỷ VNĐ</p>
                     </div>
 
-                    <div class="space-y-2 py-3 border-y border-slate-800 text-xs">
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Doanh thu ròng sau OPEX (20%):</span>
-                            <span id="res-noi" class="font-bold text-slate-200">88.0 Tr / Tháng</span>
+                    <div class="space-y-2.5 py-1 text-xs">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-slate-400">Thu ròng sau OPEX (20%):</span>
+                            <span id="res-noi" class="font-bold text-slate-200 whitespace-nowrap flex-shrink-0">88.0 Tr / Tháng</span>
                         </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Trả gốc + lãi ngân hàng / tháng:</span>
-                            <span id="res-debt" class="font-bold text-rose-400">- 72.8 Tr / Tháng</span>
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="text-slate-400">Trả gốc + lãi ngân hàng:</span>
+                            <span id="res-debt" class="font-bold text-rose-400 whitespace-nowrap flex-shrink-0">- 72.8 Tr / Tháng</span>
                         </div>
                     </div>
 
                     <!-- Highlighted Net Pocket Cashflow -->
-                    <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                        <span class="text-[10px] text-emerald-300 font-black uppercase tracking-wider">DÒNG TIỀN RÒNG BỎ TÚI MỖI THÁNG</span>
-                        <p id="res-net-pocket" class="text-2xl lg:text-3xl font-black text-emerald-400 font-serif mt-1">+ 15.2 Triệu / Tháng</p>
-                        <p class="text-[10px] text-slate-400 mt-1 font-semibold">
-                            Căn nhà tự trả 100% gốc lãi ngân hàng và vẫn tạo dòng tiền dương mỗi tháng!
+                    <div class="p-4 rounded-2xl bg-emerald-500/15 border border-emerald-500/40 shadow-inner">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] sm:text-[11px] text-emerald-300 font-black uppercase tracking-wider">DÒNG TIỀN RÒNG BỎ TÚI MỖI THÁNG</span>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[9px] font-extrabold border border-emerald-500/40">✓ DƯƠNG RÒNG</span>
+                        </div>
+                        <p id="res-net-pocket" class="text-2xl sm:text-3xl font-black text-emerald-400 font-serif mt-1.5">+ 15.2 Triệu / Tháng</p>
+                        <p class="text-[10px] sm:text-[11px] text-slate-300 mt-1 font-medium leading-relaxed">
+                            Căn nhà tự trả 100% gốc lãi ngân hàng và vẫn tạo dòng tiền dương bỏ túi mỗi tháng!
                         </p>
                     </div>
 
-                    <div class="flex items-center justify-between pt-1">
-                        <div>
-                            <span class="text-[10px] text-slate-400 uppercase">Cash-on-Cash ROI</span>
-                            <p id="res-coc" class="text-lg font-black text-amber-300">9.5% / Năm</p>
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+                        <div class="flex items-baseline justify-between sm:block">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Cash-on-Cash ROI:</span>
+                            <p id="res-coc" class="text-lg sm:text-xl font-black text-amber-300 font-mono sm:mt-0.5">9.5% / Năm</p>
                         </div>
-                        <button onclick="openLeadModal('Tư Vấn Bài Toán Đòn Bẩy Ngân Hàng')" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-xs shadow-lg transition">
-                            Nhận Bảng Tính Chi Tiết
+                        <button onclick="openLeadModal('Tư Vấn Bài Toán Đòn Bẩy Ngân Hàng')" class="w-full sm:w-auto px-4 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-xl transition flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-invoice-dollar text-sm"></i>
+                            <span>Nhận Bảng Tính Chi Tiết</span>
                         </button>
                     </div>
 
