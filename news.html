@@ -50,7 +50,7 @@
         .glass-rose { background: linear-gradient(135deg, rgba(244, 63, 94, 0.12), rgba(225, 29, 72, 0.04)); border: 1px solid rgba(244, 63, 94, 0.35); }
         .glass-emerald { background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(5, 150, 105, 0.04)); border: 1px solid rgba(16, 185, 129, 0.35); }
         @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
-        .animate-marquee { display: inline-flex; align-items: center; white-space: nowrap; animation: marquee 40s linear infinite; will-change: transform; }
+        .animate-marquee { display: inline-flex; align-items: center; white-space: nowrap; animation: marquee 20s linear infinite; will-change: transform; }
         .animate-marquee:hover, .animate-marquee:active { animation-play-state: paused; }
         .mask-fade-edges {
             mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
@@ -583,12 +583,12 @@
             const totalWidth = tickerEl.scrollWidth;
             const halfWidth = totalWidth / 2;
             
-            // TV Broadcast Dynamic Crawl Rate: 76 px/s (Mobile) and 88 px/s (Desktop)
-            const speedPxPerSec = window.innerWidth < 640 ? 76 : 88;
-            const calculatedDuration = Math.max(12, halfWidth / speedPxPerSec);
+            // TV Broadcast Dynamic Crawl Rate (x2 Boost): 150 px/s (Mobile) and 175 px/s (Desktop)
+            const speedPxPerSec = window.innerWidth < 640 ? 150 : 175;
+            const calculatedDuration = Math.max(6, halfWidth / speedPxPerSec);
             
             tickerEl.style.animationDuration = `${calculatedDuration.toFixed(1)}s`;
-            console.log(`[TV News Ticker Engine] 📺 Faster Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
+            console.log(`[TV News Ticker Engine] 🚀 2X Faster Broadcast Rate: ${speedPxPerSec} px/s | Track: ${halfWidth}px -> Duration: ${calculatedDuration.toFixed(1)}s`);
         }
 
         // Load live ticker
