@@ -225,7 +225,7 @@ TRẢ VỀ ĐÚNG FORMAT JSON DƯỚI ĐÂY (không bọc trong markdown codeblo
   }
 }`;
 
-    const models = ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+    const models = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
     let rawAiText = '';
 
     for (const model of models) {

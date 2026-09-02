@@ -408,34 +408,50 @@
         };
 
         try {
-            // 1. Đồng bộ Realtime sang Google Sheet Webhook & Telegram Bot
-            window.syncLeadToGoogleAndTelegram(userData);
-
-            // 2. Thử gọi Node.js backend nếu có
+            // 1. Gửi trực tiếp tới Node.js Backend API để lưu CSDL SQLite, bắn Telegram Bot & kích hoạt Email Drip
+            let serverRes = null;
             try {
-                fetch('/api/auth/register', {
+                const res = await fetch('/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
-                }).catch(() => {});
-            } catch (_) {}
+                });
+                if (res.ok) {
+                    serverRes = await res.json();
+                    if (serverRes.user) {
+                        userData = serverRes.user;
+                    }
+                    if (serverRes.token) {
+                        localStorage.setItem('opc_auth_token', serverRes.token);
+                    }
+                }
+            } catch (apiErr) {
+                console.warn('[Register API offline, fallback to direct webhook sync]', apiErr);
+            }
+
+            // 2. Đồng bộ Google Apps Script Webhook (No-CORS đảm bảo luôn thông suốt)
+            window.syncLeadToGoogleAndTelegram(userData);
 
             // 3. Lưu phiên VIP vào máy
             localStorage.setItem('nguyet_vip_user', JSON.stringify(userData));
-            localStorage.setItem('opc_auth_token', 'JWT_VIP_' + userData.id);
+            if (!localStorage.getItem('opc_auth_token')) {
+                localStorage.setItem('opc_auth_token', 'JWT_VIP_' + (userData.user_id || userData.id));
+            }
 
             // 4. Cập nhật giao diện
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             openOpcWelcomeModal(userData.name);
 
-            alert(`🎉 Chúc mừng Quý Nhà Đầu Tư ${userData.name} đã đăng ký thành công Hội Viên VIP của Nguyệt Land!\nToàn bộ Báo Cáo Thẩm Định và Chuỗi Ebook 30 Ngày sẽ được gửi tới Email/Zalo: ${userData.email || userData.phone}.`);
+            // 5. Hiển thị thông báo chào mừng
+            setTimeout(() => {
+                alert(`🎉 Chúc mừng Quý Nhà Đầu Tư ${userData.name} đã kích hoạt thành công Hội Viên VIP Nguyệt Land!\nToàn bộ Báo Cáo Thẩm Định 4 Lớp và Chuỗi Ebook đã sẵn sàng mở khóa.`);
+            }, 300);
         } catch (err) {
             localStorage.setItem('nguyet_vip_user', JSON.stringify(userData));
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             openOpcWelcomeModal(payload.name);
-            alert(`🎉 Chúc mừng ${payload.name} đã kích hoạt thành công Hội Viên VIP Nguyệt Land!`);
         } finally {
             if (btn) {
                 btn.innerHTML = '<i class="fa-solid fa-crown"></i> KÍCH HOẠT QUYỀN LỢI VIP NGAY';
@@ -445,14 +461,18 @@
     };
 
     window.handleOpcLoginSubmit = async function (e) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         const btn = document.getElementById('btn-opc-login-submit');
-        btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang xác thực...';
-        btn.disabled = true;
+        if (btn) {
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Đang xác thực...';
+            btn.disabled = true;
+        }
 
+        const phoneInput = document.getElementById('opc-login-phone');
+        const passInput = document.getElementById('opc-login-pass');
         const payload = {
-            phone: document.getElementById('opc-login-phone').value.trim(),
-            password: document.getElementById('opc-login-pass').value.trim()
+            phone: phoneInput ? phoneInput.value.trim() : '',
+            password: passInput ? passInput.value.trim() : ''
         };
 
         const cleanPhone = payload.phone.replace(/[^0-9]/g, '');
@@ -461,9 +481,11 @@
 
         if (isAdminPhone) {
             if (payload.password && payload.password !== 'Typhudola@2026$' && payload.password !== '123456') {
-                alert('⚠️ Mật khẩu quản trị viên không chính xác! Vui lòng nhập mật khẩu: Typhudola@2026$');
-                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP HỆ THỐNG';
-                btn.disabled = false;
+                alert('⚠️ Mật khẩu quản trị viên không chính xác! Vui lòng nhập mật khẩu: Typhudola@2026$ (hoặc 123456)');
+                if (btn) {
+                    btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP HỆ THỐNG';
+                    btn.disabled = false;
+                }
                 return;
             }
         }
@@ -497,17 +519,19 @@
             updateHeaderAuthStatus();
             if (userData.role === 'ADMIN') {
                 alert(`👑 Đăng nhập Quản Trị Viên thành công!\nChào mừng ${userData.name}!`);
-                openOpcAdminModal();
+                if (typeof openOpcAdminModal === 'function') openOpcAdminModal();
             } else {
-                alert(`🎉 Chào mừng ${userData.name} đã quay trở lại!`);
+                alert(`🎉 Chào mừng ${userData.name} đã đăng nhập Hội Viên VIP!`);
             }
         } catch (err) {
             closeOpcAuthModal();
             updateHeaderAuthStatus();
             alert(`🎉 Đăng nhập thành công!`);
         } finally {
-            btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP HỆ THỐNG';
-            btn.disabled = false;
+            if (btn) {
+                btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP HỆ THỐNG';
+                btn.disabled = false;
+            }
         }
     };
 

@@ -198,7 +198,7 @@ const server = http.createServer((req, res) => {
     }
 
     // Lead Capture Route
-    if (parsedPath === '/api/leads/submit' && req.method === 'POST') {
+    if ((parsedPath === '/api/leads/submit' || parsedPath === '/api/bds/lead-submit' || parsedPath === '/api/bds/leads/submit' || parsedPath === '/api/leads/consultation') && req.method === 'POST') {
         return handleBdsLeadSubmit(req, res);
     }
 
