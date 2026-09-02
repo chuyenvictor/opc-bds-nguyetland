@@ -15,7 +15,7 @@ const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
 const ADMIN_PHONES = ['0989890022', '0935509168', '0989.890.022', '0935.509.168', '0905123456'];
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Typhudola@2026$';
 
-// Rate Limiter: Max 5 attempts per 60 seconds per IP
+// Rate Limiter: Max 100 attempts per 60 seconds per IP
 const rateLimitMap = new Map();
 function isRateLimited(ip) {
     const now = Date.now();
@@ -28,7 +28,7 @@ function isRateLimited(ip) {
     }
     entry.count++;
     rateLimitMap.set(ip, entry);
-    return entry.count > 10; // Max 10 requests per minute
+    return entry.count > 100;
 }
 
 export async function handleAuthRegister(req, res) {

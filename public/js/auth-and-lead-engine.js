@@ -416,14 +416,13 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                if (res.ok) {
-                    serverRes = await res.json();
-                    if (serverRes.user) {
-                        userData = serverRes.user;
-                    }
-                    if (serverRes.token) {
-                        localStorage.setItem('opc_auth_token', serverRes.token);
-                    }
+                const text = await res.text();
+                serverRes = text ? JSON.parse(text) : {};
+                if (serverRes && serverRes.user) {
+                    userData = serverRes.user;
+                }
+                if (serverRes && serverRes.token) {
+                    localStorage.setItem('opc_auth_token', serverRes.token);
                 }
             } catch (apiErr) {
                 console.warn('[Register API offline, fallback to direct webhook sync]', apiErr);
@@ -503,12 +502,11 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data.success && data.user) {
-                        userData = data.user;
-                        if (data.token) localStorage.setItem('opc_auth_token', data.token);
-                    }
+                const text = await res.text();
+                const data = text ? JSON.parse(text) : {};
+                if (data.success && data.user) {
+                    userData = data.user;
+                    if (data.token) localStorage.setItem('opc_auth_token', data.token);
                 }
             } catch (apiErr) {
                 console.log('[Login API Offline, fallback to local auth]');
