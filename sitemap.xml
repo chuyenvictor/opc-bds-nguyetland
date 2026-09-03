@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   
   <!-- Trang chủ Portal BĐS Dòng Tiền Đà Nẵng -->
   <url>
     <loc>https://bds.breaths.live/</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -16,46 +15,71 @@
     </image:image>
   </url>
 
+  <!-- Cẩm Nang Thẩm Định & Checklist 36 Điểm Sống Còn (Lead Magnet) -->
+  <url>
+    <loc>https://bds.breaths.live/dossier</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Cổng Tin Tức, Podcast & Shorts AI -->
+  <url>
+    <loc>https://bds.breaths.live/news</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.95</priority>
+  </url>
+
   <!-- AI Cashflow Studio -->
   <url>
     <loc>https://bds.breaths.live/studio</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Các phân khu BĐS Dòng Tiền Trọng Điểm Đà Nẵng -->
-  <url>
-    <loc>https://bds.breaths.live/#pho-tay-an-thuong</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bds.breaths.live/#bien-my-khe-son-tra</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://bds.breaths.live/#loi-trung-tam-hai-chau</loc>
-    <lastmod>2026-08-30</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://bds.breaths.live/#villa-nghi-duong-non-nuoc</loc>
-    <lastmod>2026-08-30</lastmod>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- Công cụ Mô Phỏng Đòn Bẩy Ngân Hàng -->
+  <!-- Các Bài Viết Phân Tích Thực Chiến Độc Quyền (Clean URLs) -->
   <url>
-    <loc>https://bds.breaths.live/#bang-tinh-don-bay</loc>
-    <lastmod>2026-08-30</lastmod>
+    <loc>https://bds.breaths.live/p/bang-gia-dat-da-nang-2026.html</loc>
+    <lastmod>2026-09-03</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
-
+  <url>
+    <loc>https://bds.breaths.live/p/5-tieu-chuan-pccc.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bds.breaths.live/p/toa-can-ho-an-thuong-120tr.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bds.breaths.live/p/khach-san-ho-nghinh-32ty.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bds.breaths.live/p/digital-nomad-da-nang.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bds.breaths.live/p/so-sanh-cap-rate-da-nang.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://bds.breaths.live/p/cam-nang-36-diem.html</loc>
+    <lastmod>2026-09-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
 </urlset>

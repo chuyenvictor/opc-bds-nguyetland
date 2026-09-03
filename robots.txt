@@ -1,10 +1,12 @@
 # ==============================================================================
 # ROBOTS.TXT — NGUYỆT LAND BĐS DÒNG TIỀN ĐÀ NẴNG (OPC-BĐS)
-# Optimized for Google Search, Bing, and Generative AI Search Engines (GEO)
+# Optimized for Google, Bing, and Generative AI Search Engines (GEO)
 # ==============================================================================
 
 User-agent: *
 Allow: /
+Allow: /dossier
+Allow: /news
 Allow: /p/
 Allow: /img/
 Allow: /studio
@@ -25,9 +27,6 @@ User-agent: ClaudeBot
 Allow: /
 
 User-agent: Applebot-Extended
-Allow: /
-
-User-agent: CCBot
 Allow: /
 
 # Sitemaps & Knowledge Feeds
