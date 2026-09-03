@@ -209,9 +209,10 @@ const server = http.createServer((req, res) => {
 
     // Static Article Pages (/p/...)
     if (parsedPath.startsWith('/p/')) {
-        let articleFile = path.join(__dirname, parsedPath);
+        let candidate = parsedPath.endsWith('.html') ? parsedPath : parsedPath + '.html';
+        let articleFile = path.join(__dirname, candidate);
         if (!fs.existsSync(articleFile)) {
-            articleFile = path.join(__dirname, 'public', parsedPath);
+            articleFile = path.join(__dirname, 'public', candidate);
         }
         if (fs.existsSync(articleFile) && fs.statSync(articleFile).isFile()) {
             res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
