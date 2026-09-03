@@ -900,21 +900,23 @@
                 }
                 if (tickerList.length > 0) {
                     const itemsHtml = tickerList.map((t, idx) => {
-                        const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
-                                           idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
-                                           idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
-                                                           'bg-cyan-500/20 text-cyan-400 border-cyan-500/30';
+                        const badgeColor = t.badgeClass || (
+                                           idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border border-red-500/30' :
+                                           idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
+                                           idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
+                                                           'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30'
+                        );
                         return `
-                        <span class="inline-flex items-center gap-2 mx-3.5">
-                            <span class="px-2 py-0.5 rounded-full border text-[10px] font-black tracking-wide ${badgeColor} shadow-sm">
+                        <span class="inline-flex items-center gap-2 mx-3.5 flex-shrink-0">
+                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wide ${badgeColor} shadow-sm">
                                 ${t.source} • ${t.time}
                             </span>
-                            <a href="${t.link}" target="_blank" rel="noopener" class="hover:text-amber-300 text-slate-100 transition font-medium tracking-wide">
+                            <a href="${t.link || '#'}" class="hover:text-amber-300 text-slate-100 transition font-medium tracking-wide">
                                 ${t.title}
                             </a>
                         </span>
                         `;
-                    }).join(' <span class="text-amber-400/40 font-bold mx-1">✦</span> ');
+                    }).join(' <span class="text-amber-400/50 font-bold mx-1">✦</span> ');
 
                     // Duplicate content for smooth infinite seamless loop
                     const fullTicker = `<div class="inline-flex items-center">${itemsHtml}</div><div class="inline-flex items-center">${itemsHtml}</div>`;
