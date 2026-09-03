@@ -198,6 +198,40 @@
         <!-- TAB 1: BÀI VIẾT PHÂN TÍCH ĐÃ XUẤT BẢN (CHIA 3 NHÓM GIÁ TRỊ) -->
         <!-- ══════════════════════════════════════════════════════════════════ -->
         <section id="sec-articles" class="space-y-6">
+            <!-- SPOTLIGHT MASTERCLASS: CẨM NANG & CHECKLIST 36 ĐIỂM -->
+            <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-amber-950/50 via-slate-900 to-slate-950 border-2 border-amber-500/40 shadow-2xl relative overflow-hidden">
+                <div class="absolute -right-20 -top-20 w-72 h-72 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6 relative z-10">
+                    <div class="space-y-3 max-w-3xl">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-black uppercase tracking-wider flex items-center gap-1.5">
+                                <i class="fa-solid fa-crown text-amber-400"></i> HỒ SƠ THẨM ĐỊNH ĐỘC QUYỀN CHO NHÀ ĐẦU TƯ VIP (5 - 50 TỶ)
+                            </span>
+                            <span class="px-2.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold">
+                                Luật Đất Đai 2024 &amp; Chuẩn PCCC
+                            </span>
+                        </div>
+                        <h3 class="font-serif font-black text-xl sm:text-2xl lg:text-3xl text-slate-100 leading-tight">
+                            Cẩm Nang Thẩm Định &amp; Checklist 36 Điểm Sống Còn: <br class="hidden sm:inline">
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500">Đầu Tư Bất Động Sản Dòng Tiền Đà Nẵng 2026</span>
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-light">
+                            Đúc kết từ 20 năm thực chiến tại Đà Nẵng: Bóc trần số liệu ảo, công thức trừ sạch 7 loại chi phí ẩn, 5 tiêu chuẩn PCCC bắt buộc và bảng định giá đất thực 5 phân khu ven biển.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row lg:flex-col gap-2.5 flex-shrink-0">
+                        <a href="/dossier" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-xl flex items-center justify-center gap-2 transition active:scale-95 text-center">
+                            <i class="fa-solid fa-book-bookmark text-sm"></i>
+                            <span>Xem Trọn Bộ &amp; Chấm Điểm 36 Điểm</span>
+                        </a>
+                        <a href="/dossier" onclick="setTimeout(()=>window.print(), 800)" class="px-4 py-2.5 rounded-2xl glass hover:bg-slate-800 text-slate-200 font-bold text-xs flex items-center justify-center gap-2 border border-slate-700 transition text-center">
+                            <i class="fa-solid fa-file-pdf text-amber-400"></i>
+                            <span>In / Lưu Bản PDF A4</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-800">
                 <div>
                     <h2 id="heading-kho-noi-dung-thuc-chien" class="font-sans font-black text-xl sm:text-2xl text-slate-100 flex items-center gap-2.5 tracking-tight">
@@ -210,10 +244,10 @@
                 </div>
                 <!-- 3 Category Filter Buttons -->
                 <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-bold" id="article-cat-filters">
-                    <button onclick="filterArticleCategory('')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 art-cat-btn flex-shrink-0 shadow-md" data-cat="">🌟 Tất Cả (<span id="cat-cnt-all">6</span>)</button>
-                    <button onclick="filterArticleCategory('legal')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-emerald-300 art-cat-btn flex-shrink-0" data-cat="legal">⚖️ 1. Pháp Lý & PCCC</button>
-                    <button onclick="filterArticleCategory('inventory')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-amber-300 art-cat-btn flex-shrink-0" data-cat="inventory">🔥 2. Kho Hàng Dòng Tiền</button>
-                    <button onclick="filterArticleCategory('trends')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-sky-300 art-cat-btn flex-shrink-0" data-cat="trends">📈 3. Xu Hướng 2026</button>
+                    <button onclick="filterArticleCategory('')" class="px-3.5 py-2 rounded-xl bg-amber-500 text-slate-950 art-cat-btn flex-shrink-0 shadow-md" data-cat="">🌟 Tất Cả (<span id="cat-cnt-all">9</span>)</button>
+                    <button onclick="filterArticleCategory('legal')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-emerald-300 art-cat-btn flex-shrink-0" data-cat="legal">⚖️ 1. Pháp Lý & PCCC (3)</button>
+                    <button onclick="filterArticleCategory('inventory')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-amber-300 art-cat-btn flex-shrink-0" data-cat="inventory">🔥 2. Kho Hàng Dòng Tiền (3)</button>
+                    <button onclick="filterArticleCategory('trends')" class="px-3.5 py-2 rounded-xl glass text-slate-300 hover:text-sky-300 art-cat-btn flex-shrink-0" data-cat="trends">📈 3. Xu Hướng 2026 (3)</button>
                 </div>
             </div>
             <div id="articles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -590,34 +624,108 @@
         }
 
         const DEFAULT_NEWS_ARTICLES = [
+            // ── NHÓM 1: PHÁP LÝ & PCCC (3 BÀI CHUYÊN GIA) ──────────────────────
             {
-                title: 'Công Suất Lấp Phòng Phố Tây An Thượng Đạt Đỉnh 92.8% — Dòng Tiền Đổ Mạnh Vào Căn Hộ Biển',
-                category: 'trends',
-                slug: 'cong-suat-lap-phong-pho-tay-an-thuong-dat-dinh-92-8',
-                cap_rate: '11.8%/năm',
-                location: 'Phố Tây An Thượng, Ngũ Hành Sơn, Đà Nẵng',
-                image_url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800',
-                summary: 'Làn sóng Digital Nomad và chuyên gia quốc tế lưu trú dài hạn tại Đà Nẵng thúc đẩy công suất khai thác căn hộ dịch vụ ven biển Mỹ Khê và An Thượng tăng trưởng kỷ lục.',
+                title: 'Cẩm Nang Thẩm Định & Checklist 36 Điểm Sống Còn: Đầu Tư BĐS Dòng Tiền Đà Nẵng 2026',
+                category: 'legal',
+                url: '/dossier',
+                slug: 'cam-nang-tham-dinh-bds-dong-tien-da-nang-2026',
+                cap_rate: 'Hồ Sơ Master VIP',
+                location: 'Toàn TP. Đà Nẵng',
+                image_url: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
+                summary: 'Đúc kết 20 năm thực chiến: Audit Luật Đất Đai 2024, chuẩn PCCC QCVN 06:2022/BXD, công thức stress-test 7 loại chi phí và checklist 36 điểm tính điểm an toàn.',
                 created_at: new Date().toISOString()
             },
             {
-                title: 'Cảnh Báo 5 Tiêu Chuẩn PCCC Sống Còn Khi Mua Tòa Nhà Căn Hộ Dịch Vụ Trên 5 Tầng',
+                title: 'Bảng Giá Đất Đà Nẵng 2026: Phân Tích Tác Động Thuế Phí Chuyển Nhượng Theo Luật Đất Đai 2024',
                 category: 'legal',
-                slug: 'canh-bao-5-tieu-chuan-pccc-song-con-mua-toa-nha',
-                cap_rate: '10.5%/năm',
-                location: 'Quận Sơn Trà & Ngũ Hành Sơn, Đà Nẵng',
+                url: '/p/bang-gia-dat-da-nang-2026-phan-tich-tac-dong-thue-phi-chuyen-nhuong-ch-mtfjug9u-2026-v1.html',
+                slug: 'bang-gia-dat-da-nang-2026-phan-tich-tac-dong-thue-phi-chuyen-nhuong-ch-mtfjug9u-2026-v1',
+                cap_rate: 'Audit Thể Chế',
+                location: 'Sơn Trà & Ngũ Hành Sơn',
                 image_url: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800',
-                summary: 'Kinh nghiệm thực chiến từ chuyên gia bản địa: Hướng dẫn kiểm tra thẩm duyệt, nghiệm thu PCCC và hoàn công sổ đỏ gốc trước khi đặt cọc mua tòa nhà dòng tiền.',
+                summary: 'Bỏ khung giá đất và áp dụng bảng giá định kỳ hàng năm sát thị trường. Tác động trực tiếp đến thuế TNCN 2%, lệ phí trước bạ và định giá tài sản thế chấp ngân hàng.',
+                created_at: new Date().toISOString()
+            },
+            {
+                title: '5 Tiêu Chuẩn Nghiệm Thu PCCC Bắt Buộc Đối Với Tòa Căn Hộ Dịch Vụ Cho Thuê Lưu Trú',
+                category: 'legal',
+                url: '/p/5-tieu-chuan-nghiem-thu-pccc-bat-buoc-doi-voi-toa-can-ho-dich-vu-cho-t-mtfjugc6-2026-v2.html',
+                slug: '5-tieu-chuan-nghiem-thu-pccc-bat-buoc-doi-voi-toa-can-ho-dich-vu-cho-t-mtfjugc6-2026-v2',
+                cap_rate: 'Chuẩn PCCC 100%',
+                location: 'Khu Phố Tây & Ven Biển',
+                image_url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800',
+                summary: 'Hướng dẫn kiểm tra thẩm duyệt, nghiệm thu PCCC theo QCVN 06:2022: Thang thoát hiểm ngoài trời loại 3, cửa chống cháy EI 60 và buồng bơm Diesel dự phòng.',
+                created_at: new Date().toISOString()
+            },
+
+            // ── NHÓM 2: KHO HÀNG DÒNG TIỀN THỰC CHIẾN (3 BÀI CASE STUDY) ───────
+            {
+                title: 'Bóc Tách Doanh Thu Thực 12 Tháng & Bán Tòa Căn Hộ 7 Tầng Phố Tây An Thượng Mỹ An — Dòng Tiền 120 Tr/Tháng',
+                category: 'inventory',
+                url: '/p/ban-toa-can-ho-7-tang-pho-tay-an-thuong-my-an-dong-tien-120-trieuthang-mtfjugc9-2026-v3.html',
+                slug: 'ban-toa-can-ho-7-tang-pho-tay-an-thuong-my-an-dong-tien-120-trieuthang-mtfjugc9-2026-v3',
+                cap_rate: '12.5%/năm',
+                location: 'Phố Tây An Thượng 29, Mỹ An',
+                image_url: 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800',
+                summary: 'Sao kê chi tiết doanh thu 12 tháng liên tục, trừ sạch phí OTA 18%, điện 3 giá, chi phí buồng phòng. Dòng tiền ròng thực nhận 120 Triệu/tháng vào tài khoản.',
+                created_at: new Date().toISOString()
+            },
+            {
+                title: 'Chuyển Nhượng Tòa Khách Sạn Mini 8 Tầng Mặt Tiền Hồ Nghinh — Doanh Thu 2.4 Tỷ/Năm',
+                category: 'inventory',
+                url: '/p/chuyen-nhuong-toa-khach-san-mini-8-tang-mat-tien-ho-nghinh-doanh-thu-2-mtfjugcc-2026-v4.html',
+                slug: 'chuyen-nhuong-toa-khach-san-mini-8-tang-mat-tien-ho-nghinh-doanh-thu-2-mtfjugcc-2026-v4',
+                cap_rate: '11.2%/năm',
+                location: 'Mặt Tiền Hồ Nghinh, Sơn Trà',
+                image_url: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
+                summary: 'Cách bãi tắm Phạm Văn Đồng 250m, 22 phòng tiêu chuẩn khách sạn biển, hệ thống PCCC nghiệm thu chuẩn chỉ, sẵn sàng hợp đồng bao tiêu vận hành cố định 140 Tr/tháng.',
                 created_at: new Date().toISOString()
             },
             {
                 title: 'Tòa Căn Hộ 7 Tầng An Thượng 29 (10 Phòng Studio Full Nội Thất) Chào Bán 18.5 Tỷ',
                 category: 'inventory',
+                url: '/#properties-section',
                 slug: 'toa-can-ho-7-tang-an-thuong-29-chao-ban-18-5-ty',
                 cap_rate: '9.8%/năm',
-                location: 'Phường Mỹ An, Ngũ Hành Sơn, Đà Nẵng',
+                location: 'Phường Mỹ An, Ngũ Hành Sơn',
                 image_url: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800',
                 summary: 'Vị trí đắc địa cách biển Mỹ Khê 150m, dòng tiền cho thuê thực nhận 110 Triệu/tháng, sổ đỏ cá nhân hoàn công chuẩn 100%, sẵn sàng bàn giao vận hành.',
+                created_at: new Date().toISOString()
+            },
+
+            // ── NHÓM 3: XU HƯỚNG & PHÂN TÍCH THỊ TRƯỜNG 2026 (3 BÀI TÌNH BÁO) ───
+            {
+                title: 'Làn Sóng Du Mục Số (Digital Nomad) Bùng Nổ Tại Đà Nẵng: Vì Sao Căn Hộ Dịch Vụ Lấp Đầy 92% Quanh Năm?',
+                category: 'trends',
+                url: '/p/lan-song-du-muc-so-digital-nomad-bung-no-tai-da-nang-vi-sao-can-ho-dic-mtfjugci-2026-v5.html',
+                slug: 'lan-song-du-muc-so-digital-nomad-bung-no-tai-da-nang-vi-sao-can-ho-dic-mtfjugci-2026-v5',
+                cap_rate: '11.8%/năm',
+                location: 'Phố Tây An Thượng, Mỹ Khê',
+                image_url: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800',
+                summary: 'Làn sóng Digital Nomad và chuyên gia quốc tế lưu trú dài hạn từ 3-12 tháng giúp căn hộ biển Đà Nẵng đạt tỷ lệ lấp đầy kỷ lục quanh năm, thoát khỏi bẫy tính mùa vụ.',
+                created_at: new Date().toISOString()
+            },
+            {
+                title: 'So Sánh Cap Rate BĐS Dòng Tiền: Tại Sao 15 Tỷ Đầu Tư Đà Nẵng Lợi Nhuận Gấp Đôi Hà Nội & Sài Gòn?',
+                category: 'trends',
+                url: '/p/so-sanh-cap-rate-bds-dong-tien-tai-sao-15-ty-dau-tu-da-nang-loi-nhuan--mtfjugco-2026-v6.html',
+                slug: 'so-sanh-cap-rate-bds-dong-tien-tai-sao-15-ty-dau-tu-da-nang-loi-nhuan--mtfjugco-2026-v6',
+                cap_rate: '10.8%/năm',
+                location: 'Đối chiếu liên vùng Hà Nội - Đà Nẵng - TP.HCM',
+                image_url: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800',
+                summary: 'Bảng đối chiếu tỷ suất sinh lời thực tế: Nhà phố Hà Nội/Sài Gòn Cap Rate chỉ đạt 2.5% - 3.8%/năm, trong khi căn hộ dịch vụ ven biển Đà Nẵng đạt 8.5% - 12.8%/năm.',
+                created_at: new Date().toISOString()
+            },
+            {
+                title: 'Chiến Lược Vận Hành Mùa Mưa Đà Nẵng (Tháng 9 - 12): Bí Quyết Giữ Khách Thuê Dài Hạn Không Bù Lỗ',
+                category: 'trends',
+                url: '/dossier',
+                slug: 'chien-luoc-van-hanh-mua-mua-da-nang-thang-9-12-khong-bu-lo',
+                cap_rate: 'Bảo Toàn Dòng Tiền',
+                location: 'Khu Vực Ven Biển Đà Nẵng',
+                image_url: 'https://images.unsplash.com/photo-1534447677768-be436bb09401?w=800',
+                summary: 'Công thức chuyển đổi linh hoạt mô hình vận hành: Hè đón khách lẻ daily rate cao, sang mùa mưa ký hợp đồng dài hạn cho sinh viên ngoại quốc và chuyên gia IT.',
                 created_at: new Date().toISOString()
             }
         ];
@@ -686,13 +794,18 @@
                     console.log('[Articles API Offline, using curated list]');
                 }
 
-                if (!articles.length) {
-                    articles = DEFAULT_NEWS_ARTICLES;
+                if (!articles.length || articles.length < 9) {
+                    // Ưu tiên hợp nhất để luôn luôn hiển thị trọn vẹn 9 bài viết thực chiến chuẩn hóa
+                    const map = new Map();
+                    DEFAULT_NEWS_ARTICLES.forEach(a => map.set(a.title, a));
+                    articles.forEach(a => map.set(a.title, a));
+                    articles = Array.from(map.values());
                 }
 
                 currentArticles = articles;
                 document.getElementById('stat-articles-cnt').innerText = currentArticles.length;
                 document.getElementById('tab-cnt-art').innerText = currentArticles.length;
+                if (document.getElementById('cat-cnt-all')) document.getElementById('cat-cnt-all').innerText = currentArticles.length;
                 renderArticles(currentArticles);
                 renderPodcasts(currentArticles);
                 renderShorts(currentArticles);
@@ -900,12 +1013,12 @@
                                 <span><i class="fa-regular fa-clock text-amber-400"></i> ${new Date(a.publish_at || a.created_at).toLocaleDateString('vi-VN')}</span>
                             </div>
                             <h3 class="font-bold text-sm text-slate-100 group-hover:text-amber-300 line-clamp-2 leading-snug mb-2 transition">
-                                <a href="/p/${a.slug}.html">${a.title}</a>
+                                <a href="${a.url || (a.slug && a.slug.startsWith('/') ? a.slug : '/p/' + a.slug + '.html')}">${a.title}</a>
                             </h3>
                             <p class="text-xs text-slate-400 line-clamp-3 leading-relaxed">${cleanSum}</p>
                         </div>
                         <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-                            <a href="/p/${a.slug}.html" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition flex items-center gap-1 shadow-sm">
+                            <a href="${a.url || (a.slug && a.slug.startsWith('/') ? a.slug : '/p/' + a.slug + '.html')}" class="px-3.5 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl transition flex items-center gap-1 shadow-sm">
                                 Đọc Bài Viết <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
                             <a href="https://zalo.me/0935509168" target="_blank" class="text-emerald-400 font-bold hover:underline flex items-center gap-1">
