@@ -1738,6 +1738,9 @@
                         } catch (_) {}
                     }
                 }
+                if (window.celebrateLeadSubmission) {
+                    window.celebrateLeadSubmission(leadData.name || 'Quý Khách', leadData.phone || '', leadData.propertyTitle || 'BĐS Dòng Tiền Đà Nẵng');
+                }
                 alert('🎉 ' + message);
                 closeLeadModal();
             } catch (err) {
@@ -1925,6 +1928,9 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 }).catch(() => {});
             } catch (_) {}
 
+            if (window.celebrateLeadSubmission) {
+                window.celebrateLeadSubmission(leadData.name || 'Quý Khách', leadData.phone || '', 'Báo Cáo 45 Trang BĐS Dòng Tiền Đà Nẵng');
+            }
             alert('🎉 Cảm ơn quý khách! Báo cáo 45 trang BĐS Dòng Tiền Đà Nẵng Q3/2026 đã được ghi nhận và gửi trực tiếp qua Zalo số: ' + leadData.phone);
             closeReportModal();
         }
@@ -2792,8 +2798,12 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
                 const res = await fetch('/api/news/ticker?refresh=1');
                 if (!res.ok) return;
                 const data = await res.json();
-                if (data.ticker && data.ticker.length > 0) {
-                    const itemsHtml = data.ticker.map((t, idx) => {
+                let tickerList = data.ticker && data.ticker.length > 0 ? data.ticker : [];
+                if (typeof window.getSocialProofTickerItems === 'function') {
+                    tickerList = [...window.getSocialProofTickerItems(), ...tickerList];
+                }
+                if (tickerList.length > 0) {
+                    const itemsHtml = tickerList.map((t, idx) => {
                         const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
                                            idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
                                            idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
@@ -3039,5 +3049,6 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
 
     <!-- 👑 Nguyệt Land 2026 AI Concierge & 1-Click PDF Dossier Engine -->
     <script src="/js/ai-concierge-dossier-engine.js"></script>
+    <script src="/js/live-social-proof-notifications.js"></script>
 </body>
 </html>

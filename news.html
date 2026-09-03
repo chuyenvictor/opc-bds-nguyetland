@@ -781,8 +781,12 @@
                 const res = await fetch('/api/news/ticker?refresh=1');
                 const text = await res.text().catch(() => '');
                 const data = text ? JSON.parse(text) : {};
-                if (data.ticker && data.ticker.length > 0) {
-                    const itemsHtml = data.ticker.map((t, idx) => {
+                let tickerList = data.ticker && data.ticker.length > 0 ? data.ticker : [];
+                if (typeof window.getSocialProofTickerItems === 'function') {
+                    tickerList = [...window.getSocialProofTickerItems(), ...tickerList];
+                }
+                if (tickerList.length > 0) {
+                    const itemsHtml = tickerList.map((t, idx) => {
                         const badgeColor = idx % 4 === 0 ? 'bg-red-500/20 text-red-400 border-red-500/30' :
                                            idx % 4 === 1 ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' :
                                            idx % 4 === 2 ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' :
@@ -1981,7 +1985,7 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
                 document.body.style.overflow = '';
             }
         }
-    </script>
+    <script src="/js/live-social-proof-notifications.js"></script>
 </body>
 </html>
 

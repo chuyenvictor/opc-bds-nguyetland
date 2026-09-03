@@ -687,6 +687,9 @@
 
                 const data = await res.json().catch(() => ({}));
                 if (res.ok && data.success) {
+                    if (window.celebrateLeadSubmission) {
+                        window.celebrateLeadSubmission(name, phone, 'Cẩm Nang 36 Điểm Thẩm Định');
+                    }
                     alert(`🎉 Cảm ơn Quý khách ${name}!\n\nNguyệt Land đã tiếp nhận thông tin thành công. Trọn bộ Hồ sơ và File Excel dòng tiền sẽ được gửi trực tiếp qua Zalo ${phone} trong 5 - 15 phút.\n\nBây giờ Bạn có thể in hoặc lưu file PDF tài liệu này ngay trên màn hình.`);
                     window.print();
                 } else {
@@ -708,5 +711,6 @@
             }
         }
     </script>
+    <script src="/js/live-social-proof-notifications.js"></script>
 </body>
 </html>
