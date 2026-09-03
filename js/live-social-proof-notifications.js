@@ -123,7 +123,7 @@
 
         toastContainer = document.createElement('div');
         toastContainer.id = 'opc-social-toast-container';
-        toastContainer.className = 'fixed bottom-20 sm:bottom-6 left-3 sm:left-6 z-50 flex flex-col gap-3 pointer-events-none max-w-[340px] sm:max-w-md w-full';
+        toastContainer.className = 'fixed bottom-24 sm:bottom-6 left-3 sm:left-6 z-[99999] flex flex-col gap-3 pointer-events-none max-w-[340px] sm:max-w-md w-full';
         document.body.appendChild(toastContainer);
     }
 
@@ -152,15 +152,10 @@
         const isNewsPage = window.location.pathname.includes('/news');
         const sessionKey = isNewsPage ? 'opc_news_welcome_seen' : 'opc_home_welcome_seen';
 
-        // Nếu người dùng đã tắt trong phiên duyệt web này, không hiển thị lại làm phiền
-        if (sessionStorage.getItem(sessionKey)) {
-            startSocialProofRotation(3000);
-            return;
-        }
-
         initNotificationContainer();
         const greeting = getPersonalizedGreeting();
         const viewers = getLiveViewerCount();
+        console.log('[Social Proof Engine] 🚀 Priority 1 Welcome Banner running for:', window.location.pathname);
 
         welcomeToastElement = document.createElement('div');
         welcomeToastElement.className = 'pointer-events-auto transform translate-y-8 opacity-0 transition-all duration-500 ease-out';
