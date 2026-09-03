@@ -345,9 +345,21 @@
                     <span class="text-[11px] text-slate-400">Xem trực tiếp — Giữ trọn trải nghiệm trên Nguyệt Land</span>
                 </div>
 
-                <!-- Video Iframe Container (Responsive 16:9) -->
-                <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl">
-                    <iframe id="cinema-iframe" src="https://www.youtube.com/embed/9gmEae3Pb7M?rel=0&modestbranding=1" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <!-- Video Facade Container (Responsive 16:9) — High Performance Lazy-load -->
+                <div id="cinema-container" class="relative aspect-video w-full rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl group">
+                    <div id="cinema-facade" class="absolute inset-0 cursor-pointer flex items-center justify-center bg-slate-950" onclick="activateCinemaPlayer()">
+                        <img id="cinema-thumb" src="https://img.youtube.com/vi/9gmEae3Pb7M/hqdefault.jpg" alt="Video BĐS Đà Nẵng" class="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-80 group-hover:opacity-100">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+                        <div class="relative z-10 flex flex-col items-center gap-3">
+                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-red-600 group-hover:bg-red-500 text-white flex items-center justify-center shadow-2xl group-hover:scale-110 transition duration-300 border-2 border-white/20">
+                                <i class="fa-solid fa-play text-xl sm:text-2xl ml-1"></i>
+                            </div>
+                            <span class="px-3.5 py-1 rounded-full bg-slate-950/85 backdrop-blur-md text-amber-400 text-xs font-bold border border-amber-500/40 shadow-lg tracking-wide uppercase">
+                                <i class="fa-solid fa-circle-play text-red-500 mr-1"></i> Bấm Để Xem Trực Tiếp Tại Chỗ
+                            </span>
+                        </div>
+                    </div>
+                    <iframe id="cinema-iframe" class="w-full h-full hidden" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
 
                 <!-- Active Video Meta & Conversion Action Bar -->
@@ -1271,15 +1283,27 @@
         let activeVideoCategory = '';
         let activeCinemaVideo = MASTER_YOUTUBE_VIDEOS[0];
 
+        function activateCinemaPlayer(ytId) {
+            const vidId = ytId || (activeCinemaVideo ? activeCinemaVideo.youtube_id : '9gmEae3Pb7M');
+            const facade = document.getElementById('cinema-facade');
+            const iframe = document.getElementById('cinema-iframe');
+            const thumb = document.getElementById('cinema-thumb');
+            
+            if (thumb) thumb.src = `https://img.youtube.com/vi/${vidId}/hqdefault.jpg`;
+            if (facade) facade.classList.add('hidden');
+            if (iframe) {
+                iframe.classList.remove('hidden');
+                iframe.src = `https://www.youtube.com/embed/${vidId}?autoplay=1&rel=0&modestbranding=1`;
+            }
+        }
+
         function playVideoOnSite(ytId) {
             const vid = currentVideos.find(v => v.youtube_id === ytId) || MASTER_YOUTUBE_VIDEOS.find(v => v.youtube_id === ytId);
             if (!vid) return;
             activeCinemaVideo = vid;
 
-            const iframe = document.getElementById('cinema-iframe');
-            if (iframe) {
-                iframe.src = `https://www.youtube.com/embed/${vid.youtube_id}?autoplay=1&rel=0&modestbranding=1`;
-            }
+            // Kích hoạt iframe phát video ngay lập tức
+            activateCinemaPlayer(vid.youtube_id);
 
             const badgeEl = document.getElementById('cinema-badge');
             if (badgeEl) badgeEl.innerText = vid.badge || '🔥 TOP 1 THỊ TRƯỜNG';

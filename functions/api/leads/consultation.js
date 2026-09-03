@@ -1,50 +1,106 @@
+/**
+ * Cloudflare Pages Edge Serverless Function
+ * Route: POST /api/leads/consultation
+ * Architecture: Zero-Lost Lead Booking Engine (CEO LUCKY / OPC-BĐS 2026)
+ */
 export async function onRequestPost(context) {
     try {
         const body = await context.request.json().catch(() => ({}));
         const name = (body.name || '').trim();
         const rawPhone = (body.phone || '').trim();
+        const cleanPhone = rawPhone.replace(/[^0-9]/g, '');
 
-        if (!name || rawPhone.length < 9) {
+        if (!name || cleanPhone.length < 9) {
             return new Response(JSON.stringify({
                 success: false,
-                message: 'Vui lòng cung cấp đầy đủ Họ tên và Số điện thoại hợp lệ.'
+                message: 'Vui lòng cung cấp đầy đủ Họ tên và Số điện thoại hợp lệ (tối thiểu 9 số).'
             }), {
                 status: 400,
                 headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
             });
         }
 
+        const now = new Date();
         const bookingCode = 'OPC_' + Math.floor(100000 + Math.random() * 900000);
+        const clientIp = context.request.headers.get('cf-connecting-ip') || context.request.headers.get('x-forwarded-for') || 'Unknown IP';
+        const clientCountry = context.request.headers.get('cf-ipcountry') || 'VN';
+        const userAgent = context.request.headers.get('user-agent') || 'Browser';
 
-        // Send Telegram alert if token configured
+        const bookingPayload = {
+            type: 'CONSULTATION_BOOKING',
+            bookingCode,
+            name,
+            phone: rawPhone,
+            cleanPhone,
+            property: body.property || 'Tòa Căn Hộ Phố Tây An Thượng',
+            preferredTime: body.preferredTime || 'Hôm nay / Sớm nhất',
+            budget: body.budget || '15 - 30 Tỷ',
+            clientIp,
+            clientCountry,
+            userAgent: userAgent.slice(0, 150),
+            timestamp: now.toISOString(),
+            createdAtVn: now.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })
+        };
+
+        console.log(`[ZERO-LOST-BOOKING] ✅ Registered: ${bookingCode} | ${name} | ${rawPhone} | ${bookingPayload.property}`);
+
+        const dispatchPromises = [];
+
+        // 1️⃣ TẦNG 1: Telegram Alert
         const botToken = context.env.TELEGRAM_BOT_TOKEN;
         const chatId = context.env.TELEGRAM_CHAT_ID || '-1003891453026';
         if (botToken) {
-            const msg = `🔥 <b>[LỊCH HẸN KHẢO SÁT BĐS MỚI]</b>\n` +
+            const teleMsg = `🔥 <b>[LỊCH HẸN KHẢO SÁT THỰC ĐỊA BĐS MỚI]</b>\n` +
                 `🎫 <b>Mã Đặt Chỗ:</b> <code>${bookingCode}</code>\n` +
-                `👤 <b>Họ tên:</b> ${name}\n` +
+                `👤 <b>Nhà đầu tư:</b> ${name}\n` +
                 `📞 <b>SĐT / Zalo:</b> <code>${rawPhone}</code>\n` +
-                `🏢 <b>BĐS:</b> ${body.property || 'Tòa Căn Hộ Phố Tây An Thượng'}\n` +
-                `⏰ <b>Thời gian mong muốn:</b> ${body.preferredTime || 'Hôm nay'}\n` +
-                `💰 <b>Ngân sách:</b> ${body.budget || '15 - 30 Tỷ'}`;
+                `🏢 <b>Tài sản khảo sát:</b> ${bookingPayload.property}\n` +
+                `⏰ <b>Thời gian hẹn:</b> ${bookingPayload.preferredTime}\n` +
+                `💰 <b>Ngân sách:</b> ${bookingPayload.budget}\n` +
+                `🌐 <b>Vị trí:</b> ${clientCountry} (${clientIp})\n` +
+                `⏱️ <b>Tiếp nhận lúc:</b> ${bookingPayload.createdAtVn}`;
 
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            const telePromise = fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chat_id: chatId, text: msg, parse_mode: 'HTML' })
-            }).catch(() => {});
+                body: JSON.stringify({ chat_id: chatId, text: teleMsg, parse_mode: 'HTML' }),
+                signal: AbortSignal.timeout(4000)
+            }).catch(err => console.warn('[Consultation Booking] Telegram dispatch warning:', err.message));
+
+            dispatchPromises.push(telePromise);
+        }
+
+        // 2️⃣ TẦNG 2: Google Sheets / CRM Webhook Fallback
+        const sheetWebhook = context.env.GOOGLE_SHEETS_WEBHOOK_URL || context.env.GOOGLE_SHEET_WEBHOOK_URL || context.env.CRM_WEBHOOK_URL;
+        if (sheetWebhook) {
+            const sheetPromise = fetch(sheetWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingPayload),
+                signal: AbortSignal.timeout(5000)
+            }).catch(err => console.warn('[Consultation Booking] Sheets sync warning:', err.message));
+
+            dispatchPromises.push(sheetPromise);
+        }
+
+        if (dispatchPromises.length > 0) {
+            await Promise.allSettled(dispatchPromises);
         }
 
         return new Response(JSON.stringify({
             success: true,
-            message: `Đặt lịch khảo sát thành công! Mã đặt chỗ: ${bookingCode}. Chuyên gia Nguyệt Land sẽ liên hệ trong 5 phút.`,
-            bookingCode
+            bookingCode,
+            message: `Đặt lịch khảo sát thực địa thành công! Mã đặt chỗ: ${bookingCode}. Chuyên gia Nguyệt Land sẽ liên hệ xác nhận trong 5 - 15 phút.`
         }), {
             status: 200,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
     } catch (err) {
-        return new Response(JSON.stringify({ success: false, message: err.message }), {
+        console.error('[Consultation Booking Fatal Error]', err.message);
+        return new Response(JSON.stringify({ 
+            success: false, 
+            message: 'Đã xảy ra lỗi khi đặt lịch. Vui lòng liên hệ Hotline/Zalo: 0935509168' 
+        }), {
             status: 500,
             headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' }
         });
