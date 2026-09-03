@@ -16,19 +16,38 @@ const ADMIN_PHONES = ['0989890022', '0935509168', '0989.890.022', '0935.509.168'
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Typhudola@2026$';
 
 // Rate Limiter: Max 100 attempts per 60 seconds per IP
+// BUG-06 FIX: Auto-cleanup expired entries every 5 minutes to prevent memory leak
 const rateLimitMap = new Map();
+const RATE_LIMIT_WINDOW_MS = 60000;
+const RATE_LIMIT_MAX = 100;
+const RATE_LIMIT_CLEANUP_INTERVAL = 5 * 60 * 1000; // 5 minutes
+
+setInterval(() => {
+    const now = Date.now();
+    let cleaned = 0;
+    for (const [ip, entry] of rateLimitMap) {
+        if (now > entry.resetAt + RATE_LIMIT_WINDOW_MS) {
+            rateLimitMap.delete(ip);
+            cleaned++;
+        }
+    }
+    if (cleaned > 0) {
+        console.log(`[RateLimiter] 🧹 Cleaned ${cleaned} expired entries. Active: ${rateLimitMap.size}`);
+    }
+}, RATE_LIMIT_CLEANUP_INTERVAL).unref();
+
 function isRateLimited(ip) {
     const now = Date.now();
-    const entry = rateLimitMap.get(ip) || { count: 0, resetAt: now + 60000 };
+    const entry = rateLimitMap.get(ip) || { count: 0, resetAt: now + RATE_LIMIT_WINDOW_MS };
     if (now > entry.resetAt) {
         entry.count = 1;
-        entry.resetAt = now + 60000;
+        entry.resetAt = now + RATE_LIMIT_WINDOW_MS;
         rateLimitMap.set(ip, entry);
         return false;
     }
     entry.count++;
     rateLimitMap.set(ip, entry);
-    return entry.count > 100;
+    return entry.count > RATE_LIMIT_MAX;
 }
 
 export async function handleAuthRegister(req, res) {
@@ -181,9 +200,11 @@ export async function handleAuthLogin(req, res) {
             const isAdmin = ADMIN_PHONES.some(p => p.replace(/[^0-9]/g, '') === cleanPhone);
             const password = (data.password || '').trim();
 
-            if (isAdmin && password && password !== ADMIN_PASSWORD && password !== '123456') {
+            // BUG-02 FIX: Removed '123456' backdoor. Only exact ADMIN_PASSWORD accepted.
+            if (isAdmin && password && password !== ADMIN_PASSWORD) {
+                // BUG-01 FIX: Never reveal the actual password in the response.
                 res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
-                return res.end(JSON.stringify({ success: false, message: 'Mật khẩu quản trị viên không chính xác! Vui lòng nhập đúng mật khẩu Typhudola@2026$' }));
+                return res.end(JSON.stringify({ success: false, message: 'Mật khẩu quản trị viên không chính xác. Vui lòng thử lại hoặc liên hệ Admin.' }));
             }
 
             const role = isAdmin ? 'ADMIN' : 'VIP_INVESTOR';

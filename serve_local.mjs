@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { handleAiGenerate } from './routes/api-ai-studio.mjs';
-import { handleBdsLeadSubmit } from './routes/api-bds-leads.mjs';
+import { handleBdsLeadSubmit, handleRecentLeadsActivity } from './routes/api-bds-leads.mjs';
 import { handleGetTrends } from './routes/api-trends-bridge.mjs';
 import { handlePublishArticle } from './routes/api-publish-article.mjs';
 import { handleContentApi, handleContentPost } from './routes/api-content-db.mjs';
@@ -195,6 +195,11 @@ const server = http.createServer((req, res) => {
     // Publish Article Route
     if (parsedPath === '/api/articles/publish' && req.method === 'POST') {
         return handlePublishArticle(req, res);
+    }
+
+    // Lead Recent Activity Stream Route (UX-06)
+    if (parsedPath === '/api/leads/recent-activity' && req.method === 'GET') {
+        return handleRecentLeadsActivity(req, res);
     }
 
     // Lead Capture Route

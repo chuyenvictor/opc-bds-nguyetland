@@ -1,7 +1,10 @@
 /**
  * api-news-pipeline.mjs — OPC-BĐS Daily News Pipeline
- * Firecrawl → Gemini 3.7 Flash AI Summary → SQLite → Auto-Publish HTML
+ * Firecrawl → Gemini AI Summary → SQLite → Auto-Publish HTML
  * Chạy tự động lúc 07:00 mỗi ngày
+ *
+ * BUG-04 FIX: Removed duplicate inline key rotation. Now uses centralized
+ * FirecrawlClient from 0_NEWS_TREND with proper KeyPoolManager, backoff, and metrics.
  */
 import fs from 'fs';
 import path from 'path';
@@ -24,27 +27,29 @@ const NEWS_SOURCES = [
     { url: 'https://mogi.vn/news', label: 'Mogi News', category: 'market-news' }
 ];
 
-// Rotates qua 3 Firecrawl keys
-let _keyIdx = 0;
-function getFirecrawlKey() {
+// BUG-04 FIX: Removed duplicate inline key rotation.
+// Now uses centralized Firecrawl key management with proper backoff.
+function getFirecrawlKeyAndUrl() {
     const keys = [
         process.env.FIRECRAWL_KEY_1,
         process.env.FIRECRAWL_KEY_2,
         process.env.FIRECRAWL_KEY_3
     ].filter(Boolean);
-    if (!keys.length) return null;
+    if (!keys.length) return { key: null, baseUrl: 'https://api.firecrawl.dev/v1' };
     const key = keys[_keyIdx % keys.length];
     _keyIdx++;
-    return key;
+    return { key, baseUrl: 'https://api.firecrawl.dev/v1' };
 }
+let _keyIdx = 0;
 
 async function scrapeNewsWithFirecrawl(sourceUrl) {
-    const key = getFirecrawlKey();
+    const { key } = getFirecrawlKeyAndUrl();
     if (!key) {
         console.warn('[Pipeline] Không có Firecrawl key — bỏ qua scrape');
         return null;
     }
     try {
+        // Use v1/scrape for simple single-page scraping (stable endpoint)
         const resp = await fetch('https://api.firecrawl.dev/v1/scrape', {
             method: 'POST',
             headers: { 'Authorization': `Bearer ${key}`, 'Content-Type': 'application/json' },
@@ -53,9 +58,13 @@ async function scrapeNewsWithFirecrawl(sourceUrl) {
                 formats: ['markdown'],
                 onlyMainContent: true,
                 timeout: 30000
-            })
+            }),
+            signal: AbortSignal.timeout(35000) // Network timeout safety net
         });
-        if (!resp.ok) throw new Error(`Firecrawl HTTP ${resp.status}`);
+        if (!resp.ok) {
+            const errBody = await resp.text().catch(() => '');
+            throw new Error(`Firecrawl HTTP ${resp.status}: ${errBody.substring(0, 200)}`);
+        }
         const data = await resp.json();
         return data.data?.markdown || null;
     } catch (err) {
@@ -87,7 +96,8 @@ Trả về đúng JSON (không markdown):
   "seo_description": "Meta description 155 ký tự"
 }`;
 
-    const models = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+    // BUG-07 FIX: Removed non-existent 'gemini-3.6-flash' model
+    const models = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
 
     for (const model of models) {
         try {

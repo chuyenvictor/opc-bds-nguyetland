@@ -225,7 +225,8 @@ TRẢ VỀ ĐÚNG FORMAT JSON DƯỚI ĐÂY (không bọc trong markdown codeblo
   }
 }`;
 
-    const models = ['gemini-3.6-flash', 'gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+    // BUG-07 & UX-04 FIX: Removed non-existent 'gemini-3.6-flash' model
+    const models = ['gemini-2.5-flash', 'gemini-2.5-pro', 'gemini-2.0-flash', 'gemini-1.5-flash', 'gemini-1.5-pro'];
     let rawAiText = '';
 
     for (const model of models) {
@@ -329,10 +330,11 @@ export function handleRssApi(req, res) {
 
     // 1. GET /api/news/ticker
     if (pathname === '/api/news/ticker' && req.method === 'GET') {
-        fetchAllRssFeeds().then(feed => {
+        const forceRefresh = url.searchParams.get('refresh') === '1';
+        fetchAllRssFeeds(forceRefresh).then(feed => {
             res.writeHead(200, {
                 'Content-Type': 'application/json; charset=utf-8',
-                'Cache-Control': 'public, max-age=120'
+                'Cache-Control': 'public, max-age=30'
             });
             res.end(JSON.stringify({
                 success: true,
@@ -360,7 +362,7 @@ export function handleRssApi(req, res) {
             }
             res.writeHead(200, {
                 'Content-Type': 'application/json; charset=utf-8',
-                'Cache-Control': 'public, max-age=180'
+                'Cache-Control': 'public, max-age=60'
             });
             res.end(JSON.stringify({
                 success: true,
@@ -378,15 +380,19 @@ export function handleRssApi(req, res) {
     // 3. POST /api/news/ai-transform
     if (pathname === '/api/news/ai-transform' && req.method === 'POST') {
         let body = '';
+        let isDestroyed = false;
         req.on('data', chunk => {
+            if (isDestroyed) return;
             body += chunk.toString();
             if (body.length > 50000) {
+                isDestroyed = true;
                 res.writeHead(413, { 'Content-Type': 'application/json; charset=utf-8' });
                 res.end(JSON.stringify({ success: false, message: 'Payload quá lớn' }));
                 req.destroy();
             }
         });
         req.on('end', async () => {
+            if (isDestroyed) return;
             try {
                 const payload = JSON.parse(body || '{}');
                 if (!payload.title) {

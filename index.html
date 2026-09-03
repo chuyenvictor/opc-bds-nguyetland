@@ -2965,7 +2965,7 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
         window.addEventListener('DOMContentLoaded', () => {
             updateMortgageCalc();
             loadLiveTicker();
-            setInterval(loadLiveTicker, 180000);
+            setInterval(loadLiveTicker, 60000); // UX-01: Ticker refresh mỗi 60s
         });
     </script>
 
@@ -3049,8 +3049,10 @@ BĐS dòng tiền thực chiến tại Đà Nẵng vừa là 'két sắt' bảo 
         </button>
     </nav>
 
-    <!-- 👑 Nguyệt Land 2026 AI Concierge & 1-Click PDF Dossier Engine -->
+    <!-- 👑 Nguyệt Land 2026 AI Concierge, Social Proof & WOW Engines -->
     <script src="/js/ai-concierge-dossier-engine.js"></script>
     <script src="/js/live-social-proof-notifications.js"></script>
+    <script src="/js/first-visit-welcome-overlay.js"></script>
+    <script src="/js/lead-celebration-modal.js"></script>
 </body>
 </html>

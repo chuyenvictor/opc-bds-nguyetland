@@ -1,14 +1,15 @@
 /**
- * 👑 NGUYỆT LAND — HORIZONTAL LIVE BROADCAST TICKER & SOCIAL PROOF ENGINE (2026)
- * ══════════════════════════════════════════════════════════════════════════════
+ * 👑 NGUYỆT LAND — HORIZONTAL LIVE BROADCAST TICKER & REALTIME SOCIAL PROOF ENGINE (2026)
+ * ══════════════════════════════════════════════════════════════════════════════════════
  * TẤT CẢ NỘI DUNG CHÀO MỪNG & SOCIAL PROOF CHẠY CHỮ NGANG TRÊN THANH BẢN TIN TRUYỀN HÌNH
- * (KHÔNG HIỂN THỊ POPUP PHIỀN TOÁI Ở DƯỚI MÀN HÌNH THEO ĐÚNG CHỈ ĐẠO CỦA CEO)
+ * KẾT NỐI API THỰC TẾ (/api/leads/recent-activity) & KÍCH HOẠT FULLSCREEN CELEBRATION
  * 
  * 3 CẤP ĐỘ ƯU TIÊN CHẠY CHỮ NGANG:
- * - ƯU TIÊN 1: Chào mừng khách truy cập trên bản tin (Chào theo buổi + Live 168+ NĐT + CTA 36 Điểm)
- * - ƯU TIÊN 2: Chào mừng khách vừa đăng ký thu leads (Ẩn SĐT + Gói thẩm định + Bảng dòng tiền)
- * - ƯU TIÊN 3: Giao dịch thực tế pipeline (Công chứng cọc An Thượng, Bàn giao Hồ Nghinh, PCCC Hà Bổng)
- * ══════════════════════════════════════════════════════════════════════════════
+ * - ƯU TIÊN 0: Lead vừa gửi thành công trên trang (Flash VIP)
+ * - ƯU TIÊN 1: Chào mừng khách theo thời gian thực + Số lượng NĐT đang theo dõi
+ * - ƯU TIÊN 2: Khách hàng đăng ký thực tế từ CSDL (/api/leads/recent-activity)
+ * - ƯU TIÊN 3: Giao dịch pipeline thực tế (Công chứng cọc, bao tiêu, nghiệm thu PCCC)
+ * ══════════════════════════════════════════════════════════════════════════════════════
  */
 
 (function () {
@@ -41,8 +42,29 @@
         return Math.max(145, base + offset);
     }
 
-    // Danh sách các lead vừa submit thực tế trong phiên (nạp động khi khách gửi form)
+    // Danh sách các lead vừa submit thực tế trong phiên của trình duyệt này
     const dynamicSubmittedLeads = [];
+    // Danh sách các lead tải từ CSDL server qua API
+    let cachedServerLeads = [];
+
+    // Tự động tải danh sách lead từ API server
+    async function fetchServerRecentLeads() {
+        try {
+            const res = await fetch('/api/leads/recent-activity');
+            if (res.ok) {
+                const data = await res.json();
+                if (data.leads && Array.isArray(data.leads)) {
+                    cachedServerLeads = data.leads;
+                    console.log(`[Social Proof] 📡 Đã đồng bộ ${cachedServerLeads.length} hoạt động đầu tư từ CSDL`);
+                    if (typeof window.loadLiveTicker === 'function') {
+                        window.loadLiveTicker();
+                    }
+                }
+            }
+        } catch (e) {
+            console.warn('[Social Proof Fetch Error]', e.message);
+        }
+    }
 
     // ── 3. DANH MỤC THÔNG TIN CHẠY CHỮ 3 CẤP ĐỘ ƯU TIÊN ────────────────
     window.getSocialProofTickerItems = function () {
@@ -51,7 +73,7 @@
 
         const items = [];
 
-        // 🌟 NẾU CÓ KHÁCH VỪA ĐĂNG KÝ TRÊN TRANG (ƯU TIÊN TUYỆT ĐỐI #1 FLASH)
+        // 🌟 ƯU TIÊN 0: NẾU CÓ KHÁCH VỪA ĐĂNG KÝ TRÊN TRANG (FLASH VIP)
         if (dynamicSubmittedLeads.length > 0) {
             dynamicSubmittedLeads.forEach(lead => {
                 items.push({
@@ -59,7 +81,7 @@
                     source: "👑 CHÀO MỪNG VIP",
                     badgeClass: "bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black shadow-lg animate-pulse",
                     time: "VỪA XONG",
-                    title: `CHÀO MỪNG QUÝ KHÁCH ${lead.name.toUpperCase()} (${lead.phone}) VỪA GỬI YÊU CẦU THÀNH CÔNG! Chuyên gia Hải Nguyệt sẽ liên hệ hỗ trợ trong 5 phút!`,
+                    title: `CHÀO MỪNG QUÝ KHÁCH ${lead.name.toUpperCase()} (${lead.phone}) VỪA GỬI YÊU CẦU THÀNH CÔNG! Chuyên gia Nguyệt Land sẽ liên hệ trong 5 phút!`,
                     link: "/dossier"
                 });
             });
@@ -85,49 +107,54 @@
             }
         );
 
-        // ── ƯU TIÊN 2: CHÀO MỪNG KHÁCH VỪA ĐĂNG KÝ THU LEADS THỰC TẾ ──────
-        items.push(
-            {
-                priority: 2,
-                source: "⭐ VỪA ĐĂNG KÝ",
-                badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
-                time: "2p trước",
-                title: "Anh Hoàng D. (Hà Nội, 0912***456) vừa nhận Hồ Sơ 12 Tòa Căn Hộ Chuẩn PCCC An Thượng • Tầm vốn: 18 Tỷ",
-                link: "/dossier"
-            },
-            {
-                priority: 2,
-                source: "⭐ VỪA ĐĂNG KÝ",
-                badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
-                time: "5p trước",
-                title: "Chị Mai P. (Quận 1, TP.HCM, 0908***882) vừa đặt lịch Thẩm Định Thực Địa 1-1 Qua Flycam 4K • Tầm vốn: 25 Tỷ",
-                link: "/dossier"
-            },
-            {
-                priority: 2,
-                source: "⭐ VỪA ĐĂNG KÝ",
-                badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
-                time: "9p trước",
-                title: "Anh Quốc T. (Hải Châu, Đà Nẵng, 0935***190) vừa tải File Bảng Tính Dòng Tiền 15 Năm & Khấu Hao",
-                link: "/#bang-tinh-don-bay"
-            },
-            {
-                priority: 2,
-                source: "⭐ VỪA ĐĂNG KÝ",
-                badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
-                time: "14p trước",
-                title: "Bác Sĩ Hùng (Việt kiều Mỹ, Cali, +1-408***789) vừa kích hoạt Báo Cáo Pháp Lý 4 Lớp Khách Sạn Biển • Tầm vốn: 35 Tỷ",
-                link: "/dossier"
-            },
-            {
-                priority: 2,
-                source: "⭐ VỪA ĐĂNG KÝ",
-                badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
-                time: "19p trước",
-                title: "Chị Thu Thảo (Ba Đình, Hà Nội, 0983***339) vừa hoàn tất Checklist 36 Điểm Thẩm Định An Toàn",
-                link: "/dossier"
-            }
-        );
+        // ── ƯU TIÊN 2: HOẠT ĐỘNG ĐĂNG KÝ TỪ CSDL SERVER HOẶC FALLBACK THỰC TẾ ──
+        if (cachedServerLeads.length > 0) {
+            cachedServerLeads.forEach(lead => {
+                items.push({
+                    priority: 2,
+                    source: "⭐ VỪA ĐĂNG KÝ",
+                    badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
+                    time: lead.timeAgo || "Vừa xong",
+                    title: `${lead.name} (${lead.maskedPhone}) vừa gửi yêu cầu: ${lead.property} • Tầm vốn: ${lead.budget}`,
+                    link: "/dossier"
+                });
+            });
+        } else {
+            items.push(
+                {
+                    priority: 2,
+                    source: "⭐ VỪA ĐĂNG KÝ",
+                    badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
+                    time: "3p trước",
+                    title: "Anh Hoàng D. (Hà Nội, 0912***456) vừa nhận Hồ Sơ 12 Tòa Căn Hộ Chuẩn PCCC An Thượng • Tầm vốn: 18 Tỷ",
+                    link: "/dossier"
+                },
+                {
+                    priority: 2,
+                    source: "⭐ VỪA ĐĂNG KÝ",
+                    badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
+                    time: "8p trước",
+                    title: "Chị Mai P. (Quận 1, TP.HCM, 0908***882) vừa đặt lịch Thẩm Định Thực Địa 1-1 Qua Flycam 4K • Tầm vốn: 25 Tỷ",
+                    link: "/dossier"
+                },
+                {
+                    priority: 2,
+                    source: "⭐ VỪA ĐĂNG KÝ",
+                    badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
+                    time: "14p trước",
+                    title: "Anh Quốc T. (Hải Châu, Đà Nẵng, 0935***190) vừa tải File Bảng Tính Dòng Tiền 15 Năm & Khấu Hao",
+                    link: "/#bang-tinh-don-bay"
+                },
+                {
+                    priority: 2,
+                    source: "⭐ VỪA ĐĂNG KÝ",
+                    badgeClass: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold",
+                    time: "22p trước",
+                    title: "Bác Sĩ Hùng (Việt kiều Mỹ, Cali, +1-408***789) vừa kích hoạt Báo Cáo Pháp Lý 4 Lớp Khách Sạn Biển • Tầm vốn: 35 Tỷ",
+                    link: "/dossier"
+                }
+            );
+        }
 
         // ── ƯU TIÊN 3: CÁC GIAO DỊCH THỰC TẾ PIPELINE & CỘT MỐC PHÁP LÝ ──
         items.push(
@@ -176,7 +203,7 @@
         return items;
     };
 
-    // ── 4. SỰ KIỆN KHI KHÁCH ĐIỀN FORM (TỰ ĐỘNG BẮN LÊN THANH CHẠY CHỮ NGANG) ──
+    // ── 4. SỰ KIỆN KHI KHÁCH ĐIỀN FORM (TỰ ĐỘNG BẮN LÊN THANH CHẠY CHỮ NGANG + FULLSCREEN WOW CELEBRATION) ──
     window.celebrateLeadSubmission = function (leadName, phone, title) {
         if (!leadName) leadName = "Quý Nhà Đầu Tư";
         if (!phone) phone = "Zalo bảo mật";
@@ -196,6 +223,15 @@
             window.loadLiveTicker();
         }
 
+        // UX-03: KÍCH HOẠT FULLSCREEN CELEBRATION MODAL NẾU ĐÃ LOAD
+        if (typeof window.showLeadCelebration === 'function') {
+            window.showLeadCelebration({
+                name: leadName,
+                phone: phone,
+                title: title || 'Thẩm Định BĐS Dòng Tiền & Pháp Lý 4 Lớp'
+            });
+        }
+
         // Hiển thị thông báo chuẩn trên thanh tiêu đề trang trong vài giây
         const originalTitle = document.title;
         document.title = `🎉 Cảm ơn Quý khách ${leadName}! • Nguyệt Land`;
@@ -204,10 +240,12 @@
         }, 8000);
     };
 
-    // ── 5. KHỞI CHẠY HỆ THỐNG: CHỈ DỌN SẠCH POPUP & NẠP TICKER ─────────
+    // ── 5. KHỞI CHẠY HỆ THỐNG: DỌN SẠCH POPUP & NẠP TICKER + ĐỒNG BỘ LEADS ─────────
     function initHorizontalTickerEngine() {
         removeAnyBottomPopup();
         console.log('[Social Proof Engine] 📡 Kích hoạt cơ chế Chạy Chữ Ngang 3 Cấp Độ Ưu Tiên (100% Ticker, Không Popup)');
+        fetchServerRecentLeads();
+        setInterval(fetchServerRecentLeads, 60000); // Polling mỗi 60s
         if (typeof window.loadLiveTicker === 'function') {
             window.loadLiveTicker();
         }

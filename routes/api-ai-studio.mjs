@@ -3,8 +3,9 @@
  * Gemini 3.7 Flash Engine & Smart Model Cascade — Nguyệt Land BĐS Dòng Tiền Đà Nẵng
  */
 
+// BUG-07 FIX: Removed non-existent 'gemini-3.6-flash' model.
+// Only real, available models are listed (latest first for cascade fallback).
 const GEMINI_MODELS = [
-    'gemini-3.6-flash',
     'gemini-2.5-flash',
     'gemini-2.5-pro',
     'gemini-2.0-flash',

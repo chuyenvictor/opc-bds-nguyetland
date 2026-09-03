@@ -62,6 +62,13 @@
             mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
             -webkit-mask-image: linear-gradient(to right, transparent, black 15px, black calc(100% - 15px), transparent);
         }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .article-card-anim {
+            animation: cardFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 pb-20 md:pb-0">
@@ -164,6 +171,18 @@
                 <div><b class="text-emerald-400 text-sm" id="stat-shorts-cnt">5</b> Video Shorts</div>
                 <div class="w-1 h-1 rounded-full bg-slate-700"></div>
                 <div><b class="text-sky-400 text-sm">7</b> Nguồn Báo Chí</div>
+            </div>
+
+            <!-- Hourly Live Pipeline Status Badge (UX-05, UX-10) -->
+            <div class="pt-3 flex flex-wrap items-center justify-center gap-3 text-xs">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/90 border border-amber-500/40 text-slate-200 shadow-md">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>📡 Luồng Tin Tự Động: <b class="text-emerald-400">Đang Bật 24/7</b></span>
+                    <span class="text-slate-600">•</span>
+                    <span>Cập nhật gần nhất: <b id="lbl-last-updated" class="text-amber-300">Vừa xong</b></span>
+                    <span class="text-slate-600">•</span>
+                    <span>Quét bản tin kế tiếp: <b id="lbl-next-hourly-countdown" class="text-sky-300 font-mono font-bold">--:--</b></span>
+                </div>
             </div>
         </div>
     </section>
@@ -925,6 +944,12 @@
                         tickerEl.innerHTML = fullTicker;
                         setTimeout(applyTvBroadcastSpeed, 100);
                     }
+                if (data.updatedAt) {
+                    const updatedEl = document.getElementById('lbl-last-updated');
+                    if (updatedEl) {
+                        const d = new Date(data.updatedAt);
+                        updatedEl.innerText = `${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')} (${d.getDate()}/${d.getMonth() + 1})`;
+                    }
                 }
             } catch (err) {
                 console.warn('[Ticker error]', err);
@@ -982,10 +1007,17 @@
                 container.innerHTML = `<div class="col-span-full text-center py-12 glass rounded-2xl text-slate-400">Không có bài viết trong nhóm này.</div>`;
                 return;
             }
-            container.innerHTML = articles.map(a => {
+            container.innerHTML = articles.map((a, idx) => {
                 const cleanSum = cleanSummaryText(a.summary);
                 const safeTitle = (a.title || '').replace(/'/g, "\\'");
                 const safeSum = cleanSum.replace(/'/g, "\\'");
+
+                // UX-07: Xác định bài viết mới xuất bản trong vòng 1 giờ qua
+                const articleDate = new Date(a.publish_at || a.created_at || Date.now()).getTime();
+                const isNew = (Date.now() - articleDate) < (60 * 60 * 1000);
+                const newBadge = isNew 
+                    ? '<span class="px-2 py-0.5 rounded-full text-[9px] font-black bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-md animate-pulse border border-red-400/40">🔥 MỚI TRONG 1H</span>' 
+                    : '';
 
                 let catBadge = '<span class="px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 text-[10px] font-bold">📈 Xu Hướng 2026</span>';
                 if (a.category === 'legal') {
@@ -994,13 +1026,18 @@
                     catBadge = '<span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-bold">🔥 Kho Hàng Dòng Tiền</span>';
                 }
 
+                const animDelay = (idx * 0.06).toFixed(2);
+
                 return `
-                <div class="glass rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800/80 hover:border-amber-400/40 transition duration-300 group h-full shadow-lg">
+                <div class="glass rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-800/80 hover:border-amber-400/40 transition duration-300 group h-full shadow-lg article-card-anim" style="animation-delay: ${animDelay}s">
                     <div class="relative h-48 w-full overflow-hidden bg-slate-900 flex-shrink-0">
                         <img src="${a.image_url || 'https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800'}" alt="${a.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=800'">
-                        <span class="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur text-amber-300 text-[10px] font-black uppercase shadow-md border border-amber-400/30">
-                            Cap Rate: ${a.cap_rate || '11.5%/năm'}
-                        </span>
+                        <div class="absolute top-3 left-3 flex items-center gap-1.5 flex-wrap">
+                            <span class="px-2.5 py-1 rounded-full bg-slate-950/90 backdrop-blur text-amber-300 text-[10px] font-black uppercase shadow-md border border-amber-400/30">
+                                Cap Rate: ${a.cap_rate || '11.5%/năm'}
+                            </span>
+                            ${newBadge}
+                        </div>
                         <span class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-slate-950/80 text-[10px] text-slate-300">
                             📍 ${a.location || 'Đà Nẵng'}
                         </span>
@@ -1977,12 +2014,27 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
                 const title = document.getElementById('audio-title').innerText;
                 playAiVoice(title, currentSpeechText);
             }
+        // UX-10: Đồng hồ đếm ngược tới lần quét bản tin kế tiếp (mỗi giờ)
+        function startNextHourlyCountdown() {
+            function tick() {
+                const now = new Date();
+                const nextHour = new Date(now);
+                nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
+                const diffMs = nextHour - now;
+                const mins = String(Math.floor(diffMs / 60000)).padStart(2, '0');
+                const secs = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
+                const el = document.getElementById('lbl-next-hourly-countdown');
+                if (el) el.innerText = `${mins}:${secs}`;
+            }
+            tick();
+            setInterval(tick, 1000);
         }
 
         window.addEventListener('DOMContentLoaded', () => {
             loadAllNews();
             checkVipSession();
-            setInterval(loadLiveTicker, 180000);
+            startNextHourlyCountdown();
+            setInterval(loadLiveTicker, 60000); // UX-01: Ticker refresh mỗi 60s
         });
     </script>
 
@@ -2100,8 +2152,9 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
                 document.body.style.overflow = '';
             }
         }
-    </script>
     <script src="/js/live-social-proof-notifications.js"></script>
+    <script src="/js/first-visit-welcome-overlay.js"></script>
+    <script src="/js/lead-celebration-modal.js"></script>
 </body>
 </html>
 
