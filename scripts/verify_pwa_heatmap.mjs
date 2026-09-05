@@ -6,7 +6,7 @@ async function verify() {
 
     const swRes = await fetch('http://localhost:8088/sw.js');
     const swText = await swRes.text();
-    console.log('✅ Service Worker Loaded (Bytes:', swText.length, ') | Cache Version:', swText.includes('nguyetland-pwa-v1'));
+    console.log('✅ Service Worker Loaded (Bytes:', swText.length, ') | Cache Version:', swText.includes('nguyetland-pwa-v'));
 
     const htmlRes = await fetch('http://localhost:8088/');
     const htmlText = await htmlRes.text();

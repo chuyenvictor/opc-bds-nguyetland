@@ -159,3 +159,12 @@ export function stopScheduler() {
         console.log('[Scheduler] ⏹️ Scheduler stopped.');
     }
 }
+
+// UPG-03: Export scheduler health status
+export function getSchedulerStatus() {
+    return {
+        running: !!schedulerInterval,
+        lastHourlyRun: lastHourlyRunKey || 'none',
+        uptimeSeconds: Math.floor(process.uptime())
+    };
+}

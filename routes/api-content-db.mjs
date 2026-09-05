@@ -455,3 +455,21 @@ export function slugify(text, addRandom = false) {
     }
     return clean || 'bds-danang';
 }
+
+// STA-06 FIX: Graceful DB shutdown to prevent WAL corruption
+function gracefulDbShutdown(signal) {
+    if (_db) {
+        try {
+            _db.pragma('wal_checkpoint(TRUNCATE)');
+            _db.close();
+            console.log(`[DB] ✅ Database closed gracefully on ${signal}.`);
+        } catch (e) {
+            console.error(`[DB] Error during graceful shutdown:`, e.message);
+        }
+        _db = null;
+    }
+    process.exit(0);
+}
+
+process.on('SIGINT', () => gracefulDbShutdown('SIGINT'));
+process.on('SIGTERM', () => gracefulDbShutdown('SIGTERM'));

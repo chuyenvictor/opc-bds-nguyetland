@@ -4,16 +4,17 @@
  * Syncs Realtime: SQLite DB + Google Apps Script Webhook + Telegram Alert Bot
  */
 
+import '../lib/load-env.mjs';
 import { getDb, upsertUser, getUsers, upsertLeadDb, getLeadsDb, escapeHtml } from './api-content-db.mjs';
 import { generateToken, requireAdminAuth } from '../lib/security.mjs';
 
-const GOOGLE_SHEET_WEBHOOK_URL = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
+const getGoogleSheetWebhookUrl = () => process.env.GOOGLE_SHEET_WEBHOOK_URL;
+const getTelegramBotToken = () => process.env.TELEGRAM_BOT_TOKEN;
+const getTelegramChatId = () => process.env.TELEGRAM_CHAT_ID || '-1003891453026';
+const getAdminPassword = () => process.env.ADMIN_PASSWORD;
 
 // Danh sách số điện thoại Admin hệ thống
 const ADMIN_PHONES = ['0989890022', '0935509168', '0989.890.022', '0935.509.168', '0905123456'];
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Typhudola@2026$';
 
 // Rate Limiter: Max 100 attempts per 60 seconds per IP
 // BUG-06 FIX: Auto-cleanup expired entries every 5 minutes to prevent memory leak
@@ -84,8 +85,9 @@ export async function handleAuthRegister(req, res) {
 
             // Kiểm tra phân quyền Admin vs VIP Investor (Chỉ cấp ADMIN cho whitelist SĐT hoặc Secret Key hợp lệ)
             let role = 'VIP_INVESTOR';
-            const adminSecret = process.env.ADMIN_SECRET_KEY || 'OPC_ADMIN_SEC_2026';
-            if (ADMIN_PHONES.some(p => p.replace(/[^0-9]/g, '') === cleanPhone) || (data.adminSecret && data.adminSecret === adminSecret)) {
+            // SEC-03 FIX: ADMIN_SECRET_KEY phải set trong .env — không có fallback hardcode
+            const adminSecret = process.env.ADMIN_SECRET_KEY;
+            if (ADMIN_PHONES.some(p => p.replace(/[^0-9]/g, '') === cleanPhone) || (adminSecret && data.adminSecret && data.adminSecret === adminSecret)) {
                 role = 'ADMIN';
             }
 
@@ -120,8 +122,9 @@ export async function handleAuthRegister(req, res) {
             });
 
             // 3. Đồng bộ Realtime sang Google Sheet Webhook
-            if (GOOGLE_SHEET_WEBHOOK_URL) {
-                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+            const sheetUrl = getGoogleSheetWebhookUrl();
+            if (sheetUrl) {
+                fetch(sheetUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -162,8 +165,10 @@ export async function handleAuthRegister(req, res) {
                 }
             }));
         } catch (err) {
+            // SEC-04 FIX: Không expose raw error message ra client
+            console.error('[Auth Register Error]', err);
             res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ success: false, message: err.message }));
+            res.end(JSON.stringify({ success: false, message: 'Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau.' }));
         }
     });
 }
@@ -200,11 +205,21 @@ export async function handleAuthLogin(req, res) {
             const isAdmin = ADMIN_PHONES.some(p => p.replace(/[^0-9]/g, '') === cleanPhone);
             const password = (data.password || '').trim();
 
-            // BUG-02 FIX: Removed '123456' backdoor. Only exact ADMIN_PASSWORD accepted.
-            if (isAdmin && password && password !== ADMIN_PASSWORD) {
-                // BUG-01 FIX: Never reveal the actual password in the response.
-                res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
-                return res.end(JSON.stringify({ success: false, message: 'Mật khẩu quản trị viên không chính xác. Vui lòng thử lại hoặc liên hệ Admin.' }));
+            // SEC-01 FIX: Admin login BẮT BUỘC phải có password — không cho bypass
+            const adminPassword = getAdminPassword();
+            if (isAdmin) {
+                if (!adminPassword) {
+                    res.writeHead(503, { 'Content-Type': 'application/json; charset=utf-8' });
+                    return res.end(JSON.stringify({ success: false, message: 'Hệ thống Admin chưa được cấu hình. Vui lòng liên hệ quản trị viên.' }));
+                }
+                if (!password) {
+                    res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
+                    return res.end(JSON.stringify({ success: false, message: 'Vui lòng nhập mật khẩu quản trị viên để đăng nhập.' }));
+                }
+                if (password !== adminPassword) {
+                    res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
+                    return res.end(JSON.stringify({ success: false, message: 'Mật khẩu quản trị viên không chính xác. Vui lòng thử lại hoặc liên hệ Admin.' }));
+                }
             }
 
             const role = isAdmin ? 'ADMIN' : 'VIP_INVESTOR';
@@ -242,8 +257,10 @@ export async function handleAuthLogin(req, res) {
                 token
             }));
         } catch (err) {
+            // SEC-04 FIX: Không expose raw error message ra client
+            console.error('[Auth Login Error]', err);
             res.writeHead(500, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ success: false, message: err.message }));
+            res.end(JSON.stringify({ success: false, message: 'Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau.' }));
         }
     });
 }
@@ -294,8 +311,9 @@ export async function handleLeadConsultation(req, res) {
             });
 
             // 2. Đồng bộ Google Sheet
-            if (GOOGLE_SHEET_WEBHOOK_URL) {
-                fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+            const sheetUrl = getGoogleSheetWebhookUrl();
+            if (sheetUrl) {
+                fetch(sheetUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
@@ -380,12 +398,14 @@ export async function handleDripCampaignRun(req, res) {
 }
 
 function sendTelegramAlert(text) {
-    if (!TELEGRAM_BOT_TOKEN) return;
-    fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    const botToken = getTelegramBotToken();
+    const chatId = getTelegramChatId();
+    if (!botToken) return;
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
+            chat_id: chatId,
             text,
             parse_mode: 'HTML'
         })

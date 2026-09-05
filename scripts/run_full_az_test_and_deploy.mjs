@@ -72,6 +72,21 @@ async function runAllTests() {
             'API Hệ Thống (/api/status) chuẩn OPERATIONAL',
             `Service: ${statusData.service} | Domain: ${statusData.domain}`
         );
+
+        // PWA Manifest & Service Worker Verification
+        const resManifest = await fetch(`${BASE_URL}/manifest.webmanifest`);
+        const manifestData = await resManifest.json();
+        assert(resManifest.ok && manifestData.display === 'standalone',
+            'PWA Web App Manifest (/manifest.webmanifest) chuẩn W3C Standalone',
+            `Tên App: ${manifestData.name}`
+        );
+
+        const resSw = await fetch(`${BASE_URL}/sw.js`);
+        const swContent = await resSw.text();
+        assert(resSw.ok && swContent.includes('nguyetland-pwa-v'),
+            'Service Worker Offline Engine (/sw.js) cache shell sẵn sàng',
+            `Kích thước: ${swContent.length} bytes`
+        );
     } catch (e) {
         assert(false, 'Web server port 8088 đang chạy', e.message);
     }
@@ -131,6 +146,14 @@ async function runAllTests() {
         assert(resAuth.ok && dataAuth.success === true,
             'API Đăng ký VIP (/api/auth/register) thành công',
             `Mã User: ${dataAuth.user?.user_id} | Tên: ${dataAuth.user?.name}`
+        );
+
+        // Test Social Proof Recent Activity Feed
+        const resRecent = await fetch(`${BASE_URL}/api/leads/recent-activity`);
+        const dataRecent = await resRecent.json();
+        assert(resRecent.ok && dataRecent.success === true && Array.isArray(dataRecent.leads),
+            'API Live Social Proof (/api/leads/recent-activity) cấp dữ liệu thông báo',
+            `Số bản ghi hiển thị: ${dataRecent.leads?.length || 0} leads`
         );
     } catch (e) {
         assert(false, 'API Đăng ký VIP hoạt động', e.message);

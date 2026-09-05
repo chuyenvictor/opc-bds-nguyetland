@@ -7,18 +7,58 @@ import { escapeHtml, upsertLeadDb } from './api-content-db.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// STA-05 FIX: Rate limiter for lead submissions (max 10 per minute per IP)
+const leadRateLimitMap = new Map();
+const LEAD_RATE_WINDOW = 60000;
+const LEAD_RATE_MAX = 10;
+
+// Auto-cleanup every 5 minutes
+setInterval(() => {
+    const now = Date.now();
+    for (const [ip, entry] of leadRateLimitMap) {
+        if (now > entry.resetAt + LEAD_RATE_WINDOW) leadRateLimitMap.delete(ip);
+    }
+}, 300000).unref();
+
+function isLeadRateLimited(ip) {
+    const now = Date.now();
+    const entry = leadRateLimitMap.get(ip) || { count: 0, resetAt: now + LEAD_RATE_WINDOW };
+    if (now > entry.resetAt) {
+        entry.count = 1;
+        entry.resetAt = now + LEAD_RATE_WINDOW;
+        leadRateLimitMap.set(ip, entry);
+        return false;
+    }
+    entry.count++;
+    leadRateLimitMap.set(ip, entry);
+    return entry.count > LEAD_RATE_MAX;
+}
+
 export async function handleBdsLeadSubmit(req, res) {
+    // STA-05 FIX: Rate limiting on lead submit
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+    if (isLeadRateLimited(clientIp)) {
+        res.writeHead(429, { 'Content-Type': 'application/json; charset=utf-8' });
+        return res.end(JSON.stringify({ success: false, message: 'Bạn đang thao tác quá nhanh. Vui lòng chờ 1 phút.' }));
+    }
+
     let body = '';
+    let aborted = false;
     req.on('data', chunk => {
         body += chunk.toString();
-        if (body.length > 20000) {
-            res.writeHead(413, { 'Content-Type': 'application/json; charset=utf-8' });
-            res.end(JSON.stringify({ success: false, message: 'Payload quá lớn' }));
+        // STA-03 FIX: Guard against double-write headers
+        if (body.length > 20000 && !aborted) {
+            aborted = true;
+            if (!res.headersSent) {
+                res.writeHead(413, { 'Content-Type': 'application/json; charset=utf-8' });
+                res.end(JSON.stringify({ success: false, message: 'Payload quá lớn' }));
+            }
             req.destroy();
         }
     });
 
     req.on('end', async () => {
+        if (aborted) return; // STA-03 FIX: Skip processing if already aborted
         try {
             const lead = JSON.parse(body || '{}');
             const timestamp = new Date().toISOString();
@@ -109,8 +149,7 @@ tags: [lead, vip-investor, da-nang, cashflow]
             // 3. n8n Lead Nurturing Webhook — Phân loại HOT/WARM/COLD & Auto-Follow-Up
             try {
                 const n8nWebhookUrl = process.env.N8N_BDS_LEAD_WEBHOOK || 'http://localhost:5678/webhook/bds-lead-capture';
-                const budgetValue = parseFloat((lead.budget || '0').replace(/[^0-9.]/g, '')) || 0;
-                const leadScore = budgetValue >= 20 ? 'HOT' : budgetValue >= 10 ? 'WARM' : 'COLD';
+                // STA-04 FIX: Reuse leadScore computed at line 36 instead of re-declaring
 
                 fetch(n8nWebhookUrl, {
                     method: 'POST',

@@ -5,11 +5,12 @@
  *   - Cập nhật trạng thái Email Nurturing
  *   - Kích hoạt pipeline từ xa
  */
+import '../lib/load-env.mjs';
 import { upsertLeadDb, upsertUser } from './api-content-db.mjs';
 
-const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || 'opc-bds-nguyet-land-2026';
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '-1003891453026';
+const getWebhookSecret = () => process.env.WEBHOOK_SECRET || 'opc-bds-nguyet-land-2026';
+const getTelegramBotToken = () => process.env.TELEGRAM_BOT_TOKEN;
+const getTelegramChatId = () => process.env.TELEGRAM_CHAT_ID || '-1003891453026';
 
 export async function handleAppScriptWebhook(req, res) {
     let body = '';
@@ -22,8 +23,9 @@ export async function handleAppScriptWebhook(req, res) {
             console.log(`[Apps Script Webhook] Action: ${action} | Time: ${new Date().toLocaleString('vi-VN')}`);
 
             // Webhook secret validation (bỏ qua xác thực cho heartbeat health check nếu cần)
+            const webhookSecret = getWebhookSecret();
             const providedSecret = data.secret || req.headers['x-webhook-secret'] || '';
-            if (WEBHOOK_SECRET && action !== 'heartbeat' && providedSecret !== WEBHOOK_SECRET) {
+            if (webhookSecret && action !== 'heartbeat' && providedSecret !== webhookSecret) {
                 res.writeHead(401, { 'Content-Type': 'application/json; charset=utf-8' });
                 return res.end(JSON.stringify({ success: false, message: 'Unauthorized: Sai hoặc thiếu Webhook Secret Token' }));
             }
@@ -95,12 +97,14 @@ function sendJson(res, data, status = 200) {
 }
 
 async function notifyTelegram(text) {
-    if (!TELEGRAM_BOT_TOKEN) return;
+    const botToken = getTelegramBotToken();
+    const chatId = getTelegramChatId();
+    if (!botToken) return;
     try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, parse_mode: 'HTML' })
+            body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' })
         });
     } catch (_) {}
 }

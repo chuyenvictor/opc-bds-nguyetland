@@ -944,6 +944,7 @@
                         tickerEl.innerHTML = fullTicker;
                         setTimeout(applyTvBroadcastSpeed, 100);
                     }
+                }
                 if (data.updatedAt) {
                     const updatedEl = document.getElementById('lbl-last-updated');
                     if (updatedEl) {
@@ -1938,103 +1939,13 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
             }
         }
 
-        // ── AI VOICE READER (SPEECH SYNTHESIS ENGINE) ────────────────
-        let currentUtterance = null;
-        let isSpeaking = false;
-        let currentAudioSpeed = 1.0;
-        let currentSpeechText = '';
-
-        function playAiVoice(title, summary) {
-            if (!('speechSynthesis' in window)) {
-                alert('Trình duyệt của bạn không hỗ trợ tính năng đọc văn bản Web Speech.');
-                return;
-            }
-            window.speechSynthesis.cancel();
-
-            const cleanT = (title || '').replace(/[^\p{L}\p{N}\s,.-]/gu, '');
-            const cleanS = cleanSummaryText(summary).replace(/[^\p{L}\p{N}\s,.-]/gu, '');
-            const fullTextToRead = `Bản tin bất động sản Nguyệt Land. ${cleanT}. Tóm tắt phân tích: ${cleanS}. Quý nhà đầu tư cần thẩm định dòng tiền thực tế, vui lòng liên hệ hotline: 0935.509.168.`;
-            currentSpeechText = fullTextToRead;
-
-            const utterance = new SpeechSynthesisUtterance(fullTextToRead);
-            utterance.lang = 'vi-VN';
-            utterance.rate = currentAudioSpeed;
-            utterance.pitch = 1.0;
-
-            const voices = window.speechSynthesis.getVoices();
-            const viVoice = voices.find(v => v.lang.includes('vi') || v.lang.includes('VI'));
-            if (viVoice) utterance.voice = viVoice;
-
-            utterance.onstart = () => {
-                isSpeaking = true;
-                document.getElementById('ai-audio-bar').classList.remove('hidden');
-                document.getElementById('audio-title').innerText = title;
-                document.getElementById('audio-play-icon').className = 'fa-solid fa-pause';
-            };
-
-            utterance.onend = () => {
-                isSpeaking = false;
-                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
-            };
-
-            utterance.onerror = () => {
-                isSpeaking = false;
-                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
-            };
-
-            currentUtterance = utterance;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function toggleAudioPlay() {
-            if (!window.speechSynthesis) return;
-            if (window.speechSynthesis.paused) {
-                window.speechSynthesis.resume();
-                document.getElementById('audio-play-icon').className = 'fa-solid fa-pause';
-            } else if (window.speechSynthesis.speaking) {
-                window.speechSynthesis.pause();
-                document.getElementById('audio-play-icon').className = 'fa-solid fa-play';
-            } else if (currentSpeechText) {
-                playAiVoice(document.getElementById('audio-title').innerText, currentSpeechText);
-            }
-        }
-
-        function stopAudio() {
-            if (window.speechSynthesis) window.speechSynthesis.cancel();
-            document.getElementById('ai-audio-bar').classList.add('hidden');
-            isSpeaking = false;
-        }
-
-        function toggleAudioSpeed() {
-            const speeds = [1.0, 1.25, 1.5];
-            let nextIdx = (speeds.indexOf(currentAudioSpeed) + 1) % speeds.length;
-            currentAudioSpeed = speeds[nextIdx];
-            document.getElementById('btn-audio-speed').innerText = currentAudioSpeed.toFixed(2).replace('.00', '.0') + 'x';
-            if (isSpeaking && currentSpeechText) {
-                const title = document.getElementById('audio-title').innerText;
-                playAiVoice(title, currentSpeechText);
-            }
-        // UX-10: Đồng hồ đếm ngược tới lần quét bản tin kế tiếp (mỗi giờ)
-        function startNextHourlyCountdown() {
-            function tick() {
-                const now = new Date();
-                const nextHour = new Date(now);
-                nextHour.setHours(nextHour.getHours() + 1, 0, 0, 0);
-                const diffMs = nextHour - now;
-                const mins = String(Math.floor(diffMs / 60000)).padStart(2, '0');
-                const secs = String(Math.floor((diffMs % 60000) / 1000)).padStart(2, '0');
-                const el = document.getElementById('lbl-next-hourly-countdown');
-                if (el) el.innerText = `${mins}:${secs}`;
-            }
-            tick();
-            setInterval(tick, 1000);
-        }
-
         window.addEventListener('DOMContentLoaded', () => {
             loadAllNews();
             checkVipSession();
-            startNextHourlyCountdown();
-            setInterval(loadLiveTicker, 60000); // UX-01: Ticker refresh mỗi 60s
+            if (typeof startNextHourlyCountdown === 'function') startNextHourlyCountdown();
+            if (typeof loadLiveTicker === 'function') {
+                setInterval(loadLiveTicker, 60000); // UX-01: Ticker refresh mỗi 60s
+            }
         });
     </script>
 
@@ -2134,24 +2045,14 @@ Khi thị trường phân hóa, chỉ những tài sản tạo ra DÒNG TIỀN T
         </button>
     </nav>
 
-    <script>
-        function toggleMobileDrawer() {
-            const backdrop = document.getElementById('mobile-drawer-backdrop');
-            const drawer = document.getElementById('mobile-drawer');
-            if (!drawer) return;
-            const isClosed = drawer.classList.contains('translate-x-full');
-            if (isClosed) {
-                backdrop.classList.remove('hidden');
-                setTimeout(() => backdrop.classList.remove('opacity-0'), 10);
-                drawer.classList.remove('translate-x-full');
-                document.body.style.overflow = 'hidden';
-            } else {
-                drawer.classList.add('translate-x-full');
-                backdrop.classList.add('opacity-0');
-                setTimeout(() => backdrop.classList.add('hidden'), 300);
-                document.body.style.overflow = '';
-            }
-        }
+    <!-- 🚀 Modular Frontend Components (SaaS Architecture 2026) -->
+    <script src="/js/modules/ai-voice-player.js"></script>
+    <script src="/js/modules/news-hub-controller.js"></script>
+    <script src="/js/modules/tv-news-ticker.js"></script>
+    <script src="/js/modules/mobile-drawer.js"></script>
+
+    <!-- 👑 Nguyệt Land 2026 AI Concierge, Social Proof & WOW Engines -->
+    <script src="/js/ai-concierge-dossier-engine.js"></script>
     <script src="/js/live-social-proof-notifications.js"></script>
     <script src="/js/first-visit-welcome-overlay.js"></script>
     <script src="/js/lead-celebration-modal.js"></script>
