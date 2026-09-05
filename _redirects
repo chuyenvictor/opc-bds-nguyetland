@@ -1,28 +1,14 @@
 # ═══════════════════════════════════════════════════════════════════════════
-# CLOUDFLARE PAGES REWRITES & 301 REDIRECTS — NGUYET LAND (OPC-BDS)
+# CLOUDFLARE PAGES 301 REDIRECTS — NGUYET LAND (OPC-BDS)
+# Note: Cloudflare Pages natively resolves clean URLs (/news -> news.html,
+# /studio -> studio.html, /dossier -> dossier.html) without needing 200 rules.
 # ═══════════════════════════════════════════════════════════════════════════
 
-# Core Navigation Rewrites (Clean URLs)
-/dossier                /dossier.html               200
-/news                   /news.html                  200
-/studio                 /studio.html                200
-
-# Short Article Rewrites (No .html extension)
-/p/bang-gia-dat-da-nang-2026      /p/bang-gia-dat-da-nang-2026.html     200
-/p/5-tieu-chuan-pccc              /p/5-tieu-chuan-pccc.html             200
-/p/toa-can-ho-an-thuong-120tr     /p/toa-can-ho-an-thuong-120tr.html    200
-/p/khach-san-ho-nghinh-32ty       /p/khach-san-ho-nghinh-32ty.html      200
-/p/digital-nomad-da-nang          /p/digital-nomad-da-nang.html         200
-/p/so-sanh-cap-rate-da-nang       /p/so-sanh-cap-rate-da-nang.html      200
-/p/cam-nang-36-diem               /p/cam-nang-36-diem.html              200
-
-# 301 Redirects for Backward Compatibility & SEO Preservation
-/index.html                                                                                                     /                                       301
 /bds                                                                                                            /                                       301
 /p/cam-nang-tham-dinh-bds-dong-tien-da-nang-2026.html                                                           /dossier                                301
-/p/bang-gia-dat-da-nang-2026-phan-tich-tac-dong-thue-phi-chuyen-nhuong-ch-mtfjug9u-2026-v1.html                 /p/bang-gia-dat-da-nang-2026.html       301
-/p/5-tieu-chuan-nghiem-thu-pccc-bat-buoc-doi-voi-toa-can-ho-dich-vu-cho-t-mtfjugc6-2026-v2.html                 /p/5-tieu-chuan-pccc.html               301
-/p/ban-toa-can-ho-7-tang-pho-tay-an-thuong-my-an-dong-tien-120-trieuthang-mtfjugc9-2026-v3.html                 /p/toa-can-ho-an-thuong-120tr.html      301
-/p/chuyen-nhuong-toa-khach-san-mini-8-tang-mat-tien-ho-nghinh-doanh-thu-2-mtfjugcc-2026-v4.html                 /p/khach-san-ho-nghinh-32ty.html        301
-/p/lan-song-du-muc-so-digital-nomad-bung-no-tai-da-nang-vi-sao-can-ho-dic-mtfjugci-2026-v5.html                 /p/digital-nomad-da-nang.html           301
-/p/so-sanh-cap-rate-bds-dong-tien-tai-sao-15-ty-dau-tu-da-nang-loi-nhuan--mtfjugco-2026-v6.html                 /p/so-sanh-cap-rate-da-nang.html        301
+/p/bang-gia-dat-da-nang-2026-phan-tich-tac-dong-thue-phi-chuyen-nhuong-ch-mtfjug9u-2026-v1.html                 /p/bang-gia-dat-da-nang-2026           301
+/p/5-tieu-chuan-nghiem-thu-pccc-bat-buoc-doi-voi-toa-can-ho-dich-vu-cho-t-mtfjugc6-2026-v2.html                 /p/5-tieu-chuan-pccc                   301
+/p/ban-toa-can-ho-7-tang-pho-tay-an-thuong-my-an-dong-tien-120-trieuthang-mtfjugc9-2026-v3.html                 /p/toa-can-ho-an-thuong-120tr          301
+/p/chuyen-nhuong-toa-khach-san-mini-8-tang-mat-tien-ho-nghinh-doanh-thu-2-mtfjugcc-2026-v4.html                 /p/khach-san-ho-nghinh-32ty            301
+/p/lan-song-du-muc-so-digital-nomad-bung-no-tai-da-nang-vi-sao-can-ho-dic-mtfjugci-2026-v5.html                 /p/digital-nomad-da-nang               301
+/p/so-sanh-cap-rate-bds-dong-tien-tai-sao-15-ty-dau-tu-da-nang-loi-nhuan--mtfjugco-2026-v6.html                 /p/so-sanh-cap-rate-da-nang            301

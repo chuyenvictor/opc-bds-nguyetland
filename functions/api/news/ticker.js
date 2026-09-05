@@ -9,30 +9,44 @@ export async function onRequestGet(context) {
         const curatedTicker = [
             {
                 title: "Bảng giá đất Đà Nẵng 2026: Phố Tây An Thượng và Võ Nguyên Giáp dẫn đầu thanh khoản",
+                source: "Báo Đầu Tư",
+                time: "3p trước",
                 link: "https://bds.breaths.live/p/bang-gia-dat-da-nang-2026"
             },
             {
                 title: "5 Tiêu chuẩn nghiệm thu PCCC bắt buộc đối với tòa căn hộ dịch vụ và mini hotel Đà Nẵng",
+                source: "Báo Xây Dựng",
+                time: "8p trước",
                 link: "https://bds.breaths.live/p/5-tieu-chuan-pccc"
             },
             {
                 title: "Làn sóng Digital Nomad bùng nổ: Tỷ lệ lấp đầy căn hộ dịch vụ An Thượng đạt trên 92.8%",
+                source: "VnExpress",
+                time: "15p trước",
                 link: "https://bds.breaths.live/p/digital-nomad-da-nang"
             },
             {
                 title: "So sánh Cap Rate BĐS dòng tiền: 15 tỷ đầu tư Đà Nẵng đạt lợi nhuận ròng 10-12%/năm",
+                source: "CafeF",
+                time: "25p trước",
                 link: "https://bds.breaths.live/p/so-sanh-cap-rate-da-nang"
             },
             {
                 title: "Cẩm nang & Checklist 36 điểm thẩm định BĐS dòng tiền thực chiến do Nguyệt Land phát hành",
+                source: "Nguyệt Land",
+                time: "Vừa cập nhật",
                 link: "https://bds.breaths.live/dossier"
             },
             {
                 title: "Nghị quyết 136/2024/QH15 thúc đẩy thành lập Khu thương mại tự do Đà Nẵng tạo đòn bẩy kinh tế",
+                source: "Báo Tuổi Trẻ",
+                time: "40p trước",
                 link: "https://bds.breaths.live/news"
             },
             {
                 title: "Du lịch Đà Nẵng quý 3/2026 tăng trưởng mạnh, doanh thu lưu trú khách sạn ven biển vượt kỳ vọng",
+                source: "Thanh Niên",
+                time: "1h trước",
                 link: "https://bds.breaths.live/news"
             }
         ];
@@ -47,7 +61,7 @@ export async function onRequestGet(context) {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
                 'Access-Control-Allow-Origin': '*',
-                'Cache-Control': 'public, max-age=120'
+                'Cache-Control': 'public, max-age=60'
             }
         });
     } catch (err) {
