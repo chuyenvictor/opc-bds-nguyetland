@@ -4,7 +4,7 @@
   X-XSS-Protection: 1; mode=block
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Access-Control-Allow-Origin: https://bds.breaths.live
+  Access-Control-Allow-Origin: *
 
 # Cache static images and fonts for 1 year
 /img/*
@@ -16,8 +16,14 @@
 /*.js
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
-# HTML pages cache with instant revalidation
+# HTML pages & Clean URLs cache with instant revalidation
 /*.html
   Cache-Control: public, max-age=0, must-revalidate
 /
+  Cache-Control: public, max-age=0, must-revalidate
+/news
+  Cache-Control: public, max-age=0, must-revalidate
+/studio
+  Cache-Control: public, max-age=0, must-revalidate
+/dossier
   Cache-Control: public, max-age=0, must-revalidate
